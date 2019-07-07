@@ -17,8 +17,10 @@ namespace GardenMarket.Web
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        //Don`t touch boys!!!
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel()
                 .UseStartup<Startup>();
     }
 }
