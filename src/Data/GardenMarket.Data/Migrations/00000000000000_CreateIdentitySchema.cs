@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GardenMarket.Web.Data.Migrations
+namespace GardenMarket.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

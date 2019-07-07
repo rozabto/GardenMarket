@@ -13,9 +13,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GardenMarket.Data;
-using GardenMarket.Service;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using GardenMarket.Service.External;
+using GardenMarket.Service.Interface;
 
 namespace GardenMarket.Web
 {
@@ -49,7 +50,7 @@ namespace GardenMarket.Web
 
             // Autofac Dependency Injection
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterType<ProductService>();
+            containerBuilder.RegisterType<ProductService>().As<IProductService>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

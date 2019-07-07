@@ -1,12 +1,13 @@
 ﻿using GardenMarket.Data;
+using GardenMarket.Service.Interface;
 using GardenMarket.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GardenMarket.Service
+namespace GardenMarket.Service.External
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private readonly GardenMarketDbContext _context;
 
