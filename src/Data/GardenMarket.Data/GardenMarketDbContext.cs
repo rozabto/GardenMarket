@@ -9,8 +9,8 @@ namespace GardenMarket.Data
     public class GardenMarketDbContext : IdentityDbContext
     {
         public GardenMarketDbContext(DbContextOptions<GardenMarketDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
+
+        public GardenMarketDbContext() { }
     }
 }

@@ -10,12 +10,10 @@ using Microsoft.Extensions.Logging;
 
 namespace GardenMarket.Web
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
-        {
+        public static void Main(string[] args) =>
             CreateWebHostBuilder(args).Build().Run();
-        }
 
         //Don`t touch boys!!!
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

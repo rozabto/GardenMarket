@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GardenMarket.Data;
+using GardenMarket.Service;
 
 namespace GardenMarket.Web
 {
@@ -41,6 +42,8 @@ namespace GardenMarket.Web
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<GardenMarketDbContext>();
+
+            services.AddSingleton<ProductService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
