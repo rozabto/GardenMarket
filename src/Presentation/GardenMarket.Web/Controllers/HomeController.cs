@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GardenMarket.Web.Models;
+using GardenMarket.ViewModels;
 
 namespace GardenMarket.Web.Controllers
 {
@@ -14,6 +15,15 @@ namespace GardenMarket.Web.Controllers
         {
             return View();
         }
+
+
+        public IActionResult IndexSample()
+        {
+            var test = new HomePageViewModel();
+            return View(test);
+           
+        }
+
 
         public IActionResult Privacy()
         {
