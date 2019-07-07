@@ -10,9 +10,9 @@ namespace GardenMarket.Service
     {
         private readonly GardenMarketDbContext _context;
 
-        public ProductService()
+        public ProductService(GardenMarketDbContext context)
         {
-            _context = new GardenMarketDbContext();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public IList<ProductSampleViewModel> GetAll()

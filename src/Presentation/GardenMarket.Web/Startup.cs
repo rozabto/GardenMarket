@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GardenMarket.Data;
 using GardenMarket.Service;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace GardenMarket.Web
 {
@@ -27,7 +29,7 @@ namespace GardenMarket.Web
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -43,9 +45,14 @@ namespace GardenMarket.Web
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<GardenMarketDbContext>();
 
-            services.AddSingleton<ProductService>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Autofac Dependency Injection
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<ProductService>();
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
