@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +13,7 @@ using GardenMarket.Data;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using GardenMarket.Service.External;
-using GardenMarket.Service.Interface;
+using System.Reflection;
 
 namespace GardenMarket.Web
 {
@@ -50,7 +47,10 @@ namespace GardenMarket.Web
 
             // Autofac Dependency Injection
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterType<ProductService>().As<IProductService>();
+            //containerBuilder.RegisterType<ProductService>().As<IProductService>();
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ProductService)))
+                .Where(w => w.Name.EndsWith("Service"))
+                .AsImplementedInterfaces();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
