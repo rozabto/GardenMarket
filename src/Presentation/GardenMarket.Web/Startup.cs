@@ -13,7 +13,8 @@ using GardenMarket.Data;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using GardenMarket.Service.External;
-using System.Reflection;
+using AutoMapper.Extensions.Autofac.DependencyInjection;
+using GardenMarket.Models.Dto;
 
 namespace GardenMarket.Web
 {
@@ -47,12 +48,13 @@ namespace GardenMarket.Web
 
             // Autofac Dependency Injection
             var containerBuilder = new ContainerBuilder();
-            //containerBuilder.RegisterType<ProductService>().As<IProductService>();
-            containerBuilder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(ProductService)))
+            containerBuilder.RegisterAssemblyTypes(typeof(ProductService).Assembly)
                 .Where(w => w.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
             containerBuilder.Populate(services);
-            var container = containerBuilder.Build();
+            var container = containerBuilder
+                .AddAutoMapper(typeof(ProductDto).Assembly)
+                .Build();
             return new AutofacServiceProvider(container);
         }
 
