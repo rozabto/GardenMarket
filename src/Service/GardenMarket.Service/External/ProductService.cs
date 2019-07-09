@@ -1,34 +1,56 @@
-﻿using AutoMapper;
-using GardenMarket.Data;
+﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
-using GardenMarket.ViewModels;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
 {
     public class ProductService : IProductService
     {
         private readonly GardenMarketDbContext _context;
-        private readonly IMapper _mapper;
 
-        public ProductService(GardenMarketDbContext context, IMapper mapper)
+        public ProductService(GardenMarketDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public IList<ProductSampleViewModel> GetAll()
+        public void Add(Product obj)
         {
-            var dtos = _context.Products;
-            return (from dto in dtos
-                    let product = new Product(dto.Id, dto.Name, dto.Description)
-                    select new ProductSampleViewModel
-                    {
-                        Name = product.Name
-                    }).ToList();
+            _context.Products.Add(obj);
+            _context.SaveChanges();
+        }
+
+        public async Task AddAsync(Product obj)
+        {
+            _context.Products.Add(obj);
+            await _context.SaveChangesAsync();
+        }
+
+        public IList<Product> GetAll() =>
+            _context.Products.ToList();
+
+        public async Task<IList<Product>> GetAllAsync() =>
+            _context.Products.ToList();
+
+        public Product GetById(string id) =>
+            _context.Products.FirstOrDefault(f => f.Id == id);
+
+        public async Task<Product> GetByIdAsync(string id) =>
+            _context.Products.FirstOrDefault(f => f.Id == id);
+
+        public void Remove(Product obj)
+        {
+            _context.Products.Remove(obj);
+            _context.SaveChanges();
+        }
+
+        public async Task RemoveAsync(Product obj)
+        {
+            _context.Products.Remove(obj);
+            await _context.SaveChangesAsync();
         }
     }
 }

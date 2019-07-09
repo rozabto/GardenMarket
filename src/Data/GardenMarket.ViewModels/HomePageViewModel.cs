@@ -1,12 +1,11 @@
-﻿using System;
+﻿using GardenMarket.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GardenMarket.ViewModels
 {
     public class HomePageViewModel
     {
-        public IList<ProductSampleViewModel> ProductSample { get; set; }
+        public IList<Product> ProductSample { get; set; }
         public string Name { get; set; }
     }
 }

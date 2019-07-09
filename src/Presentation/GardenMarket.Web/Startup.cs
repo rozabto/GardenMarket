@@ -13,8 +13,6 @@ using GardenMarket.Data;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using GardenMarket.Service.External;
-using AutoMapper.Extensions.Autofac.DependencyInjection;
-using GardenMarket.Models.Dto;
 using GardenMarket.SafeCharge;
 
 namespace GardenMarket.Web
@@ -39,11 +37,42 @@ namespace GardenMarket.Web
             });
 
             services.AddDbContext<GardenMarketDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<GardenMarketDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -56,9 +85,7 @@ namespace GardenMarket.Web
                 .As<ISafeChargeService>()
                 .WithParameter(new TypedParameter(typeof(string), Configuration.GetSection("SafeChargeKey").Value));
             containerBuilder.Populate(services);
-            var container = containerBuilder
-                .AddAutoMapper(typeof(ProductDto).Assembly)
-                .Build();
+            var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
         }
 
