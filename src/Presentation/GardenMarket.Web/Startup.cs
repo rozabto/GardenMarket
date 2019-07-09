@@ -15,6 +15,7 @@ using Autofac.Extensions.DependencyInjection;
 using GardenMarket.Service.External;
 using AutoMapper.Extensions.Autofac.DependencyInjection;
 using GardenMarket.Models.Dto;
+using GardenMarket.SafeCharge;
 
 namespace GardenMarket.Web
 {
@@ -51,6 +52,9 @@ namespace GardenMarket.Web
             containerBuilder.RegisterAssemblyTypes(typeof(ProductService).Assembly)
                 .Where(w => w.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
+            containerBuilder.RegisterType<SafeChargeService>()
+                .As<ISafeChargeService>()
+                .WithParameter(new TypedParameter(typeof(string), Configuration.GetSection("SafeChargeKey").Value));
             containerBuilder.Populate(services);
             var container = containerBuilder
                 .AddAutoMapper(typeof(ProductDto).Assembly)

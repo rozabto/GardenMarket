@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using GardenMarket.Web.Models;
 using GardenMarket.ViewModels;
 using GardenMarket.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
+using GardenMarket.SafeCharge;
 
 namespace GardenMarket.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IProductService _product;
+        private readonly ISafeChargeService _checkOut;
 
-        public HomeController(IProductService product)
+        public HomeController(IProductService product, ISafeChargeService checkOut)
         {
             _product = product ?? throw new ArgumentNullException(nameof(product));
+            _checkOut = checkOut ?? throw new ArgumentNullException(nameof(checkOut));
         }
 
         public IActionResult Index()
@@ -37,6 +41,16 @@ namespace GardenMarket.Web.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [Authorize]
+        public IActionResult CheckOut()
+        {
+            var viewModel = new CheckOutViewModel
+            {
+                URL = _checkOut.CreateRequest()
+            };
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
