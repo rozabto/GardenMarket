@@ -1,4 +1,5 @@
 ﻿using GardenMarket.Models.Enum;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ namespace GardenMarket.Models
         public decimal Price { get; set; }
         public string Description { get; set; }
         public string Characteristics { get; set; }
+        public int Sales { get; set; }
         public int InStock { get; set; }
         public Brand Brand { get; set; }
         public FlowerType Type { get; set; }
@@ -25,6 +27,7 @@ namespace GardenMarket.Models
         public SubSubCategory SubSubCategory { get; set; }
         public DateTime Posted { get; set; }
         public DateTime? Deleted { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public virtual IdentityUser User { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

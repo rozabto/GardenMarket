@@ -2,7 +2,7 @@
 
 namespace GardenMarket.Service.Interface
 {
-    public interface IProductService : IServiceModel<Product>
+    public interface IProductService : IServiceModel<Product>, IServiceDeleteModel<Product>
     {
     }
 }

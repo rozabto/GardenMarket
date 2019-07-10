@@ -35,21 +35,31 @@ namespace GardenMarket.Service.External
         public async Task<IList<Cart>> GetAllAsync() =>
             _context.Carts.ToList();
 
+        public IList<Cart> GetAllByUserId(string id) =>
+            _context.Carts.Where(w => w.User.Id == id).ToList();
+
+        public async Task<IList<Cart>> GetAllByUserIdAsync(string id) =>
+            _context.Carts.Where(w => w.User.Id == id).ToList();
+
         public Cart GetById(string id) =>
-            _context.Carts.FirstOrDefault(f => f.Id == id);
+            _context.Carts.Find(id);
 
         public async Task<Cart> GetByIdAsync(string id) =>
-            _context.Carts.FirstOrDefault(f => f.Id == id);
+            await _context.Carts.FindAsync(id);
 
         public void Remove(Cart obj)
         {
-            _context.Carts.Remove(obj);
+            var comment = _context.Comments.Find(obj.Id);
+            if (comment is null) return;
+            comment.Deleted = DateTime.UtcNow;
             _context.SaveChanges();
         }
 
         public async Task RemoveAsync(Cart obj)
         {
-            _context.Carts.Remove(obj);
+            var comment = await _context.Comments.FindAsync(obj.Id);
+            if (comment is null) return;
+            comment.Deleted = DateTime.UtcNow;
             await _context.SaveChangesAsync();
         }
     }
