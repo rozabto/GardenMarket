@@ -21,10 +21,13 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("GardenMarket.Models.Cart", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductId");
+                    b.Property<int>("Amount");
+
+                    b.Property<int>("ProductId");
 
                     b.Property<string>("UserId");
 
@@ -37,20 +40,51 @@ namespace GardenMarket.Data.Migrations
                     b.ToTable("Carts");
                 });
 
+            modelBuilder.Entity("GardenMarket.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Characteristic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("SubCategoryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("Characteristics");
+                });
+
             modelBuilder.Entity("GardenMarket.Models.Comment", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("Deleted");
 
                     b.Property<string>("Message");
 
-                    b.Property<string>("ParentId");
+                    b.Property<int?>("ParentId");
 
                     b.Property<DateTime>("Posted");
 
-                    b.Property<string>("ProductId");
+                    b.Property<int>("ProductId");
 
                     b.Property<string>("UserId");
 
@@ -67,54 +101,121 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("GardenMarket.Models.Favorite", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductId");
+                    b.Property<bool>("IsLicked");
+
+                    b.Property<int>("ProductId");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Favorites");
                 });
 
+            modelBuilder.Entity("GardenMarket.Models.FlowerType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CharacteristicId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacteristicId");
+
+                    b.ToTable("FlowerTypes");
+                });
+
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Brand");
+                    b.Property<int?>("CommentId");
 
-                    b.Property<int>("Category");
-
-                    b.Property<string>("Characteristics");
-
-                    b.Property<int>("Color");
+                    b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime?>("Deleted");
 
                     b.Property<string>("Description");
 
+                    b.Property<TimeSpan?>("DiscountEnd");
+
+                    b.Property<DateTime?>("DiscountStart");
+
+                    b.Property<bool>("HasDiscount");
+
                     b.Property<int>("InStock");
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTime>("Posted");
+                    b.Property<int?>("PrecentDiscount");
 
                     b.Property<decimal>("Price");
 
                     b.Property<int>("Sales");
 
-                    b.Property<int>("SubCategory");
+                    b.Property<int>("SubCategoryId");
 
-                    b.Property<int>("SubSubCategory");
+                    b.Property<int?>("TypeId");
 
-                    b.Property<int>("Type");
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.ProductType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("TypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("ProductTypes");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Promotion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CratedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<TimeSpan>("Duration");
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<DateTime>("PromotionStart");
 
                     b.Property<string>("UserId");
 
@@ -122,7 +223,24 @@ namespace GardenMarket.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Promotions");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.SubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -179,6 +297,9 @@ namespace GardenMarket.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -218,6 +339,8 @@ namespace GardenMarket.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -290,48 +413,104 @@ namespace GardenMarket.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("GardenMarket.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("ImagePath");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
             modelBuilder.Entity("GardenMarket.Models.Cart", b =>
                 {
                     b.HasOne("GardenMarket.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
+                    b.HasOne("GardenMarket.Models.User", "User")
+                        .WithMany("Carts")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Characteristic", b =>
+                {
+                    b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
+                        .WithMany("Characteristics")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Comment", b =>
                 {
                     b.HasOne("GardenMarket.Models.Comment", "Parent")
-                        .WithMany()
+                        .WithMany("Children")
                         .HasForeignKey("ParentId");
 
                     b.HasOne("GardenMarket.Models.Product", "Product")
                         .WithMany("Comments")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("GardenMarket.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Favorite", b =>
                 {
-                    b.HasOne("GardenMarket.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
+                    b.HasOne("GardenMarket.Models.User")
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.FlowerType", b =>
+                {
+                    b.HasOne("GardenMarket.Models.Characteristic", "Characteristic")
+                        .WithMany("Types")
+                        .HasForeignKey("CharacteristicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
+                    b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GardenMarket.Models.User", "User")
+                        .WithMany("Products")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.ProductType", b =>
+                {
+                    b.HasOne("GardenMarket.Models.Product", "Product")
+                        .WithMany("ProductTypes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GardenMarket.Models.FlowerType", "Type")
+                        .WithMany("ProductTypes")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Promotion", b =>
+                {
+                    b.HasOne("GardenMarket.Models.User")
+                        .WithMany("Promotions")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.SubCategory", b =>
+                {
+                    b.HasOne("GardenMarket.Models.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

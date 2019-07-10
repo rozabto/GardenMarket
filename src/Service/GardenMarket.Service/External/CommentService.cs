@@ -36,10 +36,10 @@ namespace GardenMarket.Service.External
             _context.Comments.Where(w => !w.Deleted.HasValue).ToList();
 
         public IList<Comment> GetAllByUserId(string id) =>
-            _context.Comments.Where(w => w.User.Id == id).ToList();
+            _context.Comments.Where(w => w.UserId == id).ToList();
 
         public async Task<IList<Comment>> GetAllByUserIdAsync(string id) =>
-            _context.Comments.Where(w => w.User.Id == id).ToList();
+            _context.Comments.Where(w => w.UserId == id).ToList();
 
         public IList<Comment> GetAllIncludingRemoved() =>
             _context.Comments.ToList();
@@ -47,10 +47,10 @@ namespace GardenMarket.Service.External
         public async Task<IList<Comment>> GetAllIncludingRemovedAsync() =>
             _context.Comments.ToList();
 
-        public Comment GetById(string id) =>
+        public Comment GetById(int id) =>
             _context.Comments.Find(id);
 
-        public async Task<Comment> GetByIdAsync(string id) =>
+        public async Task<Comment> GetByIdAsync(int id) =>
             await _context.Comments.FindAsync(id);
 
         public IList<Comment> GetRemoved() =>
@@ -61,13 +61,17 @@ namespace GardenMarket.Service.External
 
         public void Remove(Comment obj)
         {
-            _context.Comments.Remove(obj);
+            var comment = _context.Comments.Find(obj.Id);
+            if (comment is null) return;
+            comment.Deleted = DateTime.UtcNow;
             _context.SaveChanges();
         }
 
         public async Task RemoveAsync(Comment obj)
         {
-            _context.Comments.Remove(obj);
+            var comment = await _context.Comments.FindAsync(obj.Id);
+            if (comment is null) return;
+            comment.Deleted = DateTime.UtcNow;
             await _context.SaveChangesAsync();
         }
 

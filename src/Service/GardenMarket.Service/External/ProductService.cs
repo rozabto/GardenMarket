@@ -41,10 +41,10 @@ namespace GardenMarket.Service.External
         public async Task<IList<Product>> GetAllIncludingRemovedAsync() =>
             _context.Products.ToList();
 
-        public Product GetById(string id) =>
+        public Product GetById(int id) =>
             _context.Products.Find(id);
 
-        public async Task<Product> GetByIdAsync(string id) =>
+        public async Task<Product> GetByIdAsync(int id) =>
             await _context.Products.FindAsync(id);
 
         public IList<Product> GetRemoved() =>

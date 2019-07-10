@@ -36,15 +36,15 @@ namespace GardenMarket.Service.External
             _context.Favorites.ToList();
 
         public IList<Favorite> GetAllByUserId(string id) =>
-            _context.Favorites.Where(w => w.User.Id == id).ToList();
+            _context.Favorites.Where(w => w.UserId == id).ToList();
 
         public async Task<IList<Favorite>> GetAllByUserIdAsync(string id) =>
-            _context.Favorites.Where(w => w.User.Id == id).ToList();
+            _context.Favorites.Where(w => w.UserId == id).ToList();
 
-        public Favorite GetById(string id) =>
+        public Favorite GetById(int id) =>
             _context.Favorites.Find(id);
 
-        public async Task<Favorite> GetByIdAsync(string id) =>
+        public async Task<Favorite> GetByIdAsync(int id) =>
             await _context.Favorites.FindAsync(id);
 
         public void Remove(Favorite obj)
