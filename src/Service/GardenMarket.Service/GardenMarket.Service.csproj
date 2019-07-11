@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\GardenMarket.Data\GardenMarket.Data.csproj" />
-    <ProjectReference Include="..\..\Data\GardenMarket.ViewModels\GardenMarket.ViewModels.csproj" />
+    <ProjectReference Include="..\..\Data\GardenMarket.Model\GardenMarket.Model.csproj" />
   </ItemGroup>
 
 </Project>

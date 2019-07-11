@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GardenMarket.Models\GardenMarket.Models.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0-preview6.19307.2" />
   </ItemGroup>
 
 </Project>

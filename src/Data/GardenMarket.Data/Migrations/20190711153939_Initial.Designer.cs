@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GardenMarket.Data.Migrations
 {
     [DbContext(typeof(GardenMarketDbContext))]
-    [Migration("20190710182104_Initial")]
+    [Migration("20190711153939_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "3.0.0-preview6.19304.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -247,8 +247,7 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -291,8 +290,7 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -429,7 +427,8 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GardenMarket.Models.User", "User")
                         .WithMany("Carts")
@@ -441,7 +440,8 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
                         .WithMany("Characteristics")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Comment", b =>
@@ -453,7 +453,8 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GardenMarket.Models.User", "User")
                         .WithMany()
@@ -462,7 +463,7 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("GardenMarket.Models.Favorite", b =>
                 {
-                    b.HasOne("GardenMarket.Models.User")
+                    b.HasOne("GardenMarket.Models.User", null)
                         .WithMany("Favorites")
                         .HasForeignKey("UserId");
                 });
@@ -472,7 +473,8 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.Characteristic", "Characteristic")
                         .WithMany("Types")
                         .HasForeignKey("CharacteristicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
@@ -480,7 +482,8 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GardenMarket.Models.User", "User")
                         .WithMany("Products")
@@ -492,17 +495,19 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.Product", "Product")
                         .WithMany("ProductTypes")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GardenMarket.Models.FlowerType", "Type")
                         .WithMany("ProductTypes")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Promotion", b =>
                 {
-                    b.HasOne("GardenMarket.Models.User")
+                    b.HasOne("GardenMarket.Models.User", null)
                         .WithMany("Promotions")
                         .HasForeignKey("UserId");
                 });
@@ -512,52 +517,59 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.Category", "Category")
                         .WithMany("SubCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

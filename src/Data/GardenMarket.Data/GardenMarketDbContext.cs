@@ -1,8 +1,6 @@
 ﻿using GardenMarket.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace GardenMarket.Data
 {
@@ -10,8 +8,6 @@ namespace GardenMarket.Data
     {
         public GardenMarketDbContext(DbContextOptions<GardenMarketDbContext> options)
             : base(options) { }
-
-        public GardenMarketDbContext() { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }

@@ -40,7 +40,7 @@ namespace GardenMarket.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsLicked = table.Column<bool>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false, maxLength: 450)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +59,7 @@ namespace GardenMarket.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: false, maxLength: 450),
+                    UserId = table.Column<string>(nullable: false),
                     CratedOn = table.Column<DateTime>(nullable: false),
                     PromotionStart = table.Column<DateTime>(nullable: false),
                     Duration = table.Column<TimeSpan>(nullable: false),
@@ -131,7 +131,7 @@ namespace GardenMarket.Data.Migrations
                     HasDiscount = table.Column<bool>(nullable: false),
                     PrecentDiscount = table.Column<int>(nullable: true),
                     SubCategoryId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false, maxLength: 450),
+                    UserId = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     Deleted = table.Column<DateTime>(nullable: true),
                     DiscountStart = table.Column<DateTime>(nullable: true),
@@ -185,7 +185,7 @@ namespace GardenMarket.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Amount = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false, maxLength: 450)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,7 +211,7 @@ namespace GardenMarket.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false, maxLength: 450),
+                    UserId = table.Column<string>(nullable: false),
                     ParentId = table.Column<int>(nullable: true),
                     Message = table.Column<string>(nullable: false, maxLength: 1000),
                     Posted = table.Column<DateTime>(nullable: false),
