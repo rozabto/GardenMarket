@@ -1,40 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-GardenMarket.Web-64011461-1F85-4225-B2F2-9068FEEFDBF9</UserSecretsId>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <UserSecretsId>aspnet-GardenMarket.Web-D8BF5B4C-C0D2-4353-9E39-247429A86192</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-    <Content Remove="wwwroot\js\bundle.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\js\bundle.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bundleconfig.json" />
-    <None Include="wwwroot\js\bundle.js" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.2" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Data\GardenMarket.Data\GardenMarket.Data.csproj" />
-    <ProjectReference Include="..\..\Data\GardenMarket.ViewModels\GardenMarket.ViewModels.csproj" />
-    <ProjectReference Include="..\..\Service\GardenMarket.SafeCharge\GardenMarket.SafeCharge.csproj" />
-    <ProjectReference Include="..\..\Service\GardenMarket.Service\GardenMarket.Service.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0-preview6.19307.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0-preview6.19307.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0-preview6.19307.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview6.19304.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0-preview6.19304.10" />
   </ItemGroup>
 
 </Project>

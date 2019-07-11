@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{E0E7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{351494C6-C2CB-44E2-AE1D-74AFCD0AA298}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Web", "Presentation\GardenMarket.Web\GardenMarket.Web.csproj", "{33E40120-7043-4AD6-9181-A4BC809BC867}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Data", "Data\GardenMarket.Data\GardenMarket.Data.csproj", "{EA9F4B1B-1FC9-43C4-AF5A-9BFB85269EDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Models", "Data\GardenMarket.Models\GardenMarket.Models.csproj", "{6C3EF2A0-5D20-4259-84B5-E350AB6DAF8F}"
@@ -19,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.ViewModels", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Service", "Service\GardenMarket.Service\GardenMarket.Service.csproj", "{8B773E70-1BE6-475A-A648-D829437EB45D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenMarket.SafeCharge", "Service\GardenMarket.SafeCharge\GardenMarket.SafeCharge.csproj", "{A79A655E-F945-4184-8DE9-A7749B81F8BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.SafeCharge", "Service\GardenMarket.SafeCharge\GardenMarket.SafeCharge.csproj", "{A79A655E-F945-4184-8DE9-A7749B81F8BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenMarket.Web", "Presentation\GardenMarket.Web\GardenMarket.Web.csproj", "{5688C3FB-8E50-45CB-9830-39482314205A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{33E40120-7043-4AD6-9181-A4BC809BC867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33E40120-7043-4AD6-9181-A4BC809BC867}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33E40120-7043-4AD6-9181-A4BC809BC867}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33E40120-7043-4AD6-9181-A4BC809BC867}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA9F4B1B-1FC9-43C4-AF5A-9BFB85269EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA9F4B1B-1FC9-43C4-AF5A-9BFB85269EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA9F4B1B-1FC9-43C4-AF5A-9BFB85269EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,17 +47,21 @@ Global
 		{A79A655E-F945-4184-8DE9-A7749B81F8BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79A655E-F945-4184-8DE9-A7749B81F8BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79A655E-F945-4184-8DE9-A7749B81F8BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5688C3FB-8E50-45CB-9830-39482314205A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5688C3FB-8E50-45CB-9830-39482314205A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5688C3FB-8E50-45CB-9830-39482314205A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5688C3FB-8E50-45CB-9830-39482314205A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{33E40120-7043-4AD6-9181-A4BC809BC867} = {351494C6-C2CB-44E2-AE1D-74AFCD0AA298}
 		{EA9F4B1B-1FC9-43C4-AF5A-9BFB85269EDB} = {EFD5BAA0-1079-4865-8697-75E4FF7C3F64}
 		{6C3EF2A0-5D20-4259-84B5-E350AB6DAF8F} = {EFD5BAA0-1079-4865-8697-75E4FF7C3F64}
 		{93721C4F-2AE7-4119-B5BF-860B8F6108A3} = {EFD5BAA0-1079-4865-8697-75E4FF7C3F64}
 		{8B773E70-1BE6-475A-A648-D829437EB45D} = {E0E7E103-6A7D-4771-83E0-A087DF5EE118}
 		{A79A655E-F945-4184-8DE9-A7749B81F8BB} = {E0E7E103-6A7D-4771-83E0-A087DF5EE118}
+		{5688C3FB-8E50-45CB-9830-39482314205A} = {351494C6-C2CB-44E2-AE1D-74AFCD0AA298}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E8F0103-3C2F-45D3-846B-BF08C10064F5}
