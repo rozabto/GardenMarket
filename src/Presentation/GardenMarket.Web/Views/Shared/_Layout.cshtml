@@ -143,9 +143,7 @@
                     <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
                 </div>
                 <!-- User Login Info -->
-                <div class="user-login-info">
-                    <a href="Identity/Account/Register"><img src="img/core-img/user.svg" alt=""></a>
-                </div>
+                <partial name="_LoginPartial"/>
                 <!-- Cart Area -->
                 <div class="cart-area">
                     <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
@@ -246,5 +244,7 @@
     <script src="js/classy-nav.min.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
