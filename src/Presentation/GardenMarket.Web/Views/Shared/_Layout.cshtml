@@ -9,6 +9,7 @@
     <link href="css/core-style.css" rel="stylesheet" />
 </head>
 <body>
+
     <!-- ##### Header Area Start ##### -->
     <header class="header_area">
         <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
@@ -154,6 +155,80 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
+    <!-- ##### Right Side Cart Area ##### -->
+    <div class="cart-bg-overlay"></div>
+
+    <div class="right-side-cart-area">
+
+        <!-- Cart Button -->
+        <div class="cart-button">
+            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+        </div>
+
+        <div class="cart-content d-flex">
+
+            <!-- Cart List Area -->
+            <div class="cart-list">
+                <!-- Single Cart Item -->
+                <div class="single-cart-item">
+                    <a href="#" class="product-image">
+                        <img src="img/product-img/product1.jpg" class="cart-thumb" alt="">
+                        <!-- Cart Item Desc -->
+                        <div class="cart-item-desc">
+                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                            <h6>Сукулентно растение в глинена саксия</h6>
+                            <span>1 бр</span>
+                            <p class="price">9.99лв.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Single Cart Item -->
+                <div class="single-cart-item">
+                    <a href="#" class="product-image">
+                        <img src="img/product-img/product2.jpg" class="cart-thumb" alt="">
+                        <!-- Cart Item Desc -->
+                        <div class="cart-item-desc">
+                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                            <h6>Бегония</h6>
+                            <span>1 бр</span>
+                            <p class="price">6.99лв.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Single Cart Item -->
+                <div class="single-cart-item">
+                    <a href="#" class="product-image">
+                        <img src="img/product-img/product4.jpg" class="cart-thumb" alt="">
+                        <!-- Cart Item Desc -->
+                        <div class="cart-item-desc">
+                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                            <h6>Ваза с форма на листо</h6>
+                            <span>1 бр</span>
+                            <p class="price">19.99лв.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Cart Summary -->
+            <div class="cart-amount-summary">
+
+                <h2>Кошница</h2>
+                <ul class="summary-table">
+                    <li><span>Доставка:</span> <span>2.99лв.</span></li>
+                    <li><span>Намаление:</span> <span>-15%</span></li>
+                    <li><span>Общо:</span> <span>39.96лв.</span></li>
+                </ul>
+                <div class="checkout-btn mt-100">
+                    <a href="checkout.html" class="btn essence-btn">Поръчай</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Right Side Cart End ##### -->
 
     @RenderBody()
 
@@ -230,7 +305,6 @@
         </div>
     </footer>
     <!-- ##### Footer Area End ##### -->
-
     <!-- jQuery -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
