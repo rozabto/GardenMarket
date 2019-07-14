@@ -1,4 +1,4 @@
-﻿namespace GardenMarket.SafeCharge
+﻿namespace GardenMarket.Common
 {
     public interface ISafeChargeService
     {
