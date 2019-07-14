@@ -7,6 +7,7 @@ namespace GardenMarket.Models
     {
         public Product()
         {
+            ProductImages = new HashSet<ProductImage>();
             ProductTypes = new HashSet<ProductType>();
             Comments = new HashSet<Comment>();
         }
@@ -29,6 +30,7 @@ namespace GardenMarket.Models
         public TimeSpan? DiscountEnd { get; set; }
         public int? TypeId { get; set; }
         public int? CommentId { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductType> ProductTypes { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
