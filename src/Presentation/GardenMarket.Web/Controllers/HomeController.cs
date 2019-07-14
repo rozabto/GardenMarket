@@ -23,11 +23,6 @@ namespace GardenMarket.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> Product()
         {
             return View();
@@ -37,6 +32,10 @@ namespace GardenMarket.Web.Controllers
             return View();
         }
         public async Task<IActionResult> PrivacyPolicy()
+        {
+            return View();
+        }
+        public async Task<IActionResult> AboutUs()
         {
             return View();
         }
