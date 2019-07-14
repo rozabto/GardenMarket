@@ -11,8 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using GardenMarket.Data;
 using Autofac;
 using GardenMarket.Service.External;
-using GardenMarket.SafeCharge;
 using Autofac.Extensions.DependencyInjection;
+using GardenMarket.Common;
 
 namespace GardenMarket.Web
 {
@@ -94,6 +94,7 @@ namespace GardenMarket.Web
             containerBuilder.RegisterType<SafeChargeService>()
                 .As<ISafeChargeService>()
                 .WithParameter(new TypedParameter(typeof(string), Configuration.GetSection("SafeChargeKey").Value));
+            containerBuilder.RegisterType<JsonService>().As<IJsonService>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

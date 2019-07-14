@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace GardenMarket.SafeCharge
+namespace GardenMarket.Common
 {
     public class SafeChargeService : ISafeChargeService
     {
