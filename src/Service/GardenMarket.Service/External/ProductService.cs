@@ -25,7 +25,7 @@ namespace GardenMarket.Service.External
 
         public async Task AddAsync(Product obj)
         {
-            _context.Products.Add(obj);
+            await _context.Products.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
 

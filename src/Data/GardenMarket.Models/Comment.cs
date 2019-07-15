@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace GardenMarket.Models
@@ -14,7 +15,7 @@ namespace GardenMarket.Models
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
         public string UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual IdentityUser User { get; set; }
         public int? ParentId { get; set; }
         public virtual Comment Parent { get; set; }
         public string Message { get; set; }

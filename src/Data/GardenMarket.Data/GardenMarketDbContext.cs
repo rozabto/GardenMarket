@@ -25,675 +25,568 @@ namespace GardenMarket.Data
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //    modelBuilder.Entity<User>().HasData(
-        //        new[]
-        //        {
-        //            new User
-        //            {
-        //                Id = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02",
-        //                SecurityStamp = "BRLKQIVSEK6NH4FXG2XXEGDGY774DKR4",
-        //                ConcurrencyStamp = "39d7264f-79e1-4743-af43-e593cf65412b",
-        //                Email = "user@gmail.com",
-        //                EmailConfirmed = true,
-        //                NormalizedUserName = "USER@GMAIL.COM",
-        //                UserName = "user@gmail.com",
-        //                NormalizedEmail = "USER@GMAIL.COM",
-        //                PasswordHash = "AQAAAAEAACcQAAAAEMh81L3Cw6KEGfSzBiedaoJcv+rGScQee1k6D2AMsBDxOQVywpv7q/qa4b+d6yS4yw=="//user123
-        //            }
-        //        });
-        //    modelBuilder.Entity<Category>().HasData(
-        //        new[]
-        //        {
-        //            new Category
-        //            {
-        //                Id = 1,
-        //                Name = "Растения"
-        //            },
-        //            new Category
-        //            {
-        //                Id = 2,
-        //                Name = "Градина"
-        //            },
-        //            new Category
-        //            {
-        //                Id = 3,
-        //                Name = "Свободно Време"
-        //            }
-        //        });
-        //    modelBuilder.Entity<SubCategory>().HasData(
-        //        new[]
-        //        {
-        //            #region Растения
-        //            new SubCategory
-        //            {
-        //                Id = 1,
-        //                CategoryId = 1,
-        //                Name = "Цъфтящи растения"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 2,
-        //                CategoryId = 1,
-        //                Name = "Нецъфтящи растения"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 3,
-        //                CategoryId = 1,
-        //                Name = "Насекомоядни растения"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 4,
-        //                CategoryId = 1,
-        //                Name = "Сукуленти"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 5,
-        //                CategoryId = 1,
-        //                Name = "Вечнозелени храсти и дръвчета"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 6,
-        //                CategoryId = 1,
-        //                Name = "Цъфтящи храсти и дръвчета"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 7,
-        //                CategoryId = 1,
-        //                Name = "Водни растения"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 8,
-        //                CategoryId = 1,
-        //                Name = "Бегония"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 9,
-        //                CategoryId = 1,
-        //                Name = "Здравец"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 10,
-        //                CategoryId = 1,
-        //                Name = "Циганче"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 11,
-        //                CategoryId = 1,
-        //                Name = "Функия"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 12,
-        //                CategoryId = 1,
-        //                Name = "Семена"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 13,
-        //                CategoryId = 1,
-        //                Name = "Луковици"
-        //            },
-        //            #endregion
-        //            #region Градина
-        //            new SubCategory
-        //            {
-        //                Id = 14,
-        //                CategoryId = 2,
-        //                Name = "Торове"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 15,
-        //                CategoryId = 2,
-        //                Name = "Почви"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 16,
-        //                CategoryId = 2,
-        //                Name = "Тревни смески"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 17,
-        //                CategoryId = 2,
-        //                Name = "Саксии"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 18,
-        //                CategoryId = 2,
-        //                Name = "Вази"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 19,
-        //                CategoryId = 2,
-        //                Name = "Кашпи"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 20,
-        //                CategoryId = 2,
-        //                Name = "Сандъци"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 21,
-        //                CategoryId = 2,
-        //                Name = "Цветарници"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 22,
-        //                CategoryId = 2,
-        //                Name = "Лейки"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 23,
-        //                CategoryId = 2,
-        //                Name = "Пулверизатори"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 24,
-        //                CategoryId = 2,
-        //                Name = "Декоративни фигурки"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 25,
-        //                CategoryId = 2,
-        //                Name = "Декоративни камъни"
-        //            },
-        //            #endregion
-        //            #region Свободно време
-        //            new SubCategory
-        //            {
-        //                Id = 26,
-        //                CategoryId = 3,
-        //                Name = "Палатки"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 27,
-        //                CategoryId = 3,
-        //                Name = "Спални чували"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 28,
-        //                CategoryId = 3,
-        //                Name = "Къмпинг оборудване"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 29,
-        //                CategoryId = 3,
-        //                Name = "Столове и маси"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 30,
-        //                CategoryId = 3,
-        //                Name = "Грил"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 31,
-        //                CategoryId = 3,
-        //                Name = "Скара"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 32,
-        //                CategoryId = 3,
-        //                Name = "Оборудване за барбекю"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 33,
-        //                CategoryId = 3,
-        //                Name = "Соларни лампи"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 34,
-        //                CategoryId = 3,
-        //                Name = "Фенери"
-        //            },
-        //            new SubCategory
-        //            {
-        //                Id = 35,
-        //                CategoryId = 3,
-        //                Name = "Сфери"
-        //            }
-        //            #endregion
-        //        });
-        //    modelBuilder.Entity<Characteristic>().HasData(
-        //        new[]
-        //        {
-        //            new Characteristic
-        //            {
-        //                Id = 1,
-        //                Name = "Цвят"
-        //            },
-        //            new Characteristic
-        //            {
-        //                Id = 2,
-        //                Name = "Сезони"
-        //            },
-        //            new Characteristic
-        //            {
-        //                Id = 3,
-        //                Name = "Произведено в"
-        //            }
-        //        });
-        //    Need help for this one!!!!
+            modelBuilder.Entity<Category>().HasData(
+                new[]
+                {
+                    new Category
+                    {
+                        Id = 1,
+                        Name = "Растения"
+                    },
+                    new Category
+                    {
+                        Id = 2,
+                        Name = "Градина"
+                    },
+                    new Category
+                    {
+                        Id = 3,
+                        Name = "Свободно Време"
+                    }
+                });
+            modelBuilder.Entity<SubCategory>().HasData(
+                new[]
+                {
+                    #region Растения
+                    new SubCategory
+                    {
+                        Id = 1,
+                        CategoryId = 1,
+                        Name = "Стайни растения"
+                    },
+                    new SubCategory
+                    {
+                        Id = 2,
+                        CategoryId = 1,
+                        Name = "Външни растения"
+                    },
+                    new SubCategory
+                    {
+                        Id = 3,
+                        CategoryId = 1,
+                        Name = "Сенколюбиви растения"
+                    },
+                    new SubCategory
+                    {
+                        Id = 4,
+                        CategoryId = 1,
+                        Name = "Разсад"
+                    },
+                    #endregion
+                    #region Градина
+                    new SubCategory
+                    {
+                        Id = 5,
+                        CategoryId = 2,
+                        Name = "Торове"
+                    },
+                    new SubCategory
+                    {
+                        Id = 6,
+                        CategoryId = 2,
+                        Name = "Саксии"
+                    },
+                    new SubCategory
+                    {
+                        Id = 7,
+                        CategoryId = 2,
+                        Name = "Напояване"
+                    },
+                    new SubCategory
+                    {
+                        Id = 8,
+                        CategoryId = 2,
+                        Name = "Градински декорации"
+                    },
+                    #endregion
+                    #region Свободно време
+                    new SubCategory
+                    {
+                        Id = 9,
+                        CategoryId = 3,
+                        Name = "Къмпинг"
+                    },
+                    new SubCategory
+                    {
+                        Id = 10,
+                        CategoryId = 3,
+                        Name = "Барбекю"
+                    },
+                    new SubCategory
+                    {
+                        Id = 11,
+                        CategoryId = 3,
+                        Name = "Осветление"
+                    }
+                    #endregion
+                });
+            modelBuilder.Entity<SubSubCategory>().HasData(
+                new[]
+                {
+                    #region Растения
+                    new SubSubCategory
+                    {
+                        Id = 1,
+                        SubCategoryId = 1,
+                        Name = "Цъфтящи растения",
+                        LowestPrice = 1.99f,
+                        HighestPrice = 62.99f
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 2,
+                        SubCategoryId = 1,
+                        Name = "Нецъфтящи растения"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 3,
+                        SubCategoryId = 1,
+                        Name = "Насекомоядни растения"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 4,
+                        SubCategoryId = 1,
+                        Name = "Сукуленти"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 5,
+                        SubCategoryId = 2,
+                        Name = "Вечнозелени храсти и дръвчета"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 6,
+                        SubCategoryId = 2,
+                        Name = "Цъфтящи храсти и дръвчета"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 7,
+                        SubCategoryId = 2,
+                        Name = "Водни растения"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 8,
+                        SubCategoryId = 3,
+                        Name = "Бегония"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 9,
+                        SubCategoryId = 3,
+                        Name = "Здравец"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 10,
+                        SubCategoryId = 3,
+                        Name = "Циганче"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 11,
+                        SubCategoryId = 3,
+                        Name = "Функия"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 12,
+                        SubCategoryId = 4,
+                        Name = "Семена"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 13,
+                        SubCategoryId = 4,
+                        Name = "Луковици"
+                    },
+                    #endregion
+                    #region Градина
+                    new SubSubCategory
+                    {
+                        Id = 14,
+                        SubCategoryId = 5,
+                        Name = "Торове"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 15,
+                        SubCategoryId = 5,
+                        Name = "Почви"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 16,
+                        SubCategoryId = 5,
+                        Name = "Тревни смески"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 17,
+                        SubCategoryId = 6,
+                        Name = "Саксии"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 18,
+                        SubCategoryId = 6,
+                        Name = "Вази"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 19,
+                        SubCategoryId = 6,
+                        Name = "Кашпи"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 20,
+                        SubCategoryId = 6,
+                        Name = "Сандъци"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 21,
+                        SubCategoryId = 6,
+                        Name = "Цветарници"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 22,
+                        SubCategoryId = 7,
+                        Name = "Лейки"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 23,
+                        SubCategoryId = 7,
+                        Name = "Пулверизатори"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 24,
+                        SubCategoryId = 8,
+                        Name = "Декоративни фигурки"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 25,
+                        SubCategoryId = 8,
+                        Name = "Декоративни камъни"
+                    },
+                    #endregion
+                    #region Свободно време
+                    new SubSubCategory
+                    {
+                        Id = 26,
+                        SubCategoryId = 9,
+                        Name = "Палатки"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 27,
+                        SubCategoryId = 9,
+                        Name = "Спални чували"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 28,
+                        SubCategoryId = 9,
+                        Name = "Къмпинг оборудване"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 29,
+                        SubCategoryId = 9,
+                        Name = "Столове и маси"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 30,
+                        SubCategoryId = 10,
+                        Name = "Грил"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 31,
+                        SubCategoryId = 10,
+                        Name = "Скара"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 32,
+                        SubCategoryId = 10,
+                        Name = "Оборудване за барбекю"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 33,
+                        SubCategoryId = 11,
+                        Name = "Соларни лампи"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 34,
+                        SubCategoryId = 11,
+                        Name = "Фенери"
+                    },
+                    new SubSubCategory
+                    {
+                        Id = 35,
+                        SubCategoryId = 11,
+                        Name = "Сфери"
+                    }
+                    #endregion
 
-        //   modelBuilder.Entity<CharacteristicCategory>().HasData(
-        //       new[]
-        //       {
-        //            new CharacteristicCategory
-        //            {
-        //                Id = 1,
-        //                CharacteristicId = 1,
-        //                SubCategoryId = 1
-        //            },
-        //            new CharacteristicCategory
-        //            {
-        //                Id = 2,
-        //                CharacteristicId = 2,
-        //                SubCategoryId = 1
-        //            },
-        //            new CharacteristicCategory
-        //            {
-        //                Id = 3,
-        //                CharacteristicId = 3,
-        //                SubCategoryId = 1
-        //            }
-        //       });
-        //   modelBuilder.Entity<FlowerType>().HasData(
-        //       new[]
-        //       {
-        //            #region Цвят
-        //            new FlowerType
-        //            {
-        //                Id = 1,
-        //                CharacteristicId = 1,
-        //                Name = "Бял"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 2,
-        //                CharacteristicId = 1,
-        //                Name = "Сив"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 3,
-        //                CharacteristicId = 1,
-        //                Name = "Черен"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 4,
-        //                CharacteristicId = 1,
-        //                Name = "Син"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 5,
-        //                CharacteristicId = 1,
-        //                Name = "Червен"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 6,
-        //                CharacteristicId = 1,
-        //                Name = "Жълт"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 7,
-        //                CharacteristicId = 1,
-        //                Name = "Оранжев"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 8,
-        //                CharacteristicId = 1,
-        //                Name = "Кафяв"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 9,
-        //                CharacteristicId = 1,
-        //                Name = "Зелен"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 10,
-        //                CharacteristicId = 1,
-        //                Name = "Лилав"
-        //            },
-        //            #endregion
-        //            #region Сезони
-        //            new FlowerType
-        //            {
-        //                Id = 11,
-        //                CharacteristicId = 2,
-        //                Name = "Пролет"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 12,
-        //                CharacteristicId = 2,
-        //                Name = "Лято"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 13,
-        //                CharacteristicId = 2,
-        //                Name = "Есен"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 14,
-        //                CharacteristicId = 2,
-        //                Name = "Зима"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 15,
-        //                CharacteristicId = 2,
-        //                Name = "Целогодишно"
-        //            },
-        //            #endregion
-        //            #region Произведено в
-        //            new FlowerType
-        //            {
-        //                Id = 16,
-        //                CharacteristicId = 3,
-        //                Name = "България"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 17,
-        //                CharacteristicId = 3,
-        //                Name = "САЩ"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 18,
-        //                CharacteristicId = 3,
-        //                Name = "Блала"
-        //            },
-        //            new FlowerType
-        //            {
-        //                Id = 19,
-        //                CharacteristicId = 3,
-        //                Name = "Китай"
-        //            }
-        //            #endregion
-        //       });
-        //   modelBuilder.Entity<Product>().HasData(
-        //       new[]
-        //       {
-        //            new Product
-        //            {
-        //                Id = 1,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 2,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 3,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 4,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 5,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 6,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 7,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 8,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 9,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            },
-        //            new Product
-        //            {
-        //                Id = 10,
-        //                Name = "ВОДЕН ИРИС",
-        //                CreatedOn = DateTime.UtcNow,
-        //                Description = "Дължимата цена за Обработка и транспорт се изчислява преди финализиране на поръчката.",
-        //                InStock = 10,
-        //                Price = 6.99m,
-        //                Sales = 4,
-        //                SubCategoryId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            }
-        //       });
-        //    modelBuilder.Entity<ProductImage>().HasData(
-        //        new[]
-        //        {
-        //            new ProductImage
-        //            {
-        //                Id = 1,
-        //                ProductId = 1,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 2,
-        //                ProductId = 2,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 3,
-        //                ProductId = 3,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 4,
-        //                ProductId = 4,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 5,
-        //                ProductId = 5,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 6,
-        //                ProductId = 6,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 7,
-        //                ProductId = 7,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 8,
-        //                ProductId = 8,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 9,
-        //                ProductId = 9,
-        //                Path = "img/product-img/product1.jpg"
-        //            },
-        //            new ProductImage
-        //            {
-        //                Id = 10,
-        //                ProductId = 10,
-        //                Path = "img/product-img/product1.jpg"
-        //            }
-        //        });
-        //    modelBuilder.Entity<ProductType>().HasData(
-        //        new[]
-        //        {
-        //            new ProductType
-        //            {
-        //                Id = 1,
-        //                ProductId = 1,
-        //                TypeId = 1
-        //            }
-        //        });
-        //    modelBuilder.Entity<Comment>().HasData(
-        //        new[]
-        //        {
-        //            new Comment
-        //            {
-        //                Id = 1,
-        //                Message = "Hello there (general Ken-obi), this is a very BAD product, kappa",
-        //                Posted = DateTime.UtcNow,
-        //                ProductId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            }
-        //        });
-        //    modelBuilder.Entity<Favorite>().HasData(
-        //        new[]
-        //        {
-        //            new Favorite
-        //            {
-        //                Id = 1,
-        //                IsLicked = true,
-        //                ProductId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            }
-        //        });
-        //    modelBuilder.Entity<Cart>().HasData(
-        //        new[]
-        //        {
-        //            new Cart
-        //            {
-        //                Id = 1,
-        //                Amount = 3,
-        //                ProductId = 1,
-        //                UserId = "6d7de6c5-2c4e-4ff9-86ed-cb219f8bfe02"
-        //            }
-        //        });
-
-        //    Others
-        //    modelBuilder.Entity<IdentityRole>().HasData(
-        //        new[]
-        //        {
-        //            new IdentityRole
-        //            {
-        //                Name = "Admin",
-        //                NormalizedName = "ADMIN"
-        //            }
-        //        });
-        //}
+                });
+            modelBuilder.Entity<Characteristic>().HasData(
+                new[]
+                {
+                    new Characteristic
+                    {
+                        Id = 1,
+                        Name = "Цвят",
+                        Display = true
+                    },
+                    new Characteristic
+                    {
+                        Id = 2,
+                        Name = "Сезони",
+                        Display = true
+                    },
+                    new Characteristic
+                    {
+                        Id = 3,
+                        Name = "Произведено в",
+                        Display = true
+                    },
+                    new Characteristic
+                    {
+                        Id = 4,
+                        Name = "Размер",
+                        Display = false
+                    }
+                });
+            modelBuilder.Entity<CharacteristicCategory>().HasData(
+                new[]
+                {
+                    #region Растения
+                    new CharacteristicCategory
+                    {
+                        Id = 1,
+                        CharacteristicId = 2,
+                        SubCategoryId = 1
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 2,
+                        CharacteristicId = 2,
+                        SubCategoryId = 2
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 3,
+                        CharacteristicId = 4,
+                        SubCategoryId = 2
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 4,
+                        CharacteristicId = 2,
+                        SubCategoryId = 3
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 5,
+                        CharacteristicId = 2,
+                        SubCategoryId = 4
+                    },
+                    #endregion
+                    #region Градина
+                    new CharacteristicCategory
+                    {
+                        Id = 6,
+                        CharacteristicId = 1,
+                        SubCategoryId = 6
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 7,
+                        CharacteristicId = 3,
+                        SubCategoryId = 6
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 8,
+                        CharacteristicId = 1,
+                        SubCategoryId = 7
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 9,
+                        CharacteristicId = 1,
+                        SubCategoryId = 8
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 10,
+                        CharacteristicId = 3,
+                        SubCategoryId = 8
+                    },
+                    #endregion
+                    #region Свободно време
+                    new CharacteristicCategory
+                    {
+                        Id = 11,
+                        CharacteristicId = 1,
+                        SubCategoryId = 9
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 12,
+                        CharacteristicId = 3,
+                        SubCategoryId = 10
+                    },
+                    new CharacteristicCategory
+                    {
+                        Id = 13,
+                        CharacteristicId = 3,
+                        SubCategoryId = 11
+                    }
+                    #endregion
+                });
+            modelBuilder.Entity<FlowerType>().HasData(
+                new[]
+                {
+                    #region Цвят
+                    new FlowerType
+                    {
+                        Id = 1,
+                        CharacteristicId = 1,
+                        Name = "Бял"
+                    },
+                    new FlowerType
+                    {
+                        Id = 2,
+                        CharacteristicId = 1,
+                        Name = "Сив"
+                    },
+                    new FlowerType
+                    {
+                        Id = 3,
+                        CharacteristicId = 1,
+                        Name = "Черен"
+                    },
+                    new FlowerType
+                    {
+                        Id = 4,
+                        CharacteristicId = 1,
+                        Name = "Син"
+                    },
+                    new FlowerType
+                    {
+                        Id = 5,
+                        CharacteristicId = 1,
+                        Name = "Червен"
+                    },
+                    new FlowerType
+                    {
+                        Id = 6,
+                        CharacteristicId = 1,
+                        Name = "Жълт"
+                    },
+                    new FlowerType
+                    {
+                        Id = 7,
+                        CharacteristicId = 1,
+                        Name = "Оранжев"
+                    },
+                    new FlowerType
+                    {
+                        Id = 8,
+                        CharacteristicId = 1,
+                        Name = "Кафяв"
+                    },
+                    new FlowerType
+                    {
+                        Id = 9,
+                        CharacteristicId = 1,
+                        Name = "Зелен"
+                    },
+                    new FlowerType
+                    {
+                        Id = 10,
+                        CharacteristicId = 1,
+                        Name = "Лилав"
+                    },
+                    #endregion
+                    #region Сезони
+                    new FlowerType
+                    {
+                        Id = 11,
+                        CharacteristicId = 2,
+                        Name = "Пролет"
+                    },
+                    new FlowerType
+                    {
+                        Id = 12,
+                        CharacteristicId = 2,
+                        Name = "Лято"
+                    },
+                    new FlowerType
+                    {
+                        Id = 13,
+                        CharacteristicId = 2,
+                        Name = "Есен"
+                    },
+                    new FlowerType
+                    {
+                        Id = 14,
+                        CharacteristicId = 2,
+                        Name = "Зима"
+                    },
+                    new FlowerType
+                    {
+                        Id = 15,
+                        CharacteristicId = 2,
+                        Name = "Целогодишно"
+                    },
+                    #endregion
+                    #region Произведено в
+                    new FlowerType
+                    {
+                        Id = 16,
+                        CharacteristicId = 3,
+                        Name = "България"
+                    },
+                    new FlowerType
+                    {
+                        Id = 17,
+                        CharacteristicId = 3,
+                        Name = "САЩ"
+                    },
+                    new FlowerType
+                    {
+                        Id = 18,
+                        CharacteristicId = 3,
+                        Name = "Блала"
+                    },
+                    new FlowerType
+                    {
+                        Id = 19,
+                        CharacteristicId = 3,
+                        Name = "Китай"
+                    }
+                    #endregion
+                });
+        }
     }
 }

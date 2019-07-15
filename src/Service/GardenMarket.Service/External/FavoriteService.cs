@@ -25,7 +25,7 @@ namespace GardenMarket.Service.External
 
         public async Task AddAsync(Favorite obj)
         {
-            _context.Favorites.Add(obj);
+            await _context.Favorites.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
 
