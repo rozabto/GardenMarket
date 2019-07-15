@@ -25,26 +25,26 @@ namespace GardenMarket.Service.External
 
         public async Task AddAsync(Comment obj)
         {
-            _context.Comments.Add(obj);
+            await _context.Comments.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
 
-        public IList<Comment> GetAll() =>
+        public IReadOnlyList<Comment> GetAll() =>
             _context.Comments.Where(w => !w.Deleted.HasValue).ToList();
 
-        public async Task<IList<Comment>> GetAllAsync() =>
+        public async Task<IReadOnlyList<Comment>> GetAllAsync() =>
             _context.Comments.Where(w => !w.Deleted.HasValue).ToList();
 
-        public IList<Comment> GetAllByUserId(string id) =>
+        public IReadOnlyList<Comment> GetAllByUserId(string id) =>
             _context.Comments.Where(w => w.UserId == id).ToList();
 
-        public async Task<IList<Comment>> GetAllByUserIdAsync(string id) =>
+        public async Task<IReadOnlyList<Comment>> GetAllByUserIdAsync(string id) =>
             _context.Comments.Where(w => w.UserId == id).ToList();
 
-        public IList<Comment> GetAllIncludingRemoved() =>
+        public IReadOnlyList<Comment> GetAllIncludingRemoved() =>
             _context.Comments.ToList();
 
-        public async Task<IList<Comment>> GetAllIncludingRemovedAsync() =>
+        public async Task<IReadOnlyList<Comment>> GetAllIncludingRemovedAsync() =>
             _context.Comments.ToList();
 
         public Comment GetById(int id) =>
@@ -53,10 +53,10 @@ namespace GardenMarket.Service.External
         public async Task<Comment> GetByIdAsync(int id) =>
             await _context.Comments.FindAsync(id);
 
-        public IList<Comment> GetRemoved() =>
+        public IReadOnlyList<Comment> GetRemoved() =>
             _context.Comments.Where(w => w.Deleted.HasValue).ToList();
 
-        public async Task<IList<Comment>> GetRemovedAsync() =>
+        public async Task<IReadOnlyList<Comment>> GetRemovedAsync() =>
             _context.Comments.Where(w => w.Deleted.HasValue).ToList();
 
         public void Remove(Comment obj)

@@ -1,0 +1,135 @@
+﻿@model GardenMarket.ViewModel.HeaderViewModel
+<!-- ##### Header Area Start ##### -->
+<header class="header_area">
+    <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+        <!-- Classy Menu -->
+        <nav class="classy-navbar" id="essenceNav">
+            <!-- Logo -->
+            <a class="nav-brand" href="@Url.Action("Index", "Home")"><img src="img/core-img/sample-logo.png" alt=""></a>
+            <!-- Navbar Toggler -->
+            <div class="classy-navbar-toggler">
+            </div>
+            <!-- Menu -->
+            <div class="classy-menu">
+                <!-- close btn -->
+                <div class="classycloseIcon">
+                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                </div>
+                <!-- Nav Start -->
+                <div class="classynav">
+
+                    <ul>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li>
+                                <a href="#">@category.Name</a>
+                                <div class="megamenu">
+                                    @await Component.InvokeAsync("HeaderSubCategory", category.Id)
+                                </div>
+                            </li>
+                        }
+                        <li><a href="contact.html">Контакти</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Nav End -->
+        <!-- Header Meta Data -->
+        <div class="header-meta d-flex clearfix justify-content-end">
+            <!-- Search Area -->
+            <div class="search-area">
+                <form action="#" method="post">
+                    <input type="search" name="search" id="headerSearch" placeholder="Търсене">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
+            <!-- Favourite Area -->
+            <div class="favourite-area">
+                <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
+            </div>
+            <!-- User Login Info -->
+            <partial name="_LoginPartial" />
+            <!-- Cart Area -->
+            <div class="cart-area">
+                <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>@Model.Count</span></a>
+            </div>
+        </div>
+
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+<!-- ##### Right Side Cart Area ##### -->
+<div class="cart-bg-overlay"></div>
+
+<div class="right-side-cart-area">
+
+    <!-- Cart Button -->
+    <div class="cart-button">
+        <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>@Model.Count</span></a>
+    </div>
+
+    <div class="cart-content d-flex">
+
+        <!-- Cart List Area -->
+        <div class="cart-list">
+            <!-- Single Cart Item -->
+            <div class="single-cart-item">
+                <a href="#" class="product-image">
+                    <img src="img/product-img/product1.jpg" class="cart-thumb" alt="">
+                    <!-- Cart Item Desc -->
+                    <div class="cart-item-desc">
+                        <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                        <h6>Сукулентно растение в глинена саксия</h6>
+                        <span>1 бр</span>
+                        <p class="price">9.99лв.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Single Cart Item -->
+            <div class="single-cart-item">
+                <a href="#" class="product-image">
+                    <img src="img/product-img/product2.jpg" class="cart-thumb" alt="">
+                    <!-- Cart Item Desc -->
+                    <div class="cart-item-desc">
+                        <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                        <h6>Бегония</h6>
+                        <span>1 бр</span>
+                        <p class="price">6.99лв.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Single Cart Item -->
+            <div class="single-cart-item">
+                <a href="#" class="product-image">
+                    <img src="img/product-img/product4.jpg" class="cart-thumb" alt="">
+                    <!-- Cart Item Desc -->
+                    <div class="cart-item-desc">
+                        <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                        <h6>Ваза с форма на листо</h6>
+                        <span>1 бр</span>
+                        <p class="price">19.99лв.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <!-- Cart Summary -->
+        <div class="cart-amount-summary">
+
+            <h2>Кошница</h2>
+            <ul class="summary-table">
+                <li><span>Доставка:</span> <span>2.99лв.</span></li>
+                <li><span>Намаление:</span> <span>-15%</span></li>
+                <li><span>Общо:</span> <span>39.96лв.</span></li>
+            </ul>
+            <div class="checkout-btn mt-100">
+                <a href="checkout.html" class="btn essence-btn">Поръчай</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Right Side Cart End ##### -->

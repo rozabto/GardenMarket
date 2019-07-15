@@ -2,7 +2,7 @@
 
 namespace GardenMarket.Service.Interface
 {
-    public interface ICartService : IServiceModel<Cart>, IServiceListUserIdModel<Cart>
+    public interface ICategoryService : IServiceModel<Category>
     {
     }
 }

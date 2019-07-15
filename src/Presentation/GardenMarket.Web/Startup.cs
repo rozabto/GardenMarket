@@ -11,8 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using GardenMarket.Data;
 using Autofac;
 using GardenMarket.Service.External;
-using GardenMarket.SafeCharge;
 using Autofac.Extensions.DependencyInjection;
+using GardenMarket.Common;
+using GardenMarket.Models;
 
 namespace GardenMarket.Web
 {
@@ -94,13 +95,15 @@ namespace GardenMarket.Web
             containerBuilder.RegisterType<SafeChargeService>()
                 .As<ISafeChargeService>()
                 .WithParameter(new TypedParameter(typeof(string), Configuration.GetSection("SafeChargeKey").Value));
+            containerBuilder.RegisterType<JsonService>().As<IJsonService>();
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app,IHostingEnvironment env, 
+            GardenMarketDbContext context, UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -126,6 +129,8 @@ namespace GardenMarket.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DummyData.Initialize(context, userManager).Wait();
         }
     }
 }
