@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace GardenMarket.Models
 {
-    public class User : IdentityUser
+    public class AppUser : IdentityUser
     {
+        public AppUser() : base() { }
+
         public string ImagePath { get; set; }
     }
 }

@@ -6,12 +6,12 @@ using System;
 
 namespace GardenMarket.Data
 {
-    public class GardenMarketDbContext : IdentityDbContext
+    public class GardenMarketDbContext : IdentityDbContext<AppUser>
     {
         public GardenMarketDbContext(DbContextOptions<GardenMarketDbContext> options)
             : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        //public DbSet<AppUser> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }

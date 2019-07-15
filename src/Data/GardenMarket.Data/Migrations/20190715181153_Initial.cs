@@ -41,7 +41,6 @@ namespace GardenMarket.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -156,8 +155,8 @@ namespace GardenMarket.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -201,8 +200,8 @@ namespace GardenMarket.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -286,7 +285,7 @@ namespace GardenMarket.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubSubCategory",
+                name: "SubSubCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -298,9 +297,9 @@ namespace GardenMarket.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubSubCategory", x => x.Id);
+                    table.PrimaryKey("PK_SubSubCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubSubCategory_SubCategories_SubCategoryId",
+                        name: "FK_SubSubCategories_SubCategories_SubCategoryId",
                         column: x => x.SubCategoryId,
                         principalTable: "SubCategories",
                         principalColumn: "Id",
@@ -333,9 +332,9 @@ namespace GardenMarket.Data.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_SubSubCategory_SubSubCategoryId",
+                        name: "FK_Products_SubSubCategories_SubSubCategoryId",
                         column: x => x.SubSubCategoryId,
-                        principalTable: "SubSubCategory",
+                        principalTable: "SubSubCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -541,7 +540,7 @@ namespace GardenMarket.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "SubSubCategory",
+                table: "SubSubCategories",
                 columns: new[] { "Id", "HighestPrice", "LowestPrice", "Name", "SubCategoryId" },
                 values: new object[,]
                 {
@@ -692,8 +691,8 @@ namespace GardenMarket.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubSubCategory_SubCategoryId",
-                table: "SubSubCategory",
+                name: "IX_SubSubCategories_SubCategoryId",
+                table: "SubSubCategories",
                 column: "SubCategoryId");
         }
 
@@ -745,7 +744,7 @@ namespace GardenMarket.Data.Migrations
                 name: "FlowerTypes");
 
             migrationBuilder.DropTable(
-                name: "SubSubCategory");
+                name: "SubSubCategories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

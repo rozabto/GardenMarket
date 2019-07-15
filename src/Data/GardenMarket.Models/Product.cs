@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace GardenMarket.Models
@@ -24,7 +23,7 @@ namespace GardenMarket.Models
         public int SubSubCategoryId { get; set; }
         public virtual SubSubCategory SubCategory { get; set; }
         public string UserId { get; set; }
-        public virtual IdentityUser User { get; set; }
+        public virtual AppUser User { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? Deleted { get; set; }
         public DateTime? DiscountStart { get; set; }

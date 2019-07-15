@@ -7,13 +7,13 @@ namespace GardenMarket.Data
 {
     public class DummyData
     {
-        public static async Task Initialize(GardenMarketDbContext context, UserManager<IdentityUser> userManager)
+        public static async Task Initialize(GardenMarketDbContext context, UserManager<AppUser> userManager)
         {
             context.Database.EnsureCreated();
 
             if (await userManager.FindByEmailAsync("user@gmail.com") == null)
             {
-                var user = new IdentityUser
+                var user = new AppUser
                 {
                     Email = "user@gmail.com",
                     UserName = "user@gmail.com",
@@ -26,7 +26,7 @@ namespace GardenMarket.Data
 
             if (await userManager.FindByEmailAsync("admin@gmail.com") == null)
             {
-                var user = new IdentityUser
+                var user = new AppUser
                 {
                     UserName = "admin",
                     Email = "admin@gmail.com",
