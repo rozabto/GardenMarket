@@ -29,16 +29,16 @@ namespace GardenMarket.Service.External
             await _context.SaveChangesAsync();
         }
 
-        public IList<Cart> GetAll() =>
+        public IReadOnlyList<Cart> GetAll() =>
             _context.Carts.ToList();
 
-        public async Task<IList<Cart>> GetAllAsync() =>
+        public async Task<IReadOnlyList<Cart>> GetAllAsync() =>
             _context.Carts.ToList();
 
-        public IList<Cart> GetAllByUserId(string id) =>
+        public IReadOnlyList<Cart> GetAllByUserId(string id) =>
             _context.Carts.Where(w => w.UserId == id).ToList();
 
-        public async Task<IList<Cart>> GetAllByUserIdAsync(string id) =>
+        public async Task<IReadOnlyList<Cart>> GetAllByUserIdAsync(string id) =>
             _context.Carts.Where(w => w.UserId == id).ToList();
 
         public Cart GetById(int id) =>

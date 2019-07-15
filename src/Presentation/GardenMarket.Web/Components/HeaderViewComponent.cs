@@ -1,4 +1,5 @@
 ﻿using GardenMarket.Common;
+using GardenMarket.Service.Interface;
 using GardenMarket.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,10 +12,12 @@ namespace GardenMarket.Web.Components
     {
         private const string KEY = "GardenMarketCookieCart";
         private readonly IJsonService _json;
+        private readonly ICategoryService _category;
 
-        public HeaderViewComponent(IJsonService json)
+        public HeaderViewComponent(IJsonService json, ICategoryService category)
         {
             _json = json ?? throw new ArgumentNullException(nameof(json));
+            _category = category ?? throw new ArgumentNullException(nameof(category));
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -24,6 +27,7 @@ namespace GardenMarket.Web.Components
                 (await _json.DeserializeAsync<IReadOnlyList<int>>(value));
             var viewModel = new HeaderViewModel
             {
+                Categories = await _category.GetAllAsync(),
                 Count = collection.Count,
                 ProductIds = collection
             };
