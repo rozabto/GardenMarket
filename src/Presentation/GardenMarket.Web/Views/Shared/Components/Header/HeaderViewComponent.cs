@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GardenMarket.Web.Components
+namespace GardenMarket.Web.Views.Shared.Components.Header
 {
     public class HeaderViewComponent : ViewComponent
     {
@@ -27,7 +27,7 @@ namespace GardenMarket.Web.Components
                 (await _json.DeserializeAsync<IReadOnlyList<int>>(value));
             var viewModel = new HeaderViewModel
             {
-                Categories = await _category.GetAllAsync(),
+                Categories = (await _category.GetAllAsync()),
                 Count = collection.Count,
                 ProductIds = collection
             };

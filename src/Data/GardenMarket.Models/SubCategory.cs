@@ -14,7 +14,9 @@ namespace GardenMarket.Models
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public int SubSubCategoriesId { get; set; }
         public virtual ICollection<SubSubCategory> SubSubCategories { get; set; }
+        public int CharacteristicCategoriesId { get; set; }
         public virtual ICollection<CharacteristicCategory> CharacteristicCategories { get; set; }
     }
 }

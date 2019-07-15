@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace GardenMarket.Service
 {
-    public interface IServiceListModel<T>
+    public interface IServiceListUserIdModel<T>
     {
         IReadOnlyList<T> GetAllByUserId(string id);
         Task<IReadOnlyList<T>> GetAllByUserIdAsync(string id);

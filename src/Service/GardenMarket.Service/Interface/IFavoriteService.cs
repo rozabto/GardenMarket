@@ -2,7 +2,7 @@
 
 namespace GardenMarket.Service.Interface
 {
-    public interface IFavoriteService : IServiceModel<Favorite>, IServiceListModel<Favorite>
+    public interface IFavoriteService : IServiceModel<Favorite>, IServiceListUserIdModel<Favorite>
     {
     }
 }

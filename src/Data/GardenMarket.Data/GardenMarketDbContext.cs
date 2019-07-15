@@ -24,6 +24,7 @@ namespace GardenMarket.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<SubSubCategory> SubSubCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
