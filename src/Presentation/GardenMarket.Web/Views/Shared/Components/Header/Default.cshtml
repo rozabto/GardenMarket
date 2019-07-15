@@ -1,5 +1,4 @@
 ﻿@model GardenMarket.ViewModel.HeaderViewModel
-
 <!-- ##### Header Area Start ##### -->
 <header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
@@ -9,7 +8,6 @@
             <a class="nav-brand" href="@Url.Action("Index", "Home")"><img src="img/core-img/sample-logo.png" alt=""></a>
             <!-- Navbar Toggler -->
             <div class="classy-navbar-toggler">
-                <span class="navbarToggler"><span></span><span></span><span></span></span>
             </div>
             <!-- Menu -->
             <div class="classy-menu">
@@ -19,104 +17,29 @@
                 </div>
                 <!-- Nav Start -->
                 <div class="classynav">
+
                     <ul>
-                        <li>
-                            <a href="#">Растения</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Стайни растения</li>
-                                    <li><a href="shop.html">Цъфтящи растения</a></li>
-                                    <li><a href="shop.html">Нецъфтящи растения</a></li>
-                                    <li><a href="shop.html">Насекомоядни растения</a></li>
-                                    <li><a href="shop.html">Сукуленти</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Външни растения</li>
-                                    <li><a href="shop.html">Вечнозелени храсти и дръвчета</a></li>
-                                    <li><a href="shop.html">Цъфтящи храсти и дръвчета</a></li>
-                                    <li><a href="shop.html">Водни растения</a></li>
-
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Сенколюбиви растения</li>
-                                    <li><a href="shop.html">Бегония</a></li>
-                                    <li><a href="shop.html">Здравец</a></li>
-                                    <li><a href="shop.html">Циганче</a></li>
-                                    <li><a href="shop.html">Функия</a></li>
-
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Разсад</li>
-                                    <li><a href="shop.html">Семена</a></li>
-                                    <li><a href="shop.html">Луковици</a></li>
-
-                                </ul>
-
-
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#">Градина</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Торове</li>
-                                    <li><a href="shop.html">Торове</a></li>
-                                    <li><a href="shop.html">Почви</a></li>
-                                    <li><a href="shop.html">Тревни смески</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Саксии</li>
-                                    <li><a href="shop.html">Саксии</a></li>
-                                    <li><a href="shop.html">Вази</a></li>
-                                    <li><a href="shop.html">Кашпи</a></li>
-                                    <li><a href="shop.html">Сандъци</a></li>
-                                    <li><a href="shop.html">Цветарници</a></li>
-
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Напояване</li>
-                                    <li><a href="shop.html">Лейки</a></li>
-                                    <li><a href="shop.html">Пулверизатори</a></li>
-
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Градински декорации</li>
-                                    <li><a href="shop.html">Декоративни фигурки</a></li>
-                                    <li><a href="shop.html">Декоративни камъни</a></li>
-
-                                </ul>
-
-                            </div>
-
-                        </li>
-
-
-                        <li>
-                            <a href="blog.html">Свободно време</a>
-                            <div class="megamenu">
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Къмпинг</li>
-                                    <li><a href="shop.html">Палатки</a></li>
-                                    <li><a href="shop.html">Спални чували</a></li>
-                                    <li><a href="shop.html">Къмпинг оборудване</a></li>
-                                    <li><a href="shop.html">Столове и маси</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Барбекю</li>
-                                    <li><a href="shop.html">Грил</a></li>
-                                    <li><a href="shop.html">Скара</a></li>
-                                    <li><a href="shop.html">Оборудване за барбекю</a></li>
-                                </ul>
-                                <ul class="single-mega cn-col-4">
-                                    <li class="title">Осветление</li>
-                                    <li><a href="shop.html">Соларни лампи</a></li>
-                                    <li><a href="shop.html">Фенери</a></li>
-                                    <li><a href="shop.html">Сфери</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li>
+                                <a href="#">@category.Name</a>
+                                <div class="megamenu">
+                                    @foreach (var subcategory in category.SubCategories)
+                                    {
+                                        <ul class="single-mega cn-col-4">
+                                            <li class="title">@subcategory.Name</li>
+                                            @foreach (var subsubcategory in subcategory.SubSubCategories)
+                                            {
+                                                <li><a href="shop.html">@subsubcategory.Name</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </li>
+                        }
                         <li><a href="contact.html">Контакти</a></li>
                     </ul>
+
                 </div>
             </div>
         </nav>
