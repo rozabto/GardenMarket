@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace GardenMarket.Models
@@ -7,6 +8,7 @@ namespace GardenMarket.Models
     {
         public Product()
         {
+            ProductImages = new HashSet<ProductImage>();
             ProductTypes = new HashSet<ProductType>();
             Comments = new HashSet<Comment>();
         }
@@ -19,16 +21,17 @@ namespace GardenMarket.Models
         public int InStock { get; set; }
         public bool HasDiscount { get; set; }
         public int? PrecentDiscount { get; set; }
-        public int SubCategoryId { get; set; }
-        public virtual SubCategory SubCategory { get; set; }
+        public int SubSubCategoryId { get; set; }
+        public virtual SubSubCategory SubCategory { get; set; }
         public string UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual IdentityUser User { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? Deleted { get; set; }
         public DateTime? DiscountStart { get; set; }
         public TimeSpan? DiscountEnd { get; set; }
         public int? TypeId { get; set; }
         public int? CommentId { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductType> ProductTypes { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

@@ -5,11 +5,11 @@ namespace GardenMarket.Service
 {
     public interface IServiceDeleteModel<T>
     {
-        IList<T> GetAllIncludingRemoved();
-        IList<T> GetRemoved();
+        IReadOnlyList<T> GetAllIncludingRemoved();
+        IReadOnlyList<T> GetRemoved();
         void RemovePermanently(T obj);
-        Task<IList<T>> GetAllIncludingRemovedAsync();
-        Task<IList<T>> GetRemovedAsync();
+        Task<IReadOnlyList<T>> GetAllIncludingRemovedAsync();
+        Task<IReadOnlyList<T>> GetRemovedAsync();
         Task RemovePermanentlyAsync(T obj);
     }
 }

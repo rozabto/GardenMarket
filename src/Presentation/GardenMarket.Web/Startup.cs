@@ -13,6 +13,7 @@ using Autofac;
 using GardenMarket.Service.External;
 using Autofac.Extensions.DependencyInjection;
 using GardenMarket.Common;
+using GardenMarket.Models;
 
 namespace GardenMarket.Web
 {
@@ -101,7 +102,8 @@ namespace GardenMarket.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app,IHostingEnvironment env, 
+            GardenMarketDbContext context, UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -127,6 +129,8 @@ namespace GardenMarket.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DummyData.Initialize(context, userManager).Wait();
         }
     }
 }

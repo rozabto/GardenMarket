@@ -25,20 +25,20 @@ namespace GardenMarket.Service.External
 
         public async Task AddAsync(Favorite obj)
         {
-            _context.Favorites.Add(obj);
+            await _context.Favorites.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
 
-        public IList<Favorite> GetAll() =>
+        public IReadOnlyList<Favorite> GetAll() =>
             _context.Favorites.ToList();
 
-        public async Task<IList<Favorite>> GetAllAsync() =>
+        public async Task<IReadOnlyList<Favorite>> GetAllAsync() =>
             _context.Favorites.ToList();
 
-        public IList<Favorite> GetAllByUserId(string id) =>
+        public IReadOnlyList<Favorite> GetAllByUserId(string id) =>
             _context.Favorites.Where(w => w.UserId == id).ToList();
 
-        public async Task<IList<Favorite>> GetAllByUserIdAsync(string id) =>
+        public async Task<IReadOnlyList<Favorite>> GetAllByUserIdAsync(string id) =>
             _context.Favorites.Where(w => w.UserId == id).ToList();
 
         public Favorite GetById(int id) =>

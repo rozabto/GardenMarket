@@ -4,14 +4,16 @@ using GardenMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GardenMarket.Data.Migrations
 {
     [DbContext(typeof(GardenMarketDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190714185902_Product-Image")]
+    partial class ProductImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,11 +61,13 @@ namespace GardenMarket.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Display");
-
                     b.Property<string>("Name");
 
+                    b.Property<int?>("SubCategoryId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SubCategoryId");
 
                     b.ToTable("Characteristics");
                 });
@@ -184,7 +188,7 @@ namespace GardenMarket.Data.Migrations
 
                     b.Property<int>("Sales");
 
-                    b.Property<int>("SubSubCategoryId");
+                    b.Property<int>("SubCategoryId");
 
                     b.Property<int?>("TypeId");
 
@@ -192,7 +196,7 @@ namespace GardenMarket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubSubCategoryId");
+                    b.HasIndex("SubCategoryId");
 
                     b.HasIndex("UserId");
 
@@ -275,27 +279,6 @@ namespace GardenMarket.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
-                });
-
-            modelBuilder.Entity("GardenMarket.Models.SubSubCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("HighestPrice");
-
-                    b.Property<float>("LowestPrice");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("SubCategoryId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubCategoryId");
-
-                    b.ToTable("SubSubCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -489,6 +472,13 @@ namespace GardenMarket.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("GardenMarket.Models.Characteristic", b =>
+                {
+                    b.HasOne("GardenMarket.Models.SubCategory")
+                        .WithMany("Characteristics")
+                        .HasForeignKey("SubCategoryId");
+                });
+
             modelBuilder.Entity("GardenMarket.Models.CharacteristicCategory", b =>
                 {
                     b.HasOne("GardenMarket.Models.Characteristic", "Characteristic")
@@ -535,9 +525,9 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
                 {
-                    b.HasOne("GardenMarket.Models.SubSubCategory", "SubCategory")
+                    b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubSubCategoryId")
+                        .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.User", "User")
@@ -578,14 +568,6 @@ namespace GardenMarket.Data.Migrations
                     b.HasOne("GardenMarket.Models.Category", "Category")
                         .WithMany("SubCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GardenMarket.Models.SubSubCategory", b =>
-                {
-                    b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
-                        .WithMany("SubSubCategories")
-                        .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

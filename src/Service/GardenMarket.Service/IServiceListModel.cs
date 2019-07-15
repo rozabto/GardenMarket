@@ -5,7 +5,7 @@ namespace GardenMarket.Service
 {
     public interface IServiceListModel<T>
     {
-        IList<T> GetAllByUserId(string id);
-        Task<IList<T>> GetAllByUserIdAsync(string id);
+        IReadOnlyList<T> GetAllByUserId(string id);
+        Task<IReadOnlyList<T>> GetAllByUserIdAsync(string id);
     }
 }

@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
         public int CharacteristicId { get; set; }
-        public Characteristic Characteristic { get; set; }
+        public virtual Characteristic Characteristic { get; set; }
         public int SubCategoryId { get; set; }
-        public SubCategory SubCategory { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
     }
 }

@@ -25,20 +25,20 @@ namespace GardenMarket.Service.External
 
         public async Task AddAsync(Product obj)
         {
-            _context.Products.Add(obj);
+            await _context.Products.AddAsync(obj);
             await _context.SaveChangesAsync();
         }
 
-        public IList<Product> GetAll() =>
+        public IReadOnlyList<Product> GetAll() =>
             _context.Products.Where(w => !w.Deleted.HasValue).ToList();
 
-        public async Task<IList<Product>> GetAllAsync() =>
+        public async Task<IReadOnlyList<Product>> GetAllAsync() =>
             _context.Products.Where(w => !w.Deleted.HasValue).ToList();
 
-        public IList<Product> GetAllIncludingRemoved() =>
+        public IReadOnlyList<Product> GetAllIncludingRemoved() =>
             _context.Products.ToList();
 
-        public async Task<IList<Product>> GetAllIncludingRemovedAsync() =>
+        public async Task<IReadOnlyList<Product>> GetAllIncludingRemovedAsync() =>
             _context.Products.ToList();
 
         public Product GetById(int id) =>
@@ -47,10 +47,10 @@ namespace GardenMarket.Service.External
         public async Task<Product> GetByIdAsync(int id) =>
             await _context.Products.FindAsync(id);
 
-        public IList<Product> GetRemoved() =>
+        public IReadOnlyList<Product> GetRemoved() =>
             _context.Products.Where(w => w.Deleted.HasValue).ToList();
 
-        public async Task<IList<Product>> GetRemovedAsync() =>
+        public async Task<IReadOnlyList<Product>> GetRemovedAsync() =>
             _context.Products.Where(w => !w.Deleted.HasValue).ToList();
 
         public void Remove(Product obj)
