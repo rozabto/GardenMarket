@@ -33,7 +33,7 @@
 
                             <ul id="menu-content2" class="menu-content collapse show">
                                 <!-- Single Item -->
-                                @foreach (var subCategory in Model.Category.SubCategories)
+                                @foreach (var subCategory in Model.SubCategories)
                                 {
                                     <li data-toggle="collapse" data-target="#plants" class="collapsed">
                                         <a href="#">@subCategory.Name</a>
@@ -91,13 +91,13 @@
                     </div>
 
                     <!-- ##### Single Widget ##### -->
-                    @foreach (var characteristic in Model.CharacteristicCategories)
+                    @foreach (var characteristic in Model.Characteristics)
                     {
                         <div class="widget brands mb-50">
 
-                            <p class="widget-title2 mb-30">@characteristic.Characteristic.Name</p>
+                            <p class="widget-title2 mb-30">@characteristic.Name</p>
                             <div class="widget-desc">
-                                @foreach (var type in characteristic.Characteristic.Types)
+                                @foreach (var type in characteristic.Types)
                                 {
 
                                     <div class="custom-control custom-checkbox">
@@ -120,7 +120,7 @@
                             <div class="product-topbar d-flex align-items-center justify-content-between">
                                 <!-- Total Products -->
                                 <div class="total-products">
-                                    <p><span>186</span> намерени продукти</p>
+                                    <p><span>@Model.SubSubCategory.Products.Count</span> намерени продукти</p>
                                 </div>
                                 <!-- Sorting -->
                                 <div class="product-sorting d-flex">
@@ -142,119 +142,64 @@
                     <div class="row">
 
                         <!-- Single Product -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="single-product-wrapper">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img src="img/product-img/product1.jpg" alt="">
-                                    <!-- Hover Thumb -->
-                                    <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
+                        @foreach (var product in Model.SubSubCategory.Products)
+                        {
 
-                                    <!-- Product Badge -->
-                                    <div class="product-badge offer-badge">
-                                        <span>-30%</span>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img src="@product.ProductImages.FirstOrDefault()?.Path" alt="">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
+
+                                        <!-- Product Badge -->
+                                        @if (product.HasDiscount)
+                                        {
+                                            <div class="product-badge offer-badge">
+                                                <span>-30%</span>
+                                            </div>
+                                        }
+                                        <!-- Favourite -->
+                                        <div class="product-favourite">
+                                            <a href="#" class="favme fa fa-heart"></a>
+                                        </div>
                                     </div>
-                                    <!-- Favourite -->
-                                    <div class="product-favourite">
-                                        <a href="#" class="favme fa fa-heart"></a>
-                                    </div>
-                                </div>
 
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <a href="single-product-details.html">
-                                        <h6>Сукулентно растение в глинена саксия</h6>
-                                        <span>Целогодишно</span>
-                                    </a>
-                                    <p class="product-price"><span class="old-price">15.99лв</span>9.99лв</p>
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <a href="single-product-details.html">
+                                            <h6>@product.Name</h6>
+                                            <span>Целогодишно</span>
+                                        </a>
+                                        <p class="product-price">
+                                            @if (product.HasDiscount)
+                                            {
+                                                <span class="old-price">@product.Price лв</span><span>@(product.Price * (product.PrecentDiscount / 100)) лв</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@product.Price</span>
+                                            }
+                                        </p>
 
-                                    <!-- Hover Content -->
-                                    <div class="hover-content">
-                                        <!-- Add to Cart -->
-                                        <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Добави в количка</a>
+
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="#" class="btn essence-btn">Добави в количка</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Single Product -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="single-product-wrapper">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img src="img/product-img/product1.jpg" alt="">
-                                    <!-- Hover Thumb -->
-                                    <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
+                        }
 
-                                    <!-- Product Badge -->
-                                    <div class="product-badge offer-badge">
-                                        <span>-30%</span>
-                                    </div>
-                                    <!-- Favourite -->
-                                    <div class="product-favourite">
-                                        <a href="#" class="favme fa fa-heart"></a>
-                                    </div>
-                                </div>
-
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <a href="single-product-details.html">
-                                        <h6>Сукулентно растение в глинена саксия</h6>
-                                        <span>Целогодишно</span>
-                                    </a>
-                                    <p class="product-price"><span class="old-price">15.99лв</span>9.99лв</p>
-
-                                    <!-- Hover Content -->
-                                    <div class="hover-content">
-                                        <!-- Add to Cart -->
-                                        <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Добави в количка</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Single Product -->
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="single-product-wrapper">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img src="img/product-img/product1.jpg" alt="">
-                                    <!-- Hover Thumb -->
-                                    <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
-
-                                    <!-- Product Badge -->
-                                    <div class="product-badge offer-badge">
-                                        <span>-30%</span>
-                                    </div>
-                                    <!-- Favourite -->
-                                    <div class="product-favourite">
-                                        <a href="#" class="favme fa fa-heart"></a>
-                                    </div>
-                                </div>
-
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <a href="single-product-details.html">
-                                        <h6>Сукулентно растение в глинена саксия</h6>
-                                        <span>Целогодишно</span>
-                                    </a>
-                                    <p class="product-price"><span class="old-price">15.99лв</span>9.99лв</p>
-
-                                    <!-- Hover Content -->
-                                    <div class="hover-content">
-                                        <!-- Add to Cart -->
-                                        <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Добави в количка</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- Pagination -->
+
                 <nav aria-label="navigation">
                     <ul class="pagination mt-50 mb-70">
                         <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
