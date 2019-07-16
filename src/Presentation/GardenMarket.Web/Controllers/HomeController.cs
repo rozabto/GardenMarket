@@ -1,25 +1,29 @@
-﻿using GardenMarket.Web.Models;
+﻿using GardenMarket.Service.Interface;
+using GardenMarket.ViewModel;
+using GardenMarket.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
 
 namespace GardenMarket.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IProductService _product;
+
+        public HomeController(IProductService product)
+        {
+            _product = product ?? throw new ArgumentNullException(nameof(product));
+        }
+
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Product()
-        {
-            return View();
-        }
-
-        public IActionResult Shop()
-        {
-            return View();
-        }
+            var viewModel = new MainPageViewModel
+            {
+                Products = _product.GetAll()
+            };
+            return View(viewModel);
+        }       
 
         public IActionResult PrivacyPolicy()
         {
