@@ -20,25 +20,24 @@
                     <ul>
                         @foreach (var category in Model.Categories)
                         {
-                            <li>
-                                <a href="#">@category.Name</a>
-                                <div class="megamenu">
-                                    @foreach (var subcategory in category.SubCategories)
+                        <li>
+                            <a href="#">@category.Name</a>
+                            <div class="megamenu">
+                                @foreach (var subcategory in category.SubCategories)
                                     {
-                                        <ul class="single-mega cn-col-4">
-                                            <li class="title">@subcategory.Name</li>
-                                            @foreach (var subsubcategory in subcategory.SubSubCategories)
+                                <ul class="single-mega cn-col-4">
+                                    <li class="title">@subcategory.Name</li>
+                                    @foreach (var subsubcategory in subcategory.SubSubCategories)
                                             {
-                                                <li><a href="shop.html">@subsubcategory.Name</a></li>
+                                    <li><a href="shop.html">@subsubcategory.Name</a></li>
                                             }
-                                        </ul>
+                                </ul>
                                     }
-                                </div>
-                            </li>
+                            </div>
+                        </li>
                         }
                         <li><a href="contact.html">Контакти</a></li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -57,13 +56,12 @@
                 <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
             </div>
             <!-- User Login Info -->
-            <partial name="_LoginPartial" />
+            <partial name="_LoginPartial"/>
             <!-- Cart Area -->
             <div class="cart-area">
                 <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>@Model.Count</span></a>
             </div>
         </div>
-
     </div>
 </header>
 <!-- ##### Header Area End ##### -->
@@ -123,7 +121,6 @@
                 </a>
             </div>
         </div>
-
 
         <!-- Cart Summary -->
         <div class="cart-amount-summary">

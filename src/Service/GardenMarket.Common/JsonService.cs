@@ -10,6 +10,7 @@ namespace GardenMarket.Common
 
         public Task<T> DeserializeAsync<T>(string value) =>
             Task.FromResult(JsonConvert.DeserializeObject<T>(value));
+
         public string Serialize<T>(T obj) =>
             JsonConvert.SerializeObject(obj);
 

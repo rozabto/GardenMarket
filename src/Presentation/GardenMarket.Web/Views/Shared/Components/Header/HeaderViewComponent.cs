@@ -17,7 +17,7 @@ namespace GardenMarket.Web.Views.Shared.Components.Header
         private readonly ISubCategoryService _subCategory;
         private readonly ISubSubCategoryService _subSubCategory;
 
-        public HeaderViewComponent(IJsonService json, ICategoryService category, 
+        public HeaderViewComponent(IJsonService json, ICategoryService category,
             ISubCategoryService subCategory, ISubSubCategoryService subSubCategory)
         {
             _json = json ?? throw new ArgumentNullException(nameof(json));
@@ -35,7 +35,7 @@ namespace GardenMarket.Web.Views.Shared.Components.Header
                 (await _json.DeserializeAsync<IReadOnlyList<int>>(value));
             var viewModel = new HeaderViewModel
             {
-                Categories = (await _category.GetAllAsync()).Select(s => 
+                Categories = (await _category.GetAllAsync()).Select(s =>
                 {
                     s.SubCategories = subCategories
                     .Where(w => w.CategoryId == s.Id)

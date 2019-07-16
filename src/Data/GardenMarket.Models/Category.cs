@@ -8,7 +8,7 @@ namespace GardenMarket.Models
         {
             SubCategories = new HashSet<SubCategory>();
         }
-        
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int SubCategoriesId { get; set; }

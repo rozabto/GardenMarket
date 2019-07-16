@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using GardenMarket.Common;
+using GardenMarket.Data;
+using GardenMarket.Models;
+using GardenMarket.Service.External;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using GardenMarket.Data;
-using Autofac;
-using GardenMarket.Service.External;
-using Autofac.Extensions.DependencyInjection;
-using GardenMarket.Common;
-using GardenMarket.Models;
+using System;
+using System.Linq;
 
 namespace GardenMarket.Web
 {

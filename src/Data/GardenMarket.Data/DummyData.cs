@@ -1,5 +1,6 @@
 ﻿using GardenMarket.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -159,7 +160,7 @@ namespace GardenMarket.Data
                 await context.Products.AddRangeAsync(products);
                 await context.SaveChangesAsync();
             }
-            if (await context.ProductImages.FindAsync(10) == null)
+            if (await context.ProductImages.FirstOrDefaultAsync(f => f.Path == "img/product-img/product1.jpg") == null)
                 await context.ProductImages.AddRangeAsync(
                     new[]
                         {
@@ -214,7 +215,7 @@ namespace GardenMarket.Data
                                 Path = "img/product-img/product1.jpg"
                             }
                         });
-            if (await context.ProductTypes.FindAsync(10) == null)
+            if (await context.ProductTypes.FirstOrDefaultAsync(f => f.TypeId == 15) == null)
                 await context.ProductTypes.AddRangeAsync(
                     new[]
                     {
@@ -269,7 +270,7 @@ namespace GardenMarket.Data
                             TypeId = 12
                         }
                     });
-            if (await context.Comments.FindAsync(5) == null)
+            if (await context.Comments.FirstOrDefaultAsync(f => f.Message == "Какво е това?") == null)
             {
                 var comments = new[]
                 {
@@ -313,7 +314,7 @@ namespace GardenMarket.Data
                     UserId = userId
                 });
             }
-            if (await context.Favorites.FindAsync(1) == null)
+            if (await context.Favorites.FirstOrDefaultAsync(f => f.IsLicked == true) == null)
                 await context.Favorites.AddRangeAsync(
                     new[]
                     {
@@ -324,7 +325,7 @@ namespace GardenMarket.Data
                             UserId = userId
                         }
                     });
-            if (await context.Carts.FindAsync(1) == null)
+            if (await context.Carts.FirstOrDefaultAsync(f => f.UserId == userId) == null)
                 await context.Carts.AddRangeAsync(
                     new[]
                     {

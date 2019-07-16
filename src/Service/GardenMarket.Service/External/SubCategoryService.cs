@@ -1,6 +1,7 @@
 ﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,13 +34,13 @@ namespace GardenMarket.Service.External
             _context.SubCategories.ToList();
 
         public async Task<IReadOnlyList<SubCategory>> GetAllAsync() =>
-            _context.SubCategories.ToList();
+            await _context.SubCategories.ToListAsync();
 
         public IReadOnlyList<SubCategory> GetAllById(int id) =>
             _context.SubCategories.Where(w => w.CategoryId == id).ToList();
 
         public async Task<IReadOnlyList<SubCategory>> GetAllByIdAsync(int id) =>
-            _context.SubCategories.Where(w => w.CategoryId == id).ToList();
+            await _context.SubCategories.Where(w => w.CategoryId == id).ToListAsync();
 
         public SubCategory GetById(int id) =>
             _context.SubCategories.Find(id);
