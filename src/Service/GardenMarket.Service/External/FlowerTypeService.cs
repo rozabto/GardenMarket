@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
@@ -41,6 +40,12 @@ namespace GardenMarket.Service.External
             var flowerTypes = await _context.FlowerTypes.ToListAsync();
             return flowerTypes;
         }
+
+        public IReadOnlyList<FlowerType> GetAllById(int id) =>
+            _context.FlowerTypes.Where(w => w.CharacteristicId == id).ToList();
+
+        public async Task<IReadOnlyList<FlowerType>> GetAllByIdAsync(int id) =>
+            await _context.FlowerTypes.Where(w => w.CharacteristicId == id).ToListAsync();
 
         public FlowerType GetById(int id)
         {

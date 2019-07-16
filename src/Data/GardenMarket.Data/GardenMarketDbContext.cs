@@ -9,9 +9,7 @@ namespace GardenMarket.Data
         public GardenMarketDbContext(DbContextOptions<GardenMarketDbContext> options)
             : base(options) { }
 
-        //public DbSet<AppUser> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
-
         public DbSet<Category> Categories { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }
         public DbSet<CharacteristicCategory> CharacteristicCategories { get; set; }

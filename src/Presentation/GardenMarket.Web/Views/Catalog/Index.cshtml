@@ -9,7 +9,7 @@
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="page-title text-center">
-                    <h2>Растения</h2>
+                    <h2>@Model.SubSubCategory.Name</h2>
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@
 
                                     <!-- Product Description -->
                                     <div class="product-description">
-                                        <a href="@Url.Action("GetById" , "Catalog" , product.Id)">
+                                        <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
                                             <h6>@product.Name</h6>
                                             <span>Целогодишно</span>
                                         </a>

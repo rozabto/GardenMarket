@@ -2,6 +2,7 @@
 using GardenMarket.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GardenMarket.Web.Controllers
@@ -13,35 +14,54 @@ namespace GardenMarket.Web.Controllers
         private readonly ICharacteristicService _characteristic;
         private readonly IProductService _product;
         private readonly IFlowerTypeService _flowerType;
+        private readonly IProductImageService _productImage;
 
-        public CatalogController(ISubCategoryService subCategory, ISubSubCategoryService subSubCategory, ICharacteristicService characteristic, IProductService product, IFlowerTypeService flowerType)
+        public CatalogController(ISubCategoryService subCategory, ISubSubCategoryService subSubCategory, ICharacteristicService characteristic, IProductService product, IFlowerTypeService flowerType, IProductImageService productImage)
         {
             _subCategory = subCategory ?? throw new ArgumentNullException(nameof(subCategory));
             _subSubCategory = subSubCategory ?? throw new ArgumentNullException(nameof(subSubCategory));
             _characteristic = characteristic ?? throw new ArgumentNullException(nameof(characteristic));
             _product = product ?? throw new ArgumentNullException(nameof(product));
             _flowerType = flowerType ?? throw new ArgumentNullException(nameof(flowerType));
+            _productImage = productImage ?? throw new ArgumentNullException(nameof(productImage));
         }
 
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
+            var subSubCategory = await _subSubCategory.GetByIdAsync(id);
+            subSubCategory.Products = (await _product.GetAllByIdAsync(subSubCategory.Id))
+                .Select(s =>
+                {
+                    s.ProductImages = _productImage.GetAllById(s.Id).ToList();
+                    return s;
+                }).ToList();
             var viewModel = new CatalogViewModel
             {
-                Characteristics = _characteristic.GetAll(),
-                SubCategories = _subCategory.GetAll(),
-                SubSubCategory = _subSubCategory.GetById(id)
+                Characteristics = (await _characteristic.GetAllAsync()).Select(s => 
+                {
+                    s.Types = _flowerType.GetAllById(s.Id).ToList();
+                    return s;
+                }).ToList(),
+                SubCategories = (await _subCategory.GetAllByIdAsync(id)).Select(s => 
+                {
+                    s.SubSubCategories = _subSubCategory.GetAllById(s.Id).ToList();
+                    return s;
+                }).ToList(),
+                SubSubCategory = subSubCategory
             };
             return View(viewModel);
         }       
 
         public async Task<IActionResult> GetById(int id)
         {
+            var product = await _product.GetByIdAsync(id);
+            product.ProductImages = (await _productImage.GetAllByIdAsync(product.Id)).ToList();
             var viewModel = new ProductViewModel
             {
-                Product = await _product.GetByIdAsync(id),
-                Colors = await _flowerType.GetAllAsync()
+                Product = product,
+                Colors = await _flowerType.GetAllByIdAsync(1)
             };
-            return View();
+            return View(viewModel);
         }
     }
 }

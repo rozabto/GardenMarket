@@ -21,7 +21,7 @@ namespace GardenMarket.Models
         public bool HasDiscount { get; set; }
         public int? PrecentDiscount { get; set; }
         public int SubSubCategoryId { get; set; }
-        public virtual SubSubCategory SubCategory { get; set; }
+        public virtual SubSubCategory SubSubCategory { get; set; }
         public string UserId { get; set; }
         public virtual AppUser User { get; set; }
         public DateTime CreatedOn { get; set; }

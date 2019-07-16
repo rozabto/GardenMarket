@@ -36,6 +36,12 @@ namespace GardenMarket.Service.External
         public async Task<IReadOnlyList<Product>> GetAllAsync() =>
             await _context.Products.Where(w => !w.Deleted.HasValue).ToListAsync();
 
+        public IReadOnlyList<Product> GetAllById(int id) =>
+            _context.Products.Where(w => w.SubSubCategoryId == id).ToList();
+
+        public async Task<IReadOnlyList<Product>> GetAllByIdAsync(int id) =>
+            await _context.Products.Where(w => w.SubSubCategoryId == id).ToListAsync();
+
         public IReadOnlyList<Product> GetAllIncludingRemoved() =>
             _context.Products.ToList();
 
