@@ -14,13 +14,16 @@ namespace GardenMarket.Web.Controllers
         private readonly IProductService _product;
         private readonly IFlowerTypeService _flowerType;
 
+        public CatalogController(IProductService product)
+        {
+            _product = product ?? throw new ArgumentNullException(nameof(product));
+        }
 
         public IActionResult Index()
         {
             return View();
-        }
+        }       
 
-        [Route("p/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var viewModel = new ProductViewModel
