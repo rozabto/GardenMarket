@@ -1,9 +1,10 @@
 ﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
@@ -33,13 +34,13 @@ namespace GardenMarket.Service.External
             _context.Products.Where(w => !w.Deleted.HasValue).ToList();
 
         public async Task<IReadOnlyList<Product>> GetAllAsync() =>
-            _context.Products.Where(w => !w.Deleted.HasValue).ToList();
+            await _context.Products.Where(w => !w.Deleted.HasValue).ToListAsync();
 
         public IReadOnlyList<Product> GetAllIncludingRemoved() =>
             _context.Products.ToList();
 
         public async Task<IReadOnlyList<Product>> GetAllIncludingRemovedAsync() =>
-            _context.Products.ToList();
+            await _context.Products.ToListAsync();
 
         public Product GetById(int id) =>
             _context.Products.Find(id);
@@ -51,7 +52,7 @@ namespace GardenMarket.Service.External
             _context.Products.Where(w => w.Deleted.HasValue).ToList();
 
         public async Task<IReadOnlyList<Product>> GetRemovedAsync() =>
-            _context.Products.Where(w => !w.Deleted.HasValue).ToList();
+            await _context.Products.Where(w => !w.Deleted.HasValue).ToListAsync();
 
         public void Remove(Product obj)
         {

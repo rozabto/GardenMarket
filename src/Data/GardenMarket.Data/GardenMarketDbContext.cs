@@ -1,18 +1,17 @@
 ﻿using GardenMarket.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace GardenMarket.Data
 {
-    public class GardenMarketDbContext : IdentityDbContext
+    public class GardenMarketDbContext : IdentityDbContext<AppUser>
     {
         public GardenMarketDbContext(DbContextOptions<GardenMarketDbContext> options)
             : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        //public DbSet<AppUser> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }
         public DbSet<CharacteristicCategory> CharacteristicCategories { get; set; }
@@ -24,6 +23,7 @@ namespace GardenMarket.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<SubSubCategory> SubSubCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,7 +76,7 @@ namespace GardenMarket.Data
                         CategoryId = 1,
                         Name = "Разсад"
                     },
-                    #endregion
+                    #endregion Растения
                     #region Градина
                     new SubCategory
                     {
@@ -102,7 +102,7 @@ namespace GardenMarket.Data
                         CategoryId = 2,
                         Name = "Градински декорации"
                     },
-                    #endregion
+                    #endregion Градина
                     #region Свободно време
                     new SubCategory
                     {
@@ -122,7 +122,7 @@ namespace GardenMarket.Data
                         CategoryId = 3,
                         Name = "Осветление"
                     }
-                    #endregion
+                    #endregion Свободно време
                 });
             modelBuilder.Entity<SubSubCategory>().HasData(
                 new[]
@@ -208,7 +208,7 @@ namespace GardenMarket.Data
                         SubCategoryId = 4,
                         Name = "Луковици"
                     },
-                    #endregion
+                    #endregion Растения
                     #region Градина
                     new SubSubCategory
                     {
@@ -282,7 +282,7 @@ namespace GardenMarket.Data
                         SubCategoryId = 8,
                         Name = "Декоративни камъни"
                     },
-                    #endregion
+                    #endregion Градина
                     #region Свободно време
                     new SubSubCategory
                     {
@@ -344,8 +344,7 @@ namespace GardenMarket.Data
                         SubCategoryId = 11,
                         Name = "Сфери"
                     }
-                    #endregion
-
+                    #endregion Свободно време
                 });
             modelBuilder.Entity<Characteristic>().HasData(
                 new[]
@@ -409,7 +408,7 @@ namespace GardenMarket.Data
                         CharacteristicId = 2,
                         SubCategoryId = 4
                     },
-                    #endregion
+                    #endregion Растения
                     #region Градина
                     new CharacteristicCategory
                     {
@@ -441,7 +440,7 @@ namespace GardenMarket.Data
                         CharacteristicId = 3,
                         SubCategoryId = 8
                     },
-                    #endregion
+                    #endregion Градина
                     #region Свободно време
                     new CharacteristicCategory
                     {
@@ -461,7 +460,7 @@ namespace GardenMarket.Data
                         CharacteristicId = 3,
                         SubCategoryId = 11
                     }
-                    #endregion
+                    #endregion Свободно време
                 });
             modelBuilder.Entity<FlowerType>().HasData(
                 new[]
@@ -527,7 +526,7 @@ namespace GardenMarket.Data
                         CharacteristicId = 1,
                         Name = "Лилав"
                     },
-                    #endregion
+                    #endregion Цвят
                     #region Сезони
                     new FlowerType
                     {
@@ -559,7 +558,7 @@ namespace GardenMarket.Data
                         CharacteristicId = 2,
                         Name = "Целогодишно"
                     },
-                    #endregion
+                    #endregion Сезони
                     #region Произведено в
                     new FlowerType
                     {
@@ -585,7 +584,7 @@ namespace GardenMarket.Data
                         CharacteristicId = 3,
                         Name = "Китай"
                     }
-                    #endregion
+                    #endregion Произведено в
                 });
         }
     }

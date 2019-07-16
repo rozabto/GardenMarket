@@ -1,0 +1,51 @@
+﻿@model GardenMarket.Models.Product
+@{
+    ViewData["Title"] = "Product";
+}
+
+<!-- ##### Single Product Details Area Start ##### -->
+<section class="single_product_details_area d-flex align-items-center">
+
+    <!-- Single Product Thumb -->
+    <div class="single_product_thumb clearfix">
+        <div class="product_thumbnail_slides owl-carousel">
+            <img src="img/product-img/product1.jpg" alt="">
+            <img src="img/product-img/product1-1.jpg" alt="">
+        </div>
+    </div>
+
+    <!-- Single Product Description -->
+    <div class="single_product_desc clearfix">
+
+        <a href="cart.html">
+            <h2>Сукулентно растение в глинена саксия</h2>
+        </a>
+        <span>Целогодишно растение</span>
+        <p class="product-price"><span class="old-price">15.99 лв.</span> 9.99 лв.</p>
+        <p class="product-desc"> Сукулентите обичат светлина, особено през по-студените месеци. Лятото не е хубаво да се държат на пряка слънчева светлина, по-добре да се поставят на сенчесто място. Поливането става изключително рядко само при пълно пресъхване на почвата, в противен случай може да загние.</p>
+
+        <!-- Form -->
+        <form class="cart-form clearfix" method="post">
+            <!-- Select Box -->
+            <div class="select-box d-flex mt-50 mb-30">
+
+                <select name="select" id="productColor">
+                    <option value="value">Цвят : Розов</option>
+                    <option value="value">Цвят : Бял</option>
+                    <option value="value">Цвят : Червен</option>
+                    <option value="value">Цвят : Лилав</option>
+                </select>
+            </div>
+            <!-- Cart & Favourite Box -->
+            <div class="cart-fav-box d-flex align-items-center">
+                <!-- Cart -->
+                <button type="submit" name="addtocart" value="5" class="btn essence-btn">Добави в количката</button>
+                <!-- Favourite -->
+                <div class="product-favourite ml-4">
+                    <a href="#" class="favme fa fa-heart"></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- ##### Single Product Details Area End ##### -->

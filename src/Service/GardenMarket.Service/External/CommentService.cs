@@ -1,10 +1,11 @@
 ﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
 {
@@ -33,19 +34,19 @@ namespace GardenMarket.Service.External
             _context.Comments.Where(w => !w.Deleted.HasValue).ToList();
 
         public async Task<IReadOnlyList<Comment>> GetAllAsync() =>
-            _context.Comments.Where(w => !w.Deleted.HasValue).ToList();
+            await _context.Comments.Where(w => !w.Deleted.HasValue).ToListAsync();
 
         public IReadOnlyList<Comment> GetAllByUserId(string id) =>
             _context.Comments.Where(w => w.UserId == id).ToList();
 
         public async Task<IReadOnlyList<Comment>> GetAllByUserIdAsync(string id) =>
-            _context.Comments.Where(w => w.UserId == id).ToList();
+            await _context.Comments.Where(w => w.UserId == id).ToListAsync();
 
         public IReadOnlyList<Comment> GetAllIncludingRemoved() =>
             _context.Comments.ToList();
 
         public async Task<IReadOnlyList<Comment>> GetAllIncludingRemovedAsync() =>
-            _context.Comments.ToList();
+            await _context.Comments.ToListAsync();
 
         public Comment GetById(int id) =>
             _context.Comments.Find(id);
@@ -57,7 +58,7 @@ namespace GardenMarket.Service.External
             _context.Comments.Where(w => w.Deleted.HasValue).ToList();
 
         public async Task<IReadOnlyList<Comment>> GetRemovedAsync() =>
-            _context.Comments.Where(w => w.Deleted.HasValue).ToList();
+            await _context.Comments.Where(w => w.Deleted.HasValue).ToListAsync();
 
         public void Remove(Comment obj)
         {

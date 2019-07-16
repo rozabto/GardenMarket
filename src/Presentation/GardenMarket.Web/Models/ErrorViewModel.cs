@@ -1,5 +1,3 @@
-using System;
-
 namespace GardenMarket.Web.Models
 {
     public class ErrorViewModel

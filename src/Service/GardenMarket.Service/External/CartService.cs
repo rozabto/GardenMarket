@@ -1,10 +1,11 @@
 ﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
 {
@@ -33,13 +34,13 @@ namespace GardenMarket.Service.External
             _context.Carts.ToList();
 
         public async Task<IReadOnlyList<Cart>> GetAllAsync() =>
-            _context.Carts.ToList();
+            await _context.Carts.ToListAsync();
 
         public IReadOnlyList<Cart> GetAllByUserId(string id) =>
             _context.Carts.Where(w => w.UserId == id).ToList();
 
         public async Task<IReadOnlyList<Cart>> GetAllByUserIdAsync(string id) =>
-            _context.Carts.Where(w => w.UserId == id).ToList();
+            await _context.Carts.Where(w => w.UserId == id).ToListAsync();
 
         public Cart GetById(int id) =>
             _context.Carts.Find(id);

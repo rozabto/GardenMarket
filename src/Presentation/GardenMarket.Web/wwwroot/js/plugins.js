@@ -55,7 +55,6 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
 
     // Main function
     $.fn.scrollUp = function (options) {
-
         // Ensure that only one scrollUp exists
         if (!$.data(document.body, 'scrollUp')) {
             $.data(document.body, 'scrollUp', true);
@@ -65,7 +64,6 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
 
     // Init
     $.fn.scrollUp.init = function (options) {
-
         // Define vars
         var o = $.fn.scrollUp.settings = $.extend({}, $.fn.scrollUp.defaults, options),
             triggerVisible = false,
@@ -210,7 +208,6 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
     };
 
     $.scrollUp = $.fn.scrollUp;
-
 })(jQuery, window, document);
 
 // 14.0 imagesLoaded PACKAGED

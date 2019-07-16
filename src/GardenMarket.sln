@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Common", "Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Models", "Data\GardenMarket.Models\GardenMarket.Models.csproj", "{158B914D-42B3-4AE1-AF8A-9B1ABD2A5736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenMarket.Web", "Presentation\GardenMarket.Web\GardenMarket.Web.csproj", "{C8F42C6F-70F6-487D-8C99-C8E5AD8DFCBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenMarket.Web", "Presentation\GardenMarket.Web\GardenMarket.Web.csproj", "{C8F42C6F-70F6-487D-8C99-C8E5AD8DFCBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

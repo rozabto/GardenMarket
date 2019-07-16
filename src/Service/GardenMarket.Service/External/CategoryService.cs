@@ -1,6 +1,7 @@
 ﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace GardenMarket.Service.External
             _context.Categories.ToList();
 
         public async Task<IReadOnlyList<Category>> GetAllAsync() =>
-            _context.Categories.ToList();
+            await _context.Categories.ToListAsync();
 
         public Category GetById(int id) =>
             _context.Categories.Find(id);

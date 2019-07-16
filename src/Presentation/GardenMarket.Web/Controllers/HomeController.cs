@@ -1,44 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GardenMarket.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using GardenMarket.Web.Models;
-using GardenMarket.Service.Interface;
+using System.Diagnostics;
 
 namespace GardenMarket.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProductService _product;
-
-        public HomeController(IProductService product)
-        {
-            _product = product ?? throw new ArgumentNullException(nameof(product));
-        }
-
         public IActionResult Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> Product()
+        public IActionResult Product()
         {
             return View();
         }
-        public async Task<IActionResult> Shop()
+
+        public IActionResult Shop()
         {
             return View();
         }
-        public async Task<IActionResult> PrivacyPolicy()
+
+        public IActionResult PrivacyPolicy()
         {
             return View();
         }
-        public async Task<IActionResult> AboutUs()
+
+        public IActionResult AboutUs()
         {
             return View();
         }
+
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
+        public IActionResult Delivery()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

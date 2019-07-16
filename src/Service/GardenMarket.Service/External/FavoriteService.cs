@@ -1,10 +1,11 @@
 ﻿using GardenMarket.Data;
 using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
 {
@@ -33,13 +34,13 @@ namespace GardenMarket.Service.External
             _context.Favorites.ToList();
 
         public async Task<IReadOnlyList<Favorite>> GetAllAsync() =>
-            _context.Favorites.ToList();
+            await _context.Favorites.ToListAsync();
 
         public IReadOnlyList<Favorite> GetAllByUserId(string id) =>
             _context.Favorites.Where(w => w.UserId == id).ToList();
 
         public async Task<IReadOnlyList<Favorite>> GetAllByUserIdAsync(string id) =>
-            _context.Favorites.Where(w => w.UserId == id).ToList();
+            await _context.Favorites.Where(w => w.UserId == id).ToListAsync();
 
         public Favorite GetById(int id) =>
             _context.Favorites.Find(id);
