@@ -10,18 +10,17 @@ namespace GardenMarket.Web.Controllers
     {
         private readonly IProductService _product;
         private readonly IFlowerTypeService _flowerType;
-
-        public CatalogController(IProductService product)
+        public CatalogController(IProductService product, IFlowerTypeService flowerType)
         {
             _product = product ?? throw new ArgumentNullException(nameof(product));
+            _flowerType = flowerType ?? throw new ArgumentNullException(nameof(flowerType));
         }
 
         public IActionResult Index()
         {
             return View();
-        }
+        }       
 
-        [Route("p/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var viewModel = new ProductViewModel
