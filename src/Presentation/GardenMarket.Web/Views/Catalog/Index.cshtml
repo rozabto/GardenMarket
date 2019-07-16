@@ -35,18 +35,16 @@
                                 <!-- Single Item -->
                                 @foreach (var subCategory in Model.SubCategories)
                                 {
-                                    <li data-toggle="collapse" data-target="#plants" class="collapsed">
-                                        <a href="#">@subCategory.Name</a>
-                                        <ul class="sub-menu collapse" id="plants">
-                                            @foreach (var subsubcategory in subCategory.SubSubCategories)
+                                <li data-toggle="collapse" data-target="#plants" class="collapsed">
+                                    <a href="#">@subCategory.Name</a>
+                                    <ul class="sub-menu collapse" id="plants">
+                                        @foreach (var subsubcategory in subCategory.SubSubCategories)
                                             {
-                                                <li><a href="#">@subsubcategory.Name</a></li>
+                                        <li><a href="#">@subsubcategory.Name</a></li>
                                             }
-
-                                        </ul>
-                                    </li>
+                                    </ul>
+                                </li>
                                 }
-
                             </ul>
                         </div>
                     </div>
@@ -93,22 +91,20 @@
                     <!-- ##### Single Widget ##### -->
                     @foreach (var characteristic in Model.Characteristics)
                     {
-                        <div class="widget brands mb-50">
+                    <div class="widget brands mb-50">
 
-                            <p class="widget-title2 mb-30">@characteristic.Name</p>
-                            <div class="widget-desc">
-                                @foreach (var type in characteristic.Types)
+                        <p class="widget-title2 mb-30">@characteristic.Name</p>
+                        <div class="widget-desc">
+                            @foreach (var type in characteristic.Types)
                                 {
 
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                        <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
-                                    </div>
-                                }
-
-
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
                             </div>
+                                }
                         </div>
+                    </div>
                     }
                 </div>
             </div>
@@ -145,57 +141,55 @@
                         @foreach (var product in Model.SubSubCategory.Products)
                         {
 
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="single-product-wrapper">
-                                    <!-- Product Image -->
-                                    <div class="product-img">
-                                        <img src="@product.ProductImages.FirstOrDefault()?.Path" alt="">
-                                        <!-- Hover Thumb -->
-                                        <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-product-wrapper">
+                                <!-- Product Image -->
+                                <div class="product-img">
+                                    <img src="@product.ProductImages.FirstOrDefault()?.Path" alt="">
+                                    <!-- Hover Thumb -->
+                                    <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
 
-                                        <!-- Product Badge -->
-                                        @if (product.HasDiscount)
+                                    <!-- Product Badge -->
+                                    @if (product.HasDiscount)
                                         {
-                                            <div class="product-badge offer-badge">
-                                                <span>-30%</span>
-                                            </div>
-                                        }
-                                        <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart"></a>
-                                        </div>
+                                    <div class="product-badge offer-badge">
+                                        <span>-30%</span>
                                     </div>
+                                        }
+                                    <!-- Favourite -->
+                                    <div class="product-favourite">
+                                        <a href="#" class="favme fa fa-heart"></a>
+                                    </div>
+                                </div>
 
-                                    <!-- Product Description -->
-                                    <div class="product-description">
-                                        <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
-                                            <h6>@product.Name</h6>
-                                            <span>Целогодишно</span>
-                                        </a>
-                                        <p class="product-price">
-                                            @if (product.HasDiscount)
+                                <!-- Product Description -->
+                                <div class="product-description">
+                                    <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
+                                        <h6>@product.Name</h6>
+                                        <span>Целогодишно</span>
+                                    </a>
+                                    <p class="product-price">
+                                        @if (product.HasDiscount)
                                             {
-                                                <span class="old-price">@product.Price лв</span><span>@(product.Price * (product.PrecentDiscount / 100)) лв</span>
+                                        <span class="old-price">@product.Price лв</span><span>@(product.Price * (product.PrecentDiscount / 100)) лв</span>
                                             }
                                             else
                                             {
-                                                <span>@product.Price</span>
+                                        <span>@product.Price</span>
                                             }
-                                        </p>
+                                    </p>
 
-
-                                        <!-- Hover Content -->
-                                        <div class="hover-content">
-                                            <!-- Add to Cart -->
-                                            <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Добави в количка</a>
-                                            </div>
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <!-- Add to Cart -->
+                                        <div class="add-to-cart-btn">
+                                            <a href="#" class="btn essence-btn">Добави в количка</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         }
-
                     </div>
                 </div>
                 <!-- Pagination -->

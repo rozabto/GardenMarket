@@ -11,7 +11,7 @@
         <div class="product_thumbnail_slides owl-carousel">
             @foreach (var item in Model.Product.ProductImages)
             {
-                <img src="@item.Path" alt="">
+            <img src="@item.Path" alt="">
             }
         </div>
     </div>
@@ -34,7 +34,7 @@
                 <select name="select" id="productColor">
                     @foreach (var item in Model.Colors)
                     {
-                        <option value="value">Цвят : @item.Name </option>
+                    <option value="value">Цвят : @item.Name </option>
                     }
                 </select>
             </div>

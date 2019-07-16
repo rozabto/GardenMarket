@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GardenMarket.Service.External
 {
-    class FlowerTypeService : IFlowerTypeService
+    public class FlowerTypeService : IFlowerTypeService
     {
         private readonly GardenMarketDbContext _context;
 
