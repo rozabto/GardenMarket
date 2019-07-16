@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GardenMarket.Service.Interface
 {
-    interface ICharacteristicService : IServiceModel<Characteristic>
+    public interface ICharacteristicService : IServiceModel<Characteristic>
     {
     }
 }

@@ -10,15 +10,15 @@ namespace GardenMarket.Web.Controllers
     {
         private readonly ISubCategoryService _subCategory;
         private readonly ISubSubCategoryService _subSubCategory;
-        private readonly ICharacteristicService
+        private readonly ICharacteristicService _characteristic;
         private readonly IProductService _product;
         private readonly IFlowerTypeService _flowerType;
 
-        public CatalogController(ISubCategoryService subCategory, ISubSubCategoryService subSubCategory, ICharacteristicCategoryService characteristicCategory, IProductService product, IFlowerTypeService flowerType)
+        public CatalogController(ISubCategoryService subCategory, ISubSubCategoryService subSubCategory, ICharacteristicService characteristic, IProductService product, IFlowerTypeService flowerType)
         {
             _subCategory = subCategory ?? throw new ArgumentNullException(nameof(subCategory));
             _subSubCategory = subSubCategory ?? throw new ArgumentNullException(nameof(subSubCategory));
-            _characteristicCategory = characteristicCategory ?? throw new ArgumentNullException(nameof(characteristicCategory));
+            _characteristic = characteristic ?? throw new ArgumentNullException(nameof(characteristic));
             _product = product ?? throw new ArgumentNullException(nameof(product));
             _flowerType = flowerType ?? throw new ArgumentNullException(nameof(flowerType));
         }
@@ -27,8 +27,10 @@ namespace GardenMarket.Web.Controllers
         {
             var viewModel = new CatalogViewModel
             {
-                Characteristics = _
-            }
+                Characteristics = _characteristic.GetAll(),
+                SubCategories = _subCategory.GetAll(),
+                SubSubCategory = 
+            };
             return View();
         }       
 
