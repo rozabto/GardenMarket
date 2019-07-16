@@ -23,15 +23,15 @@ namespace GardenMarket.Web.Controllers
             _flowerType = flowerType ?? throw new ArgumentNullException(nameof(flowerType));
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             var viewModel = new CatalogViewModel
             {
                 Characteristics = _characteristic.GetAll(),
                 SubCategories = _subCategory.GetAll(),
-                SubSubCategory = 
+                SubSubCategory = _subSubCategory.GetById(id)
             };
-            return View();
+            return View(viewModel);
         }       
 
         public async Task<IActionResult> GetById(int id)
