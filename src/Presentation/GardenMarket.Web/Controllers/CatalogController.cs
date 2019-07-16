@@ -9,6 +9,7 @@ namespace GardenMarket.Web.Controllers
     public class CatalogController : Controller
     {
         private readonly IProductService _product;
+        private readonly IFlowerTypeService _flowerType;
 
         public CatalogController(IProductService product)
         {
@@ -26,7 +27,7 @@ namespace GardenMarket.Web.Controllers
             var viewModel = new ProductViewModel
             {
                 Product = await _product.GetByIdAsync(id),
-                Colors = 
+                Colors = await _flowerType.GetAllAsync()
             };
             return View();
         }
