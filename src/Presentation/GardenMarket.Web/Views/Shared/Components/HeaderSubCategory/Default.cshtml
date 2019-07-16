@@ -1,9 +1,0 @@
-﻿@model GardenMarket.ViewModel.HeaderSubCategoryViewModel
-
-@foreach (var subcategory in Model.SubCategories)
-{
-    <ul class="single-mega cn-col-4">
-        <li class="title">@subcategory.Name</li>
-        @await Component.InvokeAsync("HeaderSubSubCategory", subcategory.Id)
-    </ul>
-}
