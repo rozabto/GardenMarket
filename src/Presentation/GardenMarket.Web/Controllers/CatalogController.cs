@@ -1,4 +1,5 @@
-﻿using GardenMarket.Service.Interface;
+﻿using GardenMarket.Common;
+using GardenMarket.Service.Interface;
 using GardenMarket.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,8 +16,9 @@ namespace GardenMarket.Web.Controllers
         private readonly IProductService _product;
         private readonly IFlowerTypeService _flowerType;
         private readonly IProductImageService _productImage;
+        private readonly ISafeChargeService _safeCharge;
 
-        public CatalogController(ISubCategoryService subCategory, ISubSubCategoryService subSubCategory, ICharacteristicService characteristic, IProductService product, IFlowerTypeService flowerType, IProductImageService productImage)
+        public CatalogController(ISubCategoryService subCategory, ISubSubCategoryService subSubCategory, ICharacteristicService characteristic, IProductService product, IFlowerTypeService flowerType, IProductImageService productImage, ISafeChargeService safeCharge)
         {
             _subCategory = subCategory ?? throw new ArgumentNullException(nameof(subCategory));
             _subSubCategory = subSubCategory ?? throw new ArgumentNullException(nameof(subSubCategory));
@@ -24,6 +26,7 @@ namespace GardenMarket.Web.Controllers
             _product = product ?? throw new ArgumentNullException(nameof(product));
             _flowerType = flowerType ?? throw new ArgumentNullException(nameof(flowerType));
             _productImage = productImage ?? throw new ArgumentNullException(nameof(productImage));
+            _safeCharge = safeCharge ?? throw new ArgumentNullException(nameof(safeCharge));
         }
 
         public async Task<IActionResult> Index(int id)
@@ -60,6 +63,15 @@ namespace GardenMarket.Web.Controllers
             {
                 Product = product,
                 Colors = await _flowerType.GetAllByIdAsync(1)
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult Checkout()
+        {
+            var viewModel = new CheckoutViewModel
+            {
+                Url = _safeCharge.CreateRequest()
             };
             return View(viewModel);
         }
