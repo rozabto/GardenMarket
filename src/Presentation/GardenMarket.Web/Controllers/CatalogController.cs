@@ -1,4 +1,5 @@
 ﻿using GardenMarket.Service.Interface;
+using GardenMarket.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -22,7 +23,12 @@ namespace GardenMarket.Web.Controllers
         [Route("p/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return View(await _product.GetByIdAsync(id));
+            var viewModel = new ProductViewModel
+            {
+                Product = await _product.GetByIdAsync(id),
+                Colors = 
+            };
+            return View();
         }
     }
 }
