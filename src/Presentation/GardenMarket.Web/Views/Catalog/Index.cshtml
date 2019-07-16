@@ -1,4 +1,5 @@
-﻿@{
+﻿@model GardenMarket.ViewModel.CatalogViewModel
+@{
     ViewData["Title"] = "Shop";
 }
 
@@ -29,36 +30,23 @@
 
                         <!--  Catagories  -->
                         <div class="catagories-menu">
+
                             <ul id="menu-content2" class="menu-content collapse show">
                                 <!-- Single Item -->
-                                <li data-toggle="collapse" data-target="#plants">
-                                    <a href="#">Стайни растения</a>
-                                    <ul class="sub-menu collapse show" id="plants">
-                                        <li><a href="#">Цъфтящи</a></li>
-                                        <li><a href="#">Нецъфтящи</a></li>
-                                        <li><a href="#">Насекомоядни</a></li>
-                                        <li><a href="#">Сукуленти</a></li>
-                                    </ul>
-                                </li>
-                                <!-- Single Item -->
-                                <li data-toggle="collapse" data-target="#plants1" class="collapsed">
-                                    <a href="#">Външни растения</a>
-                                    <ul class="sub-menu collapse" id="plants1">
-                                        <li><a href="#">Вечнозелени храсти и дръвчета</a></li>
-                                        <li><a href="#">Цъфтящи храсти и дръвчета</a></li>
-                                        <li><a href="#">Водни</a></li>
-                                    </ul>
-                                </li>
-                                <!-- Single Item -->
-                                <li data-toggle="collapse" data-target="#plants2" class="collapsed">
-                                    <a href="#">Сенколюбиви растения</a>
-                                    <ul class="sub-menu collapse" id="plants2">
-                                        <li><a href="#">Бегония</a></li>
-                                        <li><a href="#">Здравец</a></li>
-                                        <li><a href="#">Циганче</a></li>
-                                        <li><a href="#">Функия</a></li>
-                                    </ul>
-                                </li>
+                                @foreach (var subCategory in Model.Category.SubCategories)
+                                {
+                                    <li data-toggle="collapse" data-target="#plants" class="collapsed">
+                                        <a href="#">@subCategory.Name</a>
+                                        <ul class="sub-menu collapse" id="plants">
+                                            @foreach (var subsubcategory in subCategory.SubSubCategories)
+                                            {
+                                                <li><a href="#">@subsubcategory.Name</a></li>
+                                            }
+
+                                        </ul>
+                                    </li>
+                                }
+
                             </ul>
                         </div>
                     </div>
@@ -77,7 +65,7 @@
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                 </div>
-                                <div class="range-price">00.00лв - 100.00лв</div>
+                                <div class="range-price">@Model.SubSubCategory.LowestPrice лв - @Model.SubSubCategory.HighestPrice лв</div>
                             </div>
                         </div>
                     </div>
@@ -103,58 +91,25 @@
                     </div>
 
                     <!-- ##### Single Widget ##### -->
-                    <div class="widget brands mb-50">
-                        <!-- Widget Title 2 -->
-                        <p class="widget-title2 mb-30">Сезони</p>
-                        <div class="widget-desc">
+                    @foreach (var characteristic in Model.CharacteristicCategories)
+                    {
+                        <div class="widget brands mb-50">
 
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Пролет</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Лято</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Есен</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Зима</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Целогодишно</label>
+                            <p class="widget-title2 mb-30">@characteristic.Characteristic.Name</p>
+                            <div class="widget-desc">
+                                @foreach (var type in characteristic.Characteristic.Types)
+                                {
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                                        <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
+                                    </div>
+                                }
+
+
                             </div>
                         </div>
-                    </div>
-
-                    <!-- ##### Single Widget ##### -->
-                    <div class="widget brands mb-50">
-                        <!-- Widget Title 2 -->
-                        <p class="widget-title2 mb-30">Произведено в</p>
-                        <div class="widget-desc">
-
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">България</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">САЩ</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Блала</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">Китай</label>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
 
