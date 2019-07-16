@@ -7,9 +7,9 @@ namespace GardenMarket.ViewModel
 {
     public class CatalogViewModel
     {
-        public Category Category { get; set; }
+        public IReadOnlyList<SubCategory> SubCategories { get; set; }
 
-        public IReadOnlyList<CharacteristicCategory> CharacteristicCategories { get; set; }
+        public IReadOnlyList<Characteristic> Characteristics { get; set; }
 
         public SubSubCategory SubSubCategory { get; set; }
 

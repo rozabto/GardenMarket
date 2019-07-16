@@ -1,7 +1,10 @@
-﻿using GardenMarket.Models;
+﻿using GardenMarket.Data;
+using GardenMarket.Models;
 using GardenMarket.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,45 +12,56 @@ namespace GardenMarket.Service.External
 {
     public class CharacteristicCategoryService : ICharacteristicCategoryService
     {
+        private readonly GardenMarketDbContext _context;
+
+        public CharacteristicCategoryService(GardenMarketDbContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
 
         public void Add(CharacteristicCategory obj)
         {
-            throw new NotImplementedException();
+            _context.CharacteristicCategories.Add(obj);
+            _context.SaveChanges();
         }
 
-        public Task AddAsync(CharacteristicCategory obj)
+        public async Task AddAsync(CharacteristicCategory obj)
         {
-            throw new NotImplementedException();
+            await _context.CharacteristicCategories.AddAsync(obj);
+            await _context.SaveChangesAsync();
         }
 
         public IReadOnlyList<CharacteristicCategory> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.CharacteristicCategories.ToList();
         }
 
-        public Task<IReadOnlyList<CharacteristicCategory>> GetAllAsync()
+        public async Task<IReadOnlyList<CharacteristicCategory>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var characteristicCategrories = await _context.CharacteristicCategories.ToListAsync();
+            return characteristicCategrories;
         }
 
         public CharacteristicCategory GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.CharacteristicCategories.Find(id);
         }
 
-        public Task<CharacteristicCategory> GetByIdAsync(int id)
+        public async Task<CharacteristicCategory> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var characteristicCategory = await _context.CharacteristicCategories.FindAsync(id);
+            return characteristicCategory;
         }
 
         public void Remove(CharacteristicCategory obj)
         {
-            throw new NotImplementedException();
+            _context.CharacteristicCategories.Remove(obj);
         }
 
-        public Task RemoveAsync(CharacteristicCategory obj)
+        public async Task RemoveAsync(CharacteristicCategory obj)
         {
-            throw new NotImplementedException();
+            _context.CharacteristicCategories.Remove(obj);
+            await _context.SaveChangesAsync();
         }
     }
 }
