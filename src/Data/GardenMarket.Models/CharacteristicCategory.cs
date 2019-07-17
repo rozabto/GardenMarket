@@ -1,4 +1,8 @@
-﻿namespace GardenMarket.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace GardenMarket.Models
 {
     public class CharacteristicCategory
     {

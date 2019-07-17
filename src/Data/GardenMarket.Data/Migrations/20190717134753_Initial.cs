@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
 namespace GardenMarket.Data.Migrations
 {
@@ -40,8 +40,7 @@ namespace GardenMarket.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    ImagePath = table.Column<string>(nullable: true)
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,8 +53,7 @@ namespace GardenMarket.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    SubCategoriesId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,45 +66,12 @@ namespace GardenMarket.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Display = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Display = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Characteristics", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Favorites",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    IsLicked = table.Column<bool>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Favorites", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Promotions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: true),
-                    CratedOn = table.Column<DateTime>(nullable: false),
-                    PromotionStart = table.Column<DateTime>(nullable: false),
-                    Duration = table.Column<TimeSpan>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Promotions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,9 +187,8 @@ namespace GardenMarket.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: false),
-                    SubSubCategoriesId = table.Column<int>(nullable: false),
-                    CharacteristicCategoriesId = table.Column<int>(nullable: false)
+                    ImagePath = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -238,20 +202,19 @@ namespace GardenMarket.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FlowerTypes",
+                name: "CharacteristicTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    ProductId = table.Column<int>(nullable: true),
                     CharacteristicId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FlowerTypes", x => x.Id);
+                    table.PrimaryKey("PK_CharacteristicTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FlowerTypes_Characteristics_CharacteristicId",
+                        name: "FK_CharacteristicTypes_Characteristics_CharacteristicId",
                         column: x => x.CharacteristicId,
                         principalTable: "Characteristics",
                         principalColumn: "Id",
@@ -259,7 +222,7 @@ namespace GardenMarket.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CharacteristicCategories",
+                name: "CharacteristicCategory",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -269,15 +232,15 @@ namespace GardenMarket.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacteristicCategories", x => x.Id);
+                    table.PrimaryKey("PK_CharacteristicCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CharacteristicCategories_Characteristics_CharacteristicId",
+                        name: "FK_CharacteristicCategory_Characteristics_CharacteristicId",
                         column: x => x.CharacteristicId,
                         principalTable: "Characteristics",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CharacteristicCategories_SubCategories_SubCategoryId",
+                        name: "FK_CharacteristicCategory_SubCategories_SubCategoryId",
                         column: x => x.SubCategoryId,
                         principalTable: "SubCategories",
                         principalColumn: "Id",
@@ -290,9 +253,9 @@ namespace GardenMarket.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
                     LowestPrice = table.Column<float>(nullable: false),
                     HighestPrice = table.Column<float>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
                     SubCategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -319,14 +282,13 @@ namespace GardenMarket.Data.Migrations
                     InStock = table.Column<int>(nullable: false),
                     HasDiscount = table.Column<bool>(nullable: false),
                     PrecentDiscount = table.Column<int>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                     SubSubCategoryId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    Deleted = table.Column<DateTime>(nullable: true),
+                    PromotionId = table.Column<int>(nullable: true),
                     DiscountStart = table.Column<DateTime>(nullable: true),
-                    DiscountEnd = table.Column<TimeSpan>(nullable: true),
-                    TypeId = table.Column<int>(nullable: true),
-                    CommentId = table.Column<int>(nullable: true)
+                    DiscountEnd = table.Column<TimeSpan>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -378,22 +340,14 @@ namespace GardenMarket.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true),
-                    ParentId = table.Column<int>(nullable: true),
                     Message = table.Column<string>(nullable: true),
-                    Posted = table.Column<DateTime>(nullable: false),
-                    Deleted = table.Column<DateTime>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false),
+                    Posted = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comments_Comments_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Comments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Products_ProductId",
                         column: x => x.ProductId,
@@ -409,13 +363,60 @@ namespace GardenMarket.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Favorites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsLicked = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favorites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Favorites_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Favorites_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductColor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Color = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductColor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductColor_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<int>(nullable: false),
-                    Path = table.Column<string>(nullable: true)
+                    Path = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -434,34 +435,65 @@ namespace GardenMarket.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TypeId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductId = table.Column<int>(nullable: false),
+                    CharacteristicTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductTypes_CharacteristicTypes_CharacteristicTypeId",
+                        column: x => x.CharacteristicTypeId,
+                        principalTable: "CharacteristicTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductTypes_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Promotions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false),
+                    CratedOn = table.Column<DateTime>(nullable: false),
+                    PromotionStart = table.Column<DateTime>(nullable: false),
+                    Duration = table.Column<TimeSpan>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Promotions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductTypes_FlowerTypes_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "FlowerTypes",
+                        name: "FK_Promotions_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Promotions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name", "SubCategoriesId" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Растения", 0 },
-                    { 2, "Градина", 0 },
-                    { 3, "Свободно Време", 0 }
+                    { 1, "Растения" },
+                    { 2, "Градина" },
+                    { 3, "Свободно Време" }
                 });
 
             migrationBuilder.InsertData(
@@ -476,51 +508,51 @@ namespace GardenMarket.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "FlowerTypes",
-                columns: new[] { "Id", "CharacteristicId", "Name", "ProductId" },
+                table: "CharacteristicTypes",
+                columns: new[] { "Id", "CharacteristicId", "Name" },
                 values: new object[,]
                 {
-                    { 4, 1, "Син", null },
-                    { 17, 3, "САЩ", null },
-                    { 16, 3, "България", null },
-                    { 15, 2, "Целогодишно", null },
-                    { 14, 2, "Зима", null },
-                    { 13, 2, "Есен", null },
-                    { 12, 2, "Лято", null },
-                    { 11, 2, "Пролет", null },
-                    { 10, 1, "Лилав", null },
-                    { 9, 1, "Зелен", null },
-                    { 8, 1, "Кафяв", null },
-                    { 7, 1, "Оранжев", null },
-                    { 6, 1, "Жълт", null },
-                    { 5, 1, "Червен", null },
-                    { 19, 3, "Китай", null },
-                    { 3, 1, "Черен", null },
-                    { 2, 1, "Сив", null },
-                    { 1, 1, "Бял", null },
-                    { 18, 3, "Блала", null }
+                    { 4, 1, "Син" },
+                    { 17, 3, "САЩ" },
+                    { 16, 3, "България" },
+                    { 15, 2, "Целогодишно" },
+                    { 14, 2, "Зима" },
+                    { 13, 2, "Есен" },
+                    { 12, 2, "Лято" },
+                    { 11, 2, "Пролет" },
+                    { 10, 1, "Лилав" },
+                    { 9, 1, "Зелен" },
+                    { 8, 1, "Кафяв" },
+                    { 7, 1, "Оранжев" },
+                    { 6, 1, "Жълт" },
+                    { 5, 1, "Червен" },
+                    { 19, 3, "Китай" },
+                    { 3, 1, "Черен" },
+                    { 2, 1, "Сив" },
+                    { 1, 1, "Бял" },
+                    { 18, 3, "Блала" }
                 });
 
             migrationBuilder.InsertData(
                 table: "SubCategories",
-                columns: new[] { "Id", "CategoryId", "CharacteristicCategoriesId", "Name", "SubSubCategoriesId" },
+                columns: new[] { "Id", "CategoryId", "ImagePath", "Name" },
                 values: new object[,]
                 {
-                    { 11, 3, 0, "Осветление", 0 },
-                    { 10, 3, 0, "Барбекю", 0 },
-                    { 9, 3, 0, "Къмпинг", 0 },
-                    { 8, 2, 0, "Градински декорации", 0 },
-                    { 7, 2, 0, "Напояване", 0 },
-                    { 6, 2, 0, "Саксии", 0 },
-                    { 5, 2, 0, "Торове", 0 },
-                    { 4, 1, 0, "Разсад", 0 },
-                    { 3, 1, 0, "Сенколюбиви растения", 0 },
-                    { 2, 1, 0, "Външни растения", 0 },
-                    { 1, 1, 0, "Стайни растения", 0 }
+                    { 11, 3, "img/product-img/product3-1.jpg", "Осветление" },
+                    { 10, 3, "img/product-img/product3-1.jpg", "Барбекю" },
+                    { 9, 3, "img/product-img/product3-1.jpg", "Къмпинг" },
+                    { 8, 2, "img/product-img/product2-1.jpg", "Градински декорации" },
+                    { 7, 2, "img/product-img/product2-1.jpg", "Напояване" },
+                    { 6, 2, "img/product-img/product2-1.jpg", "Саксии" },
+                    { 5, 2, "img/product-img/product2-1.jpg", "Торове" },
+                    { 4, 1, "img/product-img/product1-1.jpg", "Разсад" },
+                    { 3, 1, "img/product-img/product1-1.jpg", "Сенколюбиви растения" },
+                    { 2, 1, "img/product-img/product1-1.jpg", "Външни растения" },
+                    { 1, 1, "img/product-img/product1-1.jpg", "Стайни растения" }
                 });
 
             migrationBuilder.InsertData(
-                table: "CharacteristicCategories",
+                table: "CharacteristicCategory",
                 columns: new[] { "Id", "CharacteristicId", "SubCategoryId" },
                 values: new object[,]
                 {
@@ -631,19 +663,19 @@ namespace GardenMarket.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacteristicCategories_CharacteristicId",
-                table: "CharacteristicCategories",
+                name: "IX_CharacteristicCategory_CharacteristicId",
+                table: "CharacteristicCategory",
                 column: "CharacteristicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacteristicCategories_SubCategoryId",
-                table: "CharacteristicCategories",
+                name: "IX_CharacteristicCategory_SubCategoryId",
+                table: "CharacteristicCategory",
                 column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_ParentId",
-                table: "Comments",
-                column: "ParentId");
+                name: "IX_CharacteristicTypes_CharacteristicId",
+                table: "CharacteristicTypes",
+                column: "CharacteristicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ProductId",
@@ -656,9 +688,19 @@ namespace GardenMarket.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FlowerTypes_CharacteristicId",
-                table: "FlowerTypes",
-                column: "CharacteristicId");
+                name: "IX_Favorites_ProductId",
+                table: "Favorites",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favorites_UserId",
+                table: "Favorites",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductColor_ProductId",
+                table: "ProductColor",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductImages_ProductId",
@@ -676,14 +718,25 @@ namespace GardenMarket.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductTypes_CharacteristicTypeId",
+                table: "ProductTypes",
+                column: "CharacteristicTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductTypes_ProductId",
                 table: "ProductTypes",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductTypes_TypeId",
-                table: "ProductTypes",
-                column: "TypeId");
+                name: "IX_Promotions_ProductId",
+                table: "Promotions",
+                column: "ProductId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Promotions_UserId",
+                table: "Promotions",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_CategoryId",
@@ -717,13 +770,16 @@ namespace GardenMarket.Data.Migrations
                 name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "CharacteristicCategories");
+                name: "CharacteristicCategory");
 
             migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Favorites");
+
+            migrationBuilder.DropTable(
+                name: "ProductColor");
 
             migrationBuilder.DropTable(
                 name: "ProductImages");
@@ -738,19 +794,19 @@ namespace GardenMarket.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "CharacteristicTypes");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "FlowerTypes");
+                name: "Characteristics");
 
             migrationBuilder.DropTable(
                 name: "SubSubCategories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Characteristics");
 
             migrationBuilder.DropTable(
                 name: "SubCategories");

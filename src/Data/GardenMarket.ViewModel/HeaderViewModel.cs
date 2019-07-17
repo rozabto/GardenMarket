@@ -7,6 +7,5 @@ namespace GardenMarket.ViewModel
     {
         public IReadOnlyList<Category> Categories { get; set; }
         public IReadOnlyList<int> ProductIds { get; set; }
-        public int Count { get; set; }
     }
 }

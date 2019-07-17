@@ -33,17 +33,18 @@
 
                             <ul id="menu-content2" class="menu-content collapse show">
                                 <!-- Single Item -->
-                                @foreach (var subCategory in Model.SubCategories)
+                                @for (int i = 0; i < Model.SubCategories.Count; i++)
                                 {
-                                <li data-toggle="collapse" data-target="#plants" class="collapsed">
-                                    <a href="#">@subCategory.Name</a>
-                                    <ul class="sub-menu collapse" id="plants">
-                                        @foreach (var subsubcategory in subCategory.SubSubCategories)
+                                    var id = i == 0 ? "" : i.ToString();
+                                    <li data-toggle="collapse" data-target="#plants@(id)" class="collapsed">
+                                        <a href="#">@Model.SubCategories[i].Name</a>
+                                        <ul class="sub-menu collapse" id="plants@(id)">
+                                            @foreach (var subsubcategory in Model.SubCategories[i].SubSubCategories)
                                             {
-                                        <li><a href="#">@subsubcategory.Name</a></li>
+                                                <li><a href="#">@subsubcategory.Name</a></li>
                                             }
-                                    </ul>
-                                </li>
+                                        </ul>
+                                    </li>
                                 }
                             </ul>
                         </div>
@@ -69,42 +70,50 @@
                     </div>
 
                     <!-- ##### Single Widget ##### -->
-                    <div class="widget color mb-50">
-                        <!-- Widget Title 2 -->
-                        <p class="widget-title2 mb-30">Цвят</p>
-                        <div class="widget-desc">
-                            <ul class="d-flex">
-                                <li><a href="#" class="color1"></a></li>
-                                <li><a href="#" class="color2"></a></li>
-                                <li><a href="#" class="color3"></a></li>
-                                <li><a href="#" class="color4"></a></li>
-                                <li><a href="#" class="color5"></a></li>
-                                <li><a href="#" class="color6"></a></li>
-                                <li><a href="#" class="color7"></a></li>
-                                <li><a href="#" class="color8"></a></li>
-                                <li><a href="#" class="color9"></a></li>
-                                <li><a href="#" class="color10"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- ##### Single Widget ##### -->
                     @foreach (var characteristic in Model.Characteristics)
                     {
-                    <div class="widget brands mb-50">
-
-                        <p class="widget-title2 mb-30">@characteristic.Name</p>
-                        <div class="widget-desc">
-                            @foreach (var type in characteristic.Types)
-                                {
-
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
+                        if (!characteristic.Display)
+                        {
+                            continue;
+                        }
+                        if (characteristic.Name == "Цвят")
+                        {
+                            <div class="widget color mb-50">
+                                <!-- Widget Title 2 -->
+                                <p class="widget-title2 mb-30">Цвят</p>
+                                <div class="widget-desc">
+                                    <ul class="d-flex">
+                                        <li><a href="#" class="color1"></a></li>
+                                        <li><a href="#" class="color2"></a></li>
+                                        <li><a href="#" class="color3"></a></li>
+                                        <li><a href="#" class="color4"></a></li>
+                                        <li><a href="#" class="color5"></a></li>
+                                        <li><a href="#" class="color6"></a></li>
+                                        <li><a href="#" class="color7"></a></li>
+                                        <li><a href="#" class="color8"></a></li>
+                                        <li><a href="#" class="color9"></a></li>
+                                        <li><a href="#" class="color10"></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                                }
-                        </div>
-                    </div>
+                        }
+                        else
+                        {
+                            <div class="widget brands mb-50">
+
+                                <p class="widget-title2 mb-30">@characteristic.Name</p>
+                                <div class="widget-desc">
+                                    @foreach (var type in characteristic.CharacteristicTypes)
+                                    {
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                                            <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
                     }
                 </div>
             </div>
@@ -141,54 +150,54 @@
                         @foreach (var product in Model.SubSubCategory.Products)
                         {
 
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="single-product-wrapper">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img src="@product.ProductImages.FirstOrDefault()?.Path" alt="">
-                                    <!-- Hover Thumb -->
-                                    <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="single-product-wrapper">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img src="@product.Images.FirstOrDefault()?.Path" alt="">
+                                        <!-- Hover Thumb -->
+                                        <img class="hover-img" src="@Model.SubSubCategory.SubCategory.ImagePath" alt="">
 
-                                    <!-- Product Badge -->
-                                    @if (product.HasDiscount)
-                                        {
-                                    <div class="product-badge offer-badge">
-                                        <span>-30%</span>
-                                    </div>
-                                        }
-                                    <!-- Favourite -->
-                                    <div class="product-favourite">
-                                        <a href="#" class="favme fa fa-heart"></a>
-                                    </div>
-                                </div>
-
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
-                                        <h6>@product.Name</h6>
-                                        <span>Целогодишно</span>
-                                    </a>
-                                    <p class="product-price">
+                                        <!-- Product Badge -->
                                         @if (product.HasDiscount)
+                                        {
+                                            <div class="product-badge offer-badge">
+                                                <span>-30%</span>
+                                            </div>
+                                        }
+                                        <!-- Favourite -->
+                                        <div class="product-favourite">
+                                            <a href="#" class="favme fa fa-heart"></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
+                                            <h6>@product.Name</h6>
+                                            <span>Целогодишно</span>
+                                        </a>
+                                        <p class="product-price">
+                                            @if (product.HasDiscount)
                                             {
-                                        <span class="old-price">@product.Price лв</span><span>@(product.Price * (product.PrecentDiscount / 100)) лв</span>
+                                                <span class="old-price">@product.Price лв</span><span>@(product.Price * (product.PrecentDiscount / 100)) лв</span>
                                             }
                                             else
                                             {
-                                        <span>@product.Price</span>
+                                                <span>@product.Price лв</span>
                                             }
-                                    </p>
+                                        </p>
 
-                                    <!-- Hover Content -->
-                                    <div class="hover-content">
-                                        <!-- Add to Cart -->
-                                        <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Добави в количка</a>
+                                        <!-- Hover Content -->
+                                        <div class="hover-content">
+                                            <!-- Add to Cart -->
+                                            <div class="add-to-cart-btn">
+                                                <a href="#" class="btn essence-btn">Добави в количка</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>

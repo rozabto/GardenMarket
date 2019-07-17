@@ -12,22 +12,57 @@ namespace GardenMarket.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }
-        public DbSet<CharacteristicCategory> CharacteristicCategories { get; set; }
-        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<CharacteristicCategory> CharacteristicCategory { get; set; }
+        public DbSet<CharacteristicType> CharacteristicTypes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
-        public DbSet<FlowerType> FlowerTypes { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<SubSubCategory> SubSubCategories { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.Entity<Category>().HasData(
+            #region Connections
+            builder.Entity<Characteristic>()
+                .HasMany(c => c.CharacteristicTypes)
+                .WithOne(c => c.Characteristic);
+
+            builder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany(c => c.Comments);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.Images)
+                .WithOne(p => p.Product);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.Types)
+                .WithOne(p => p.Product);
+
+            builder.Entity<Product>()
+                .HasOne(p => p.Promotion)
+                .WithOne(p => p.Product)
+                .HasForeignKey<Promotion>(p => p.ProductId);
+
+            builder.Entity<Product>()
+                .HasMany(p => p.Colors)
+                .WithOne(p => p.Product);
+
+            builder.Entity<Category>()
+                .HasMany(c => c.SubCategories)
+                .WithOne(c => c.Category);
+
+            builder.Entity<SubCategory>()
+                .HasMany(c => c.SubSubCategories)
+                .WithOne(c => c.SubCategory);
+            #endregion
+
+            builder.Entity<Category>().HasData(
                 new[]
                 {
                     new Category
@@ -46,7 +81,7 @@ namespace GardenMarket.Data
                         Name = "Свободно Време"
                     }
                 });
-            modelBuilder.Entity<SubCategory>().HasData(
+            builder.Entity<SubCategory>().HasData(
                 new[]
                 {
                     #region Растения
@@ -54,25 +89,29 @@ namespace GardenMarket.Data
                     {
                         Id = 1,
                         CategoryId = 1,
-                        Name = "Стайни растения"
+                        Name = "Стайни растения",
+                        ImagePath = "img/product-img/product1-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 2,
                         CategoryId = 1,
-                        Name = "Външни растения"
+                        Name = "Външни растения",
+                        ImagePath = "img/product-img/product1-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 3,
                         CategoryId = 1,
-                        Name = "Сенколюбиви растения"
+                        Name = "Сенколюбиви растения",
+                        ImagePath = "img/product-img/product1-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 4,
                         CategoryId = 1,
-                        Name = "Разсад"
+                        Name = "Разсад",
+                        ImagePath = "img/product-img/product1-1.jpg"
                     },
                     #endregion Растения
                     #region Градина
@@ -80,25 +119,29 @@ namespace GardenMarket.Data
                     {
                         Id = 5,
                         CategoryId = 2,
-                        Name = "Торове"
+                        Name = "Торове",
+                        ImagePath = "img/product-img/product2-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 6,
                         CategoryId = 2,
-                        Name = "Саксии"
+                        Name = "Саксии",
+                        ImagePath = "img/product-img/product2-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 7,
                         CategoryId = 2,
-                        Name = "Напояване"
+                        Name = "Напояване",
+                        ImagePath = "img/product-img/product2-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 8,
                         CategoryId = 2,
-                        Name = "Градински декорации"
+                        Name = "Градински декорации",
+                        ImagePath = "img/product-img/product2-1.jpg"
                     },
                     #endregion Градина
                     #region Свободно време
@@ -106,23 +149,26 @@ namespace GardenMarket.Data
                     {
                         Id = 9,
                         CategoryId = 3,
-                        Name = "Къмпинг"
+                        Name = "Къмпинг",
+                        ImagePath = "img/product-img/product3-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 10,
                         CategoryId = 3,
-                        Name = "Барбекю"
+                        Name = "Барбекю",
+                        ImagePath = "img/product-img/product3-1.jpg"
                     },
                     new SubCategory
                     {
                         Id = 11,
                         CategoryId = 3,
-                        Name = "Осветление"
+                        Name = "Осветление",
+                        ImagePath = "img/product-img/product3-1.jpg"
                     }
                     #endregion Свободно време
                 });
-            modelBuilder.Entity<SubSubCategory>().HasData(
+            builder.Entity<SubSubCategory>().HasData(
                 new[]
                 {
                     #region Растения
@@ -344,7 +390,7 @@ namespace GardenMarket.Data
                     }
                     #endregion Свободно време
                 });
-            modelBuilder.Entity<Characteristic>().HasData(
+            builder.Entity<Characteristic>().HasData(
                 new[]
                 {
                     new Characteristic
@@ -372,7 +418,7 @@ namespace GardenMarket.Data
                         Display = false
                     }
                 });
-            modelBuilder.Entity<CharacteristicCategory>().HasData(
+            builder.Entity<CharacteristicCategory>().HasData(
                 new[]
                 {
                     #region Растения
@@ -460,65 +506,65 @@ namespace GardenMarket.Data
                     }
                     #endregion Свободно време
                 });
-            modelBuilder.Entity<FlowerType>().HasData(
+            builder.Entity<CharacteristicType>().HasData(
                 new[]
                 {
                     #region Цвят
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 1,
                         CharacteristicId = 1,
                         Name = "Бял"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 2,
                         CharacteristicId = 1,
                         Name = "Сив"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 3,
                         CharacteristicId = 1,
                         Name = "Черен"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 4,
                         CharacteristicId = 1,
                         Name = "Син"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 5,
                         CharacteristicId = 1,
                         Name = "Червен"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 6,
                         CharacteristicId = 1,
                         Name = "Жълт"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 7,
                         CharacteristicId = 1,
                         Name = "Оранжев"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 8,
                         CharacteristicId = 1,
                         Name = "Кафяв"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 9,
                         CharacteristicId = 1,
                         Name = "Зелен"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 10,
                         CharacteristicId = 1,
@@ -526,31 +572,31 @@ namespace GardenMarket.Data
                     },
                     #endregion Цвят
                     #region Сезони
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 11,
                         CharacteristicId = 2,
                         Name = "Пролет"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 12,
                         CharacteristicId = 2,
                         Name = "Лято"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 13,
                         CharacteristicId = 2,
                         Name = "Есен"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 14,
                         CharacteristicId = 2,
                         Name = "Зима"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 15,
                         CharacteristicId = 2,
@@ -558,25 +604,25 @@ namespace GardenMarket.Data
                     },
                     #endregion Сезони
                     #region Произведено в
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 16,
                         CharacteristicId = 3,
                         Name = "България"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 17,
                         CharacteristicId = 3,
                         Name = "САЩ"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 18,
                         CharacteristicId = 3,
                         Name = "Блала"
                     },
-                    new FlowerType
+                    new CharacteristicType
                     {
                         Id = 19,
                         CharacteristicId = 3,

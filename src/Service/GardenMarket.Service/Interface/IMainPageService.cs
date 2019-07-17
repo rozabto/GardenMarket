@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace GardenMarket.Service.Interface
 {
-    public interface IProductService
+    public interface IMainPageService
     {
-        Task<ProductViewModel> GetViewModel(int id);
+        Task<MainPageViewModel> GetViewModel();
     }
 }

@@ -155,15 +155,14 @@ namespace GardenMarket.Data
                 }
             };
 
-            if (await context.Products.FindAsync(10) == null)
+            if (await context.Products.FirstOrDefaultAsync(f => f.Name == "ВОДЕН ИРИС") == null)
             {
                 await context.Products.AddRangeAsync(products);
                 await context.SaveChangesAsync();
-            }
-            if (await context.ProductImages.FirstOrDefaultAsync(f => f.Path == "img/product-img/product1.jpg") == null)
+                products = await context.Products.ToArrayAsync();
                 await context.ProductImages.AddRangeAsync(
-                    new[]
-                        {
+                     new[]
+                         {
                             new ProductImage
                             {
                                 ProductId = products[0].Id,
@@ -172,17 +171,17 @@ namespace GardenMarket.Data
                             new ProductImage
                             {
                                 ProductId = products[1].Id,
-                                Path = "img/product-img/product1.jpg"
+                                Path = "img/product-img/product2.jpg"
                             },
                             new ProductImage
                             {
                                 ProductId = products[2].Id,
-                                Path = "img/product-img/product1.jpg"
+                                Path = "img/product-img/product3.jpg"
                             },
                             new ProductImage
                             {
                                 ProductId = products[3].Id,
-                                Path = "img/product-img/product1.jpg"
+                                Path = "img/product-img/product4.jpg"
                             },
                             new ProductImage
                             {
@@ -214,65 +213,63 @@ namespace GardenMarket.Data
                                 ProductId = products[9].Id,
                                 Path = "img/product-img/product1.jpg"
                             }
-                        });
-            if (await context.ProductTypes.FirstOrDefaultAsync(f => f.TypeId == 15) == null)
+                         });
                 await context.ProductTypes.AddRangeAsync(
                     new[]
                     {
                         new ProductType
                         {
                             ProductId = products[0].Id,
-                            TypeId = 15
+                            CharacteristicTypeId = 15
                         },
                         new ProductType
                         {
                             ProductId = products[1].Id,
-                            TypeId = 15
+                            CharacteristicTypeId = 15
                         },
                         new ProductType
                         {
                             ProductId = products[2].Id,
-                            TypeId = 15
+                            CharacteristicTypeId = 15
                         },
                         new ProductType
                         {
                             ProductId = products[3].Id,
-                            TypeId = 12
+                            CharacteristicTypeId = 12
                         },
                         new ProductType
                         {
                             ProductId = products[4].Id,
-                            TypeId = 12
+                            CharacteristicTypeId = 12
                         },
                         new ProductType
                         {
                             ProductId = products[5].Id,
-                            TypeId = 14
+                            CharacteristicTypeId = 14
                         },
                         new ProductType
                         {
                             ProductId = products[6].Id,
-                            TypeId = 11
+                            CharacteristicTypeId = 11
                         },
                         new ProductType
                         {
                             ProductId = products[7].Id,
-                            TypeId = 15
+                            CharacteristicTypeId = 15
                         },
                         new ProductType
                         {
                             ProductId = products[8].Id,
-                            TypeId = 15
+                            CharacteristicTypeId = 15
                         },
                         new ProductType
                         {
                             ProductId = products[9].Id,
-                            TypeId = 12
+                            CharacteristicTypeId = 12
                         }
                     });
-            if (await context.Comments.FirstOrDefaultAsync(f => f.Message == "Какво е това?") == null)
-            {
-                var comments = new[]
+                await context.Comments.AddRangeAsync(
+                    new[]
                 {
                     new Comment
                     {
@@ -302,19 +299,7 @@ namespace GardenMarket.Data
                         ProductId = products[0].Id,
                         UserId = userId
                     }
-                };
-                await context.Comments.AddRangeAsync(comments);
-                await context.SaveChangesAsync();
-                await context.Comments.AddAsync(new Comment
-                {
-                    Message = "You are cringe itself.",
-                    Posted = DateTime.UtcNow,
-                    ProductId = products[0].Id,
-                    ParentId = comments[0].Id,
-                    UserId = userId
                 });
-            }
-            if (await context.Favorites.FirstOrDefaultAsync(f => f.IsLicked == true) == null)
                 await context.Favorites.AddRangeAsync(
                     new[]
                     {
@@ -325,7 +310,6 @@ namespace GardenMarket.Data
                             UserId = userId
                         }
                     });
-            if (await context.Carts.FirstOrDefaultAsync(f => f.UserId == userId) == null)
                 await context.Carts.AddRangeAsync(
                     new[]
                     {
@@ -336,7 +320,8 @@ namespace GardenMarket.Data
                             UserId = userId
                         }
                     });
-            await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
