@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GardenMarket.Data.Migrations
 {
     [DbContext(typeof(GardenMarketDbContext))]
-    [Migration("20190717134753_Initial")]
+    [Migration("20190718072452_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1085,7 +1085,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Carts")
                         .HasForeignKey("UserId");
                 });
 
@@ -1130,7 +1130,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId");
                 });
 
@@ -1142,7 +1142,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("UserId");
                 });
 
@@ -1183,7 +1183,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Promotions")
                         .HasForeignKey("UserId");
                 });
 

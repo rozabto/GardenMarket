@@ -1083,7 +1083,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Carts")
                         .HasForeignKey("UserId");
                 });
 
@@ -1128,7 +1128,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId");
                 });
 
@@ -1140,7 +1140,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("UserId");
                 });
 
@@ -1181,7 +1181,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany()
+                        .WithMany("Promotions")
                         .HasForeignKey("UserId");
                 });
 

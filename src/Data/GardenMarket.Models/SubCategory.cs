@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace GardenMarket.Models
 {
@@ -14,9 +13,7 @@ namespace GardenMarket.Models
         public string Name { get; set; }
         public string ImagePath { get; set; }
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
-        public ICollection<SubSubCategory> SubSubCategories { get; set; }
-
-        public object Select(Func<object, object> p) => throw new NotImplementedException();
+        public Category Category { get; set; }
+        public IReadOnlyList<SubSubCategory> SubSubCategories { get; set; }
     }
 }

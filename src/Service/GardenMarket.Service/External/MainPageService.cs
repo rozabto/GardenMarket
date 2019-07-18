@@ -21,11 +21,10 @@ namespace GardenMarket.Service.External
 
         public async Task<MainPageViewModel> GetViewModel()
         {
-            var viewModel = new MainPageViewModel
+            return new MainPageViewModel
             {
                 Products = await GetProducts()
             };
-            return viewModel;
         }
 
         private async Task<IReadOnlyList<Product>> GetProducts() =>

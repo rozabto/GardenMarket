@@ -1,4 +1,4 @@
-namespace GardenMarket.Web.Models
+namespace GardenMarket.ViewModel
 {
     public class ErrorViewModel
     {

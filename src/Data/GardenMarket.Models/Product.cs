@@ -24,16 +24,16 @@ namespace GardenMarket.Models
         public DateTime CreatedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public int SubSubCategoryId { get; set; }
-        public virtual SubSubCategory SubSubCategory { get; set; }
+        public SubSubCategory SubSubCategory { get; set; }
         public string UserId { get; set; }
-        public virtual AppUser User { get; set; }
+        public AppUser User { get; set; }
         public int? PromotionId { get; set; }
-        public virtual Promotion Promotion { get; set; }
+        public Promotion Promotion { get; set; }
         public DateTime? DiscountStart { get; set; }
         public TimeSpan? DiscountEnd { get; set; }
-        public ICollection<ProductImage> Images { get; set; }
-        public ICollection<ProductType> Types { get; set; }
-        public ICollection<ProductColor> Colors { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public IReadOnlyList<ProductImage> Images { get; set; }
+        public IReadOnlyList<ProductType> Types { get; set; }
+        public IReadOnlyList<ProductColor> Colors { get; set; }
+        public IReadOnlyList<Comment> Comments { get; set; }
     }
 }

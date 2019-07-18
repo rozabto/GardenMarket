@@ -11,6 +11,6 @@ namespace GardenMarket.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<SubCategory> SubCategories { get; set; }
+        public IReadOnlyList<SubCategory> SubCategories { get; set; }
     }
 }

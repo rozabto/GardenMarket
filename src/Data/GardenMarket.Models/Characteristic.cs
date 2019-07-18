@@ -13,7 +13,7 @@ namespace GardenMarket.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Display { get; set; }
-        public virtual ICollection<CharacteristicCategory> CharacteristicCategories { get; set; }
-        public ICollection<CharacteristicType> CharacteristicTypes { get; set; }
+        public IReadOnlyList<CharacteristicCategory> CharacteristicCategories { get; set; }
+        public IReadOnlyList<CharacteristicType> CharacteristicTypes { get; set; }
     }
 }

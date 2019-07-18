@@ -8,7 +8,7 @@ namespace GardenMarket.Models
         public string UserId { get; set; }
         public virtual AppUser User { get; set; }
         public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
         public DateTime CratedOn { get; set; }
         public DateTime PromotionStart { get; set; }
         public TimeSpan Duration { get; set; }

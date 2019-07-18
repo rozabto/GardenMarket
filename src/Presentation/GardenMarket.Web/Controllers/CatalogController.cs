@@ -20,23 +20,18 @@ namespace GardenMarket.Web.Controllers
             _product = product ?? throw new ArgumentNullException(nameof(product));
         }
 
-        public async Task<IActionResult> Index(int id)
-        {
-            return View(await _category.GetViewModel(id));
-        }       
+        [Route("{controller}/{id}")]
+        public async Task<IActionResult> Index(int id) =>
+            View(await _category.GetViewModel(id));
 
-        public async Task<IActionResult> GetById(int id)
-        {
-            return View(await _product.GetViewModel(id));
-        }
+        [Route("{controller}/p/{id}")]
+        public async Task<IActionResult> GetById(int id) =>
+            View(await _product.GetViewModel(id));
 
-        public IActionResult Checkout()
-        {
-            var viewModel = new CheckoutViewModel
+        public IActionResult Checkout() =>
+            View(new CheckoutViewModel
             {
                 Url = _safeCharge.CreateRequest()
-            };
-            return View(viewModel);
-        }
+            });
     }
 }

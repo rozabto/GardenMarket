@@ -20,12 +20,11 @@ namespace GardenMarket.Service.External
 
         public async Task<HeaderViewModel> GetViewModel(IReadOnlyList<int> productIds)
         {
-            var viewModel = new HeaderViewModel
+            return new HeaderViewModel
             {
                 Categories = await GetCategories(),
                 ProductIds = productIds
             };
-            return viewModel;
         }
 
         private async Task<IReadOnlyList<Category>> GetCategories() =>

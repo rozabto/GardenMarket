@@ -39,9 +39,9 @@
                                     <li data-toggle="collapse" data-target="#plants@(id)" class="collapsed">
                                         <a href="#">@Model.SubCategories[i].Name</a>
                                         <ul class="sub-menu collapse" id="plants@(id)">
-                                            @foreach (var subsubcategory in Model.SubCategories[i].SubSubCategories)
+                                            @foreach (var subSubCategory in Model.SubCategories[i].SubSubCategories)
                                             {
-                                                <li><a href="#">@subsubcategory.Name</a></li>
+                                                <li><a href="@Url.Action("Index", "Catalog", new { id = subSubCategory.Id })">@subSubCategory.Name</a></li>
                                             }
                                         </ul>
                                     </li>
@@ -56,17 +56,20 @@
                         <h6 class="widget-title mb-30">Филтрирай</h6>
                         <!-- Widget Title 2 -->
                         <p class="widget-title2 mb-30">Цена</p>
-
-                        <div class="widget-desc">
-                            <div class="slider-range">
-                                <div data-min="0" data-max="100" data-unit="" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="00" data-value-max="100" data-label-result="Лева">
-                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        @{
+                            var lowest = Model.SubSubCategory.LowestPrice.ToString().Replace(",", ".");
+                            var highest = Model.SubSubCategory.HighestPrice.ToString().Replace(",", ".");
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="@lowest" data-max="@highest" data-unit="" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="00" data-value-max="100" data-label-result="Лева">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">ЛЕВА @lowest - @highest</div>
                                 </div>
-                                <div class="range-price">@Model.SubSubCategory.LowestPrice лв - @Model.SubSubCategory.HighestPrice лв</div>
                             </div>
-                        </div>
+                        }
                     </div>
 
                     <!-- ##### Single Widget ##### -->
@@ -125,7 +128,7 @@
                             <div class="product-topbar d-flex align-items-center justify-content-between">
                                 <!-- Total Products -->
                                 <div class="total-products">
-                                    <p><span>@Model.SubSubCategory.Products.Count</span> намерени продукти</p>
+                                    <p><span>@Model.ProductCount</span> намерени продукти</p>
                                 </div>
                                 <!-- Sorting -->
                                 <div class="product-sorting d-flex">
@@ -175,7 +178,7 @@
                                     <div class="product-description">
                                         <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
                                             <h6>@product.Name</h6>
-                                            <span>Целогодишно</span>
+                                            <span>@product.Types.FirstOrDefault()?.CharacteristicType.Name</span>
                                         </a>
                                         <p class="product-price">
                                             @if (product.HasDiscount)
@@ -184,7 +187,7 @@
                                             }
                                             else
                                             {
-                                                <span>@product.Price лв</span>
+                                                <label>@product.Price лв</label>
                                             }
                                         </p>
 

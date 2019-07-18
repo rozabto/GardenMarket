@@ -50,7 +50,7 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="/@product.Images.FirstOrDefault()?.Path" alt="">
+                                <img src="@product.Images.FirstOrDefault()?.Path" alt="">
                                 <!-- Hover Thumb -->
                                 <img class="hover-img" src="@product.SubSubCategory.SubCategory.ImagePath" alt="">
                                 <!-- Product Badge -->
@@ -74,7 +74,7 @@
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <a href="single-product-details.html">
+                                <a href="@Url.Action("GetById", "Catalog", new { id = product.Id })">
                                     <h6>@product.Name</h6>
                                 </a>
                                 <p class="product-price">@product.Price лв.</p>

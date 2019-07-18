@@ -28,11 +28,11 @@
             @if (Model.Product.HasDiscount)
             {
                 <span class="old-price">@Model.Product.Price лв.</span>
-                <span>@(Model.Product.Price * (Model.Product.PrecentDiscount / 100)) лв.</span>
+                <label>@(Model.Product.Price * (Model.Product.PrecentDiscount / 100)) лв.</label>
             }
             else
             {
-                <span>@Model.Product.Price лв.</span>
+                <label>@Model.Product.Price лв.</label>
             }
         </p>
         <p class="product-desc"> @Model.Product.Description</p>

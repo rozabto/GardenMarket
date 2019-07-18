@@ -19,11 +19,10 @@ namespace GardenMarket.Service.External
 
         public async Task<ProductViewModel> GetViewModel(int id)
         {
-            var viewModel = new ProductViewModel
+            return new ProductViewModel
             {
                 Product = await GetProduct(id)
             };
-            return viewModel;
         }
 
         private async Task<Product> GetProduct(int id) =>

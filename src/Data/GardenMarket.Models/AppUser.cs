@@ -10,6 +10,10 @@ namespace GardenMarket.Models
             Comments = new List<Comment>();
         }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public IReadOnlyList<Comment> Comments { get; set; }
+        public IReadOnlyList<Favorite> Favorites { get; set; }
+        public IReadOnlyList<Cart> Carts { get; set; }
+        public IReadOnlyList<Product> Products { get; set; }
+        public IReadOnlyList<Promotion> Promotions { get; set; }
     }
 }
