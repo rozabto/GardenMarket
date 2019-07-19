@@ -6,15 +6,15 @@ namespace GardenMarket.Models
     {
         public SubSubCategory()
         {
-            Products = new HashSet<Product>();
+            Products = new List<Product>();
         }
 
         public int Id { get; set; }
+        public string Name { get; set; }
         public float LowestPrice { get; set; }
         public float HighestPrice { get; set; }
-        public string Name { get; set; }
         public int SubCategoryId { get; set; }
-        public virtual SubCategory SubCategory { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public SubCategory SubCategory { get; set; }
+        public IReadOnlyList<Product> Products { get; set; }
     }
 }

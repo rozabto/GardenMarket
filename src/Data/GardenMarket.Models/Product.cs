@@ -7,9 +7,10 @@ namespace GardenMarket.Models
     {
         public Product()
         {
-            ProductImages = new HashSet<ProductImage>();
-            ProductTypes = new HashSet<ProductType>();
-            Comments = new HashSet<Comment>();
+            Images = new List<ProductImage>();
+            Types = new List<ProductType>();
+            Colors = new List<ProductColor>();
+            Comments = new List<Comment>();
         }
 
         public int Id { get; set; }
@@ -20,18 +21,19 @@ namespace GardenMarket.Models
         public int InStock { get; set; }
         public bool HasDiscount { get; set; }
         public int? PrecentDiscount { get; set; }
-        public int SubSubCategoryId { get; set; }
-        public virtual SubSubCategory SubSubCategory { get; set; }
-        public string UserId { get; set; }
-        public virtual AppUser User { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime? Deleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public int SubSubCategoryId { get; set; }
+        public SubSubCategory SubSubCategory { get; set; }
+        public string UserId { get; set; }
+        public AppUser User { get; set; }
+        public int? PromotionId { get; set; }
+        public Promotion Promotion { get; set; }
         public DateTime? DiscountStart { get; set; }
         public TimeSpan? DiscountEnd { get; set; }
-        public int? TypeId { get; set; }
-        public int? CommentId { get; set; }
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
-        public virtual ICollection<ProductType> ProductTypes { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public IReadOnlyList<ProductImage> Images { get; set; }
+        public IReadOnlyList<ProductType> Types { get; set; }
+        public IReadOnlyList<ProductColor> Colors { get; set; }
+        public IReadOnlyList<Comment> Comments { get; set; }
     }
 }

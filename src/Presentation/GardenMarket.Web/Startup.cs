@@ -2,6 +2,8 @@
 using Autofac.Extensions.DependencyInjection;
 using GardenMarket.Common;
 using GardenMarket.Data;
+using GardenMarket.Data.External;
+using GardenMarket.Data.Interface;
 using GardenMarket.Models;
 using GardenMarket.Service.External;
 using Microsoft.AspNetCore.Builder;
@@ -84,7 +86,10 @@ namespace GardenMarket.Web
 
             // Autofac Dependency Injection
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterAssemblyTypes(typeof(ProductService).Assembly)
+            containerBuilder.RegisterGeneric(typeof(GenericRepository<>))
+                .As(typeof(IRepository<>))
+                .InstancePerDependency();;
+            containerBuilder.RegisterAssemblyTypes(typeof(HeaderService).Assembly)
                 .Where(w => w.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
             containerBuilder.RegisterType<SafeChargeService>()

@@ -33,20 +33,19 @@
 
                             <ul id="menu-content2" class="menu-content collapse show">
                                 <!-- Single Item -->
-                                @foreach (var subCategory in Model.SubCategories)
+                                @for (int i = 0; i < Model.SubCategories.Count; i++)
                                 {
-                                    <li data-toggle="collapse" data-target="#plants" class="collapsed">
-                                        <a href="#">@subCategory.Name</a>
-                                        <ul class="sub-menu collapse" id="plants">
-                                            @foreach (var subsubcategory in subCategory.SubSubCategories)
+                                    var id = i == 0 ? "" : i.ToString();
+                                    <li data-toggle="collapse" data-target="#plants@(id)" class="collapsed">
+                                        <a href="#">@Model.SubCategories[i].Name</a>
+                                        <ul class="sub-menu collapse" id="plants@(id)">
+                                            @foreach (var subSubCategory in Model.SubCategories[i].SubSubCategories)
                                             {
-                                                <li><a href="#">@subsubcategory.Name</a></li>
+                                                <li><a href="@Url.Action("Index", "Catalog", new { id = subSubCategory.Id })">@subSubCategory.Name</a></li>
                                             }
-
                                         </ul>
                                     </li>
                                 }
-
                             </ul>
                         </div>
                     </div>
@@ -57,58 +56,67 @@
                         <h6 class="widget-title mb-30">Филтрирай</h6>
                         <!-- Widget Title 2 -->
                         <p class="widget-title2 mb-30">Цена</p>
-
-                        <div class="widget-desc">
-                            <div class="slider-range">
-                                <div data-min="0" data-max="100" data-unit="" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="00" data-value-max="100" data-label-result="Лева">
-                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        @{
+                            var lowest = Model.SubSubCategory.LowestPrice.ToString().Replace(",", ".");
+                            var highest = Model.SubSubCategory.HighestPrice.ToString().Replace(",", ".");
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="@lowest" data-max="@highest" data-unit="" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="00" data-value-max="100" data-label-result="Лева">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">ЛЕВА @lowest - @highest</div>
                                 </div>
-                                <div class="range-price">@Model.SubSubCategory.LowestPrice лв - @Model.SubSubCategory.HighestPrice лв</div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- ##### Single Widget ##### -->
-                    <div class="widget color mb-50">
-                        <!-- Widget Title 2 -->
-                        <p class="widget-title2 mb-30">Цвят</p>
-                        <div class="widget-desc">
-                            <ul class="d-flex">
-                                <li><a href="#" class="color1"></a></li>
-                                <li><a href="#" class="color2"></a></li>
-                                <li><a href="#" class="color3"></a></li>
-                                <li><a href="#" class="color4"></a></li>
-                                <li><a href="#" class="color5"></a></li>
-                                <li><a href="#" class="color6"></a></li>
-                                <li><a href="#" class="color7"></a></li>
-                                <li><a href="#" class="color8"></a></li>
-                                <li><a href="#" class="color9"></a></li>
-                                <li><a href="#" class="color10"></a></li>
-                            </ul>
-                        </div>
+                        }
                     </div>
 
                     <!-- ##### Single Widget ##### -->
                     @foreach (var characteristic in Model.Characteristics)
                     {
-                        <div class="widget brands mb-50">
-
-                            <p class="widget-title2 mb-30">@characteristic.Name</p>
-                            <div class="widget-desc">
-                                @foreach (var type in characteristic.Types)
-                                {
-
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                                        <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
-                                    </div>
-                                }
-
-
+                        if (!characteristic.Display)
+                        {
+                            continue;
+                        }
+                        if (characteristic.Name == "Цвят")
+                        {
+                            <div class="widget color mb-50">
+                                <!-- Widget Title 2 -->
+                                <p class="widget-title2 mb-30">Цвят</p>
+                                <div class="widget-desc">
+                                    <ul class="d-flex">
+                                        <li><a href="#" class="color1"></a></li>
+                                        <li><a href="#" class="color2"></a></li>
+                                        <li><a href="#" class="color3"></a></li>
+                                        <li><a href="#" class="color4"></a></li>
+                                        <li><a href="#" class="color5"></a></li>
+                                        <li><a href="#" class="color6"></a></li>
+                                        <li><a href="#" class="color7"></a></li>
+                                        <li><a href="#" class="color8"></a></li>
+                                        <li><a href="#" class="color9"></a></li>
+                                        <li><a href="#" class="color10"></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="widget brands mb-50">
+
+                                <p class="widget-title2 mb-30">@characteristic.Name</p>
+                                <div class="widget-desc">
+                                    @foreach (var type in characteristic.CharacteristicTypes)
+                                    {
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                                            <label class="custom-control-label" style="font-size:15px" for="defaultUnchecked">@type.Name</label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
                     }
                 </div>
             </div>
@@ -120,7 +128,7 @@
                             <div class="product-topbar d-flex align-items-center justify-content-between">
                                 <!-- Total Products -->
                                 <div class="total-products">
-                                    <p><span>@Model.SubSubCategory.Products.Count</span> намерени продукти</p>
+                                    <p><span>@Model.ProductCount</span> намерени продукти</p>
                                 </div>
                                 <!-- Sorting -->
                                 <div class="product-sorting d-flex">
@@ -149,9 +157,9 @@
                                 <div class="single-product-wrapper">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="@product.ProductImages.FirstOrDefault()?.Path" alt="">
+                                        <img src="@product.Images.FirstOrDefault()?.Path" alt="">
                                         <!-- Hover Thumb -->
-                                        <img class="hover-img" src="img/product-img/product1-1.jpg" alt="">
+                                        <img class="hover-img" src="@Model.SubSubCategory.SubCategory.ImagePath" alt="">
 
                                         <!-- Product Badge -->
                                         @if (product.HasDiscount)
@@ -170,7 +178,7 @@
                                     <div class="product-description">
                                         <a href="@Url.Action("GetById" , "Catalog" , new { product.Id })">
                                             <h6>@product.Name</h6>
-                                            <span>Целогодишно</span>
+                                            <span>@product.Types.FirstOrDefault()?.CharacteristicType.Name</span>
                                         </a>
                                         <p class="product-price">
                                             @if (product.HasDiscount)
@@ -179,10 +187,9 @@
                                             }
                                             else
                                             {
-                                                <span>@product.Price</span>
+                                                <label>@product.Price лв</label>
                                             }
                                         </p>
-
 
                                         <!-- Hover Content -->
                                         <div class="hover-content">
@@ -195,7 +202,6 @@
                                 </div>
                             </div>
                         }
-
                     </div>
                 </div>
                 <!-- Pagination -->

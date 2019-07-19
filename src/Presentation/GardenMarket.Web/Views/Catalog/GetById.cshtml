@@ -9,10 +9,11 @@
     <!-- Single Product Thumb -->
     <div class="single_product_thumb clearfix">
         <div class="product_thumbnail_slides owl-carousel">
-            @foreach (var item in Model.Product.ProductImages)
+            @foreach (var item in Model.Product.Images)
             {
                 <img src="@item.Path" alt="">
             }
+            <img src="img/product-img/product1-1.jpg" alt="">
         </div>
     </div>
 
@@ -22,22 +23,35 @@
         <a href="cart.html">
             <h2>@Model.Product.Name</h2>
         </a>
-        <span>@Model.Product.InStock</span>
-        <p class="product-price"><span class="old-price">@Model.Product.Price лв.</span> 7.99 лв.</p>
+        <span>@Model.Product.Types.FirstOrDefault()?.CharacteristicType.Name</span>
+        <p class="product-price">
+            @if (Model.Product.HasDiscount)
+            {
+                <span class="old-price">@Model.Product.Price лв.</span>
+                <label>@(Model.Product.Price * (Model.Product.PrecentDiscount / 100)) лв.</label>
+            }
+            else
+            {
+                <label>@Model.Product.Price лв.</label>
+            }
+        </p>
         <p class="product-desc"> @Model.Product.Description</p>
 
         <!-- Form -->
         <form class="cart-form clearfix" method="post">
             <!-- Select Box -->
-            <div class="select-box d-flex mt-50 mb-30">
+            @if (Model.Product.Colors.Count > 0)
+            {
+                <div class="select-box d-flex mt-50 mb-30">
 
-                <select name="select" id="productColor">
-                    @foreach (var item in Model.Colors)
-                    {
-                        <option value="value">Цвят : @item.Name </option>
-                    }
-                </select>
-            </div>
+                    <select name="select" id="productColor">
+                        @foreach (var item in Model.Product.Colors)
+                        {
+                            <option value="value">Цвят : @item.Color</option>
+                        }
+                    </select>
+                </div>
+            }
             <!-- Cart & Favourite Box -->
             <div class="cart-fav-box d-flex align-items-center">
                 <!-- Cart -->

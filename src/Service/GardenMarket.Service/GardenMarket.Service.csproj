@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\GardenMarket.Data\GardenMarket.Data.csproj" />
     <ProjectReference Include="..\..\Data\GardenMarket.Models\GardenMarket.Models.csproj" />
+    <ProjectReference Include="..\..\Data\GardenMarket.ViewModel\GardenMarket.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>
