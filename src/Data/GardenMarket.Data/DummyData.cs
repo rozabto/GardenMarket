@@ -170,6 +170,11 @@ namespace GardenMarket.Data
                             },
                             new ProductImage
                             {
+                                ProductId = products[0].Id,
+                                Path = "img/product-img/product1-1.jpg"
+                            },
+                            new ProductImage
+                            {
                                 ProductId = products[1].Id,
                                 Path = "img/product-img/product2.jpg"
                             },

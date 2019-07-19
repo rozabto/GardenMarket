@@ -4,14 +4,16 @@ using GardenMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GardenMarket.Data.Migrations
 {
     [DbContext(typeof(GardenMarketDbContext))]
-    partial class GardenMarketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190717190846_17072019")]
+    partial class _17072019
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +35,8 @@ namespace GardenMarket.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("ImagePath");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -99,6 +103,8 @@ namespace GardenMarket.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("SubCategoriesId");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -107,17 +113,20 @@ namespace GardenMarket.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Растения"
+                            Name = "Растения",
+                            SubCategoriesId = 0
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Градина"
+                            Name = "Градина",
+                            SubCategoriesId = 0
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Свободно Време"
+                            Name = "Свободно Време",
+                            SubCategoriesId = 0
                         });
                 });
 
@@ -178,7 +187,7 @@ namespace GardenMarket.Data.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("CharacteristicCategory");
+                    b.ToTable("CharacteristicCategories");
 
                     b.HasData(
                         new
@@ -261,7 +270,53 @@ namespace GardenMarket.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GardenMarket.Models.CharacteristicType", b =>
+            modelBuilder.Entity("GardenMarket.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("Deleted");
+
+                    b.Property<string>("Message");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<DateTime>("Posted");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsLicked");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Favorites");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.FlowerType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,11 +326,13 @@ namespace GardenMarket.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("ProductId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CharacteristicId");
 
-                    b.ToTable("CharacteristicTypes");
+                    b.ToTable("FlowerTypes");
 
                     b.HasData(
                         new
@@ -394,59 +451,17 @@ namespace GardenMarket.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GardenMarket.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Message");
-
-                    b.Property<DateTime>("Posted");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("GardenMarket.Models.Favorite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsLicked");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Favorites");
-                });
-
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CommentId");
+
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime?>("Deleted");
 
                     b.Property<string>("Description");
 
@@ -464,11 +479,11 @@ namespace GardenMarket.Data.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int?>("PromotionId");
-
                     b.Property<int>("Sales");
 
                     b.Property<int>("SubSubCategoryId");
+
+                    b.Property<int?>("TypeId");
 
                     b.Property<string>("UserId");
 
@@ -479,23 +494,6 @@ namespace GardenMarket.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("GardenMarket.Models.ProductColor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Color");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductColor");
                 });
 
             modelBuilder.Entity("GardenMarket.Models.ProductImage", b =>
@@ -521,15 +519,15 @@ namespace GardenMarket.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CharacteristicTypeId");
-
                     b.Property<int>("ProductId");
+
+                    b.Property<int>("TypeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CharacteristicTypeId");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("ProductTypes");
                 });
@@ -548,18 +546,11 @@ namespace GardenMarket.Data.Migrations
 
                     b.Property<string>("ImagePath");
 
-                    b.Property<int>("ProductId");
-
                     b.Property<DateTime>("PromotionStart");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Promotions");
                 });
@@ -591,9 +582,11 @@ namespace GardenMarket.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<string>("ImagePath");
+                    b.Property<int>("CharacteristicCategoriesId");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("SubSubCategoriesId");
 
                     b.HasKey("Id");
 
@@ -606,78 +599,89 @@ namespace GardenMarket.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            ImagePath = "img/product-img/product1-1.jpg",
-                            Name = "Стайни растения"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Стайни растения",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            ImagePath = "img/product-img/product1-1.jpg",
-                            Name = "Външни растения"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Външни растения",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
-                            ImagePath = "img/product-img/product1-1.jpg",
-                            Name = "Сенколюбиви растения"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Сенколюбиви растения",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 1,
-                            ImagePath = "img/product-img/product1-1.jpg",
-                            Name = "Разсад"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Разсад",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 2,
-                            ImagePath = "img/product-img/product2-1.jpg",
-                            Name = "Торове"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Торове",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 6,
                             CategoryId = 2,
-                            ImagePath = "img/product-img/product2-1.jpg",
-                            Name = "Саксии"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Саксии",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 7,
                             CategoryId = 2,
-                            ImagePath = "img/product-img/product2-1.jpg",
-                            Name = "Напояване"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Напояване",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 8,
                             CategoryId = 2,
-                            ImagePath = "img/product-img/product2-1.jpg",
-                            Name = "Градински декорации"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Градински декорации",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 9,
                             CategoryId = 3,
-                            ImagePath = "img/product-img/product3-1.jpg",
-                            Name = "Къмпинг"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Къмпинг",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 10,
                             CategoryId = 3,
-                            ImagePath = "img/product-img/product3-1.jpg",
-                            Name = "Барбекю"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Барбекю",
+                            SubSubCategoriesId = 0
                         },
                         new
                         {
                             Id = 11,
                             CategoryId = 3,
-                            ImagePath = "img/product-img/product3-1.jpg",
-                            Name = "Осветление"
+                            CharacteristicCategoriesId = 0,
+                            Name = "Осветление",
+                            SubSubCategoriesId = 0
                         });
                 });
 
@@ -1102,7 +1106,7 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany("Carts")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 
@@ -1114,41 +1118,33 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.SubCategory", "SubCategory")
-                        .WithMany()
+                        .WithMany("CharacteristicCategories")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GardenMarket.Models.CharacteristicType", b =>
-                {
-                    b.HasOne("GardenMarket.Models.Characteristic", "Characteristic")
-                        .WithMany("CharacteristicTypes")
-                        .HasForeignKey("CharacteristicId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Comment", b =>
                 {
+                    b.HasOne("GardenMarket.Models.Comment", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
                     b.HasOne("GardenMarket.Models.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("GardenMarket.Models.Favorite", b =>
+            modelBuilder.Entity("GardenMarket.Models.FlowerType", b =>
                 {
-                    b.HasOne("GardenMarket.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+                    b.HasOne("GardenMarket.Models.Characteristic", "Characteristic")
+                        .WithMany("Types")
+                        .HasForeignKey("CharacteristicId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany("Favorites")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
@@ -1159,49 +1155,29 @@ namespace GardenMarket.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("GardenMarket.Models.ProductColor", b =>
-                {
-                    b.HasOne("GardenMarket.Models.Product", "Product")
-                        .WithMany("Colors")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GardenMarket.Models.ProductImage", b =>
                 {
-                    b.HasOne("GardenMarket.Models.Product", "Product")
-                        .WithMany("Images")
+                    b.HasOne("GardenMarket.Models.Product")
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GardenMarket.Models.ProductType", b =>
                 {
-                    b.HasOne("GardenMarket.Models.CharacteristicType", "CharacteristicType")
-                        .WithMany()
-                        .HasForeignKey("CharacteristicTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("GardenMarket.Models.Product", "Product")
-                        .WithMany("Types")
+                        .WithMany("ProductTypes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
 
-            modelBuilder.Entity("GardenMarket.Models.Promotion", b =>
-                {
-                    b.HasOne("GardenMarket.Models.Product", "Product")
-                        .WithOne("Promotion")
-                        .HasForeignKey("GardenMarket.Models.Promotion", "ProductId")
+                    b.HasOne("GardenMarket.Models.FlowerType", "Type")
+                        .WithMany("ProductTypes")
+                        .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("GardenMarket.Models.AppUser", "User")
-                        .WithMany("Promotions")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GardenMarket.Models.SubCategory", b =>
