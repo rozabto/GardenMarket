@@ -1,6 +1,6 @@
-﻿@model GardenMarket.ViewModel.ContactsViewModel
+﻿@model ContactViewModel
 @{
-    ViewData["Title"] = "Contacts";
+    ViewData["Title"] = "Contact";
 }
 
     <div class="container">
@@ -27,6 +27,5 @@
             <h3>@Model.FirstName @Model.LastName, Вашето писмо беше успешно изпратено до нас! Можете да продължите да пазарувате</h3>
 
         }
-        else { }
         <h4>Изпратени отзиви досега: @Model.ReviewsWritten</h4>
     </div>

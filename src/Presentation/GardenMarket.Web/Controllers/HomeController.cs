@@ -1,8 +1,6 @@
-﻿using GardenMarket.Models;
-using GardenMarket.Service.Interface;
+﻿using GardenMarket.Service.Interface;
 using GardenMarket.ViewModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
@@ -14,71 +12,37 @@ namespace GardenMarket.Web.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private readonly IProductService _product;
-        private readonly IReviewService _review;
+        private readonly IMainPageService _mainPage;
+        private readonly IContactService _contact;
 
-        public HomeController(IProductService product, IReviewService review)
+        public HomeController(IMainPageService mainPage, IContactService contact)
         {
-            _product = product ?? throw new ArgumentNullException(nameof(product));
-            _review = review ?? throw new ArgumentNullException(nameof(review));
+            _mainPage = mainPage ?? throw new ArgumentNullException(nameof(mainPage));
+            _contact = contact ?? throw new ArgumentNullException(nameof(contact));
         }
 
         public async Task<IActionResult> Index() =>
             View(await _mainPage.GetViewModel(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)));
 
-        public IActionResult PrivacyPolicy()
-        {
-            return View();
-        }
+        public IActionResult Privacy() =>
+            View();
 
-        public IActionResult AboutUs()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Contacts(string firstname, string lastname, string email, string subject)
-        {            
-            var review = new Review
-            {
-                FirstName = firstname,
-                LastName = lastname,
-                Email = email,
-                Subject = subject
-            };
-            _review.Add(review);
-            var contactViewModel = new ContactsViewModel
-            {
-                FirstName = firstname,
-                LastName = lastname,
-                ReviewSent = true,
-                ReviewsWritten = _review.GetAll().Count
-            };
-            return View(contactViewModel);
-        }
+        public IActionResult About() =>
+            View();
 
         [HttpGet]
-        public IActionResult Contacts()
-        {
-            var contactViewModel = new ContactsViewModel
-            {
-                FirstName = "",
-                LastName = "",
-                ReviewSent = false,
-                ReviewsWritten = _review.GetAll().Count
-            };
-            return View(contactViewModel);
-        }
+        public async Task<IActionResult> Contact() =>
+            View(await _contact.GetViewModel());
 
-        public IActionResult Delivery()
-        {
-            return View();
-        }
+        [HttpPost]
+        public async Task<IActionResult> Contact(string firstname, string lastname, string email, string subject) =>
+            View(await _contact.GetViewModel(firstname, lastname, email, subject));
+
+        public IActionResult Delivery() =>
+            View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public IActionResult Error() =>
+            View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

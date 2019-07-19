@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GardenMarket.Models
+﻿namespace GardenMarket.Models
 {
     public class Review
     {

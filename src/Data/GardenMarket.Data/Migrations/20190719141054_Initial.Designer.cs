@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GardenMarket.Data.Migrations
 {
     [DbContext(typeof(GardenMarketDbContext))]
-    [Migration("20190719133036_Initial")]
+    [Migration("20190719141054_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -564,6 +564,25 @@ namespace GardenMarket.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Promotions");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Subject");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("GardenMarket.Models.SubCategory", b =>

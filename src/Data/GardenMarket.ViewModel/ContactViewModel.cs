@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GardenMarket.ViewModel
+﻿namespace GardenMarket.ViewModel
 {
-    public class ContactsViewModel
+    public class ContactViewModel
     {
         public bool ReviewSent { get; set; }
 
