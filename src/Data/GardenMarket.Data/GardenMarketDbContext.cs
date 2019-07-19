@@ -20,6 +20,7 @@ namespace GardenMarket.Data
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<SubSubCategory> SubSubCategories { get; set; }
 

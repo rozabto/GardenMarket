@@ -553,6 +553,25 @@ namespace GardenMarket.Data.Migrations
                     b.ToTable("Promotions");
                 });
 
+            modelBuilder.Entity("GardenMarket.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Subject");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("GardenMarket.Models.SubCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -1128,7 +1147,7 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
                 {
-                    b.HasOne("GardenMarket.Models.SubSubCategory", "SubCategory")
+                    b.HasOne("GardenMarket.Models.SubSubCategory", "SubSubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubSubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);

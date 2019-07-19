@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GardenMarket.Data.Migrations
 {
     [DbContext(typeof(GardenMarketDbContext))]
-    [Migration("20190715181153_Initial")]
-    partial class Initial
+    [Migration("20190717190846_17072019")]
+    partial class _17072019
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -553,6 +553,25 @@ namespace GardenMarket.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Promotions");
+                });
+
+            modelBuilder.Entity("GardenMarket.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Subject");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("GardenMarket.Models.SubCategory", b =>
@@ -1130,7 +1149,7 @@ namespace GardenMarket.Data.Migrations
 
             modelBuilder.Entity("GardenMarket.Models.Product", b =>
                 {
-                    b.HasOne("GardenMarket.Models.SubSubCategory", "SubCategory")
+                    b.HasOne("GardenMarket.Models.SubSubCategory", "SubSubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubSubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
