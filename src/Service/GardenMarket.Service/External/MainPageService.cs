@@ -13,17 +13,23 @@ namespace GardenMarket.Service.External
     public class MainPageService : IMainPageService
     {
         private readonly IRepository<Product> _product;
+        private readonly IRepository<Favorite> _favorite;
 
-        public MainPageService(IRepository<Product> product)
+        public MainPageService(IRepository<Product> product, IRepository<Favorite> favorite)
         {
             _product = product ?? throw new ArgumentNullException(nameof(product));
+            _favorite = favorite ?? throw new ArgumentNullException(nameof(favorite));
         }
 
-        public async Task<MainPageViewModel> GetViewModel()
+        public async Task<MainPageViewModel> GetViewModel(string userId)
         {
+            var products = await GetProducts();
             return new MainPageViewModel
             {
-                Products = await GetProducts()
+                Favorites = userId == null ?
+                    new List<Favorite>()
+                    : await GetFavorites(products, userId),
+                Products = products
             };
         }
 
@@ -36,6 +42,12 @@ namespace GardenMarket.Service.External
                 .Where(w => !w.DeletedOn.HasValue && w.InStock > 0)
                 .OrderByDescending(o => o.Sales)
                 .Take(4)
+                .ToListAsync();
+
+        private async Task<IReadOnlyList<Favorite>> GetFavorites(IReadOnlyList<Product> products, string userId) =>
+            await _favorite
+                .GetAll()
+                .Where(w => products.Any(a => a.Id == w.ProductId) && w.UserId == userId)
                 .ToListAsync();
     }
 }

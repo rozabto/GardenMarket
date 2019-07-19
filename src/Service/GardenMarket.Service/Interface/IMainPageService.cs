@@ -5,6 +5,6 @@ namespace GardenMarket.Service.Interface
 {
     public interface IMainPageService
     {
-        Task<MainPageViewModel> GetViewModel();
+        Task<MainPageViewModel> GetViewModel(string userId);
     }
 }

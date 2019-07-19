@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GardenMarket.Data
 {
-    public class DummyData
+    public static class DummyData
     {
         public static async Task Initialize(GardenMarketDbContext context, UserManager<AppUser> userManager)
         {

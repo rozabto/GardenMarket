@@ -6,10 +6,12 @@ using GardenMarket.Data.External;
 using GardenMarket.Data.Interface;
 using GardenMarket.Models;
 using GardenMarket.Service.External;
+using GardenMarket.Service.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -69,7 +71,7 @@ namespace GardenMarket.Web
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromDays(5);
 
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
@@ -86,16 +88,27 @@ namespace GardenMarket.Web
 
             // Autofac Dependency Injection
             var containerBuilder = new ContainerBuilder();
+            // Register repository
             containerBuilder.RegisterGeneric(typeof(GenericRepository<>))
                 .As(typeof(IRepository<>))
-                .InstancePerDependency();;
+                .InstancePerDependency();
+            // Register factories
+            containerBuilder.RegisterAssemblyTypes(typeof(FavoriteFactory).Assembly)
+                .Where(w => w.Name.EndsWith("Factory"))
+                .AsImplementedInterfaces();
+            // Register services
             containerBuilder.RegisterAssemblyTypes(typeof(HeaderService).Assembly)
                 .Where(w => w.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
+            // Register others
+            containerBuilder.RegisterType<EmailSender>()
+                .As<IEmailSender>()
+                .WithParameter(new TypedParameter(typeof(string), Configuration.GetSection("SendGridKey").Value));
             containerBuilder.RegisterType<SafeChargeService>()
                 .As<ISafeChargeService>()
                 .WithParameter(new TypedParameter(typeof(string), Configuration.GetSection("SafeChargeKey").Value));
             containerBuilder.RegisterType<JsonService>().As<IJsonService>();
+            // Populate and create
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);

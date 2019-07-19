@@ -6,6 +6,6 @@ namespace GardenMarket.ViewModel
     public class HeaderViewModel
     {
         public IReadOnlyList<Category> Categories { get; set; }
-        public IReadOnlyList<int> ProductIds { get; set; }
+        public IReadOnlyList<Cart> Carts { get; set; }
     }
 }

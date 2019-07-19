@@ -1,8 +1,11 @@
-﻿@model GardenMarket.ViewModel.ProductViewModel
+﻿@model ProductViewModel
+@inject SignInManager<AppUser> SignInManager
 @{
     ViewData["Title"] = "Product";
 }
 
+<script src="js/cart.js"></script>
+<script src="js/favorite.js"></script>
 <!-- ##### Single Product Details Area Start ##### -->
 <section class="single_product_details_area d-flex align-items-center">
 
@@ -35,7 +38,7 @@
                 <label>@Model.Product.Price лв.</label>
             }
         </p>
-        <p class="product-desc"> @Model.Product.Description</p>
+        <p class="product-desc">@Model.Product.Description</p>
 
         <!-- Form -->
         <form class="cart-form clearfix" method="post">
@@ -55,11 +58,14 @@
             <!-- Cart & Favourite Box -->
             <div class="cart-fav-box d-flex align-items-center">
                 <!-- Cart -->
-                <button type="submit" name="addtocart" value="5" class="btn essence-btn">Добави в кSоличката</button>
+                <button type="button" name="addtocart" onclick="addToCart(@Model.Product.Id)" value="5" class="btn essence-btn">Добави в количката</button>
                 <!-- Favourite -->
-                <div class="product-favourite ml-4">
-                    <a href="#" class="favme fa fa-heart"></a>
-                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="product-favourite ml-4">
+                        <a href="#" onclick="like(@Model.Product.Id)" class="favme fa fa-heart"></a>
+                    </div>
+                }
             </div>
         </form>
     </div>

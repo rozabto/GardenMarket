@@ -35,7 +35,7 @@ namespace GardenMarket.Service.External
                 ProductCount = count,
                 SubSubCategory = subSubCategory,
                 SubCategories = await GetSubCategories(subSubCategory.SubCategory.CategoryId),
-                Characteristics = await GetCharacteristics()
+                Characteristics = await GetCharacteristics(subSubCategory.SubCategoryId)
             };
         }
 
@@ -56,10 +56,12 @@ namespace GardenMarket.Service.External
                 .Where(w => w.CategoryId == id)
                 .ToListAsync();
 
-        private async Task<IReadOnlyList<Characteristic>> GetCharacteristics() =>
+        private async Task<IReadOnlyList<Characteristic>> GetCharacteristics(int id) =>
             await _characteristic
                 .GetAll()
                 .Include(i => i.CharacteristicTypes)
+                .Include(i => i.CharacteristicCategories)
+                .Where(w => w.CharacteristicCategories.Any(a => a.SubCategoryId == id))
                 .ToListAsync();
     }
 }

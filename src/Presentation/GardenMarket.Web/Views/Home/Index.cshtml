@@ -1,12 +1,15 @@
-﻿@model GardenMarket.ViewModel.MainPageViewModel
+﻿@model MainPageViewModel
+@inject SignInManager<AppUser> SignInManager
 @{
     ViewData["Title"] = "Home Page";
     var date = DateTime.UtcNow;
     var days = TimeSpan.FromDays(10);
+    var userSignedIn = SignInManager.IsSignedIn(User);
 }
 
 <!-- ##### Carousel ##### -->
-
+<script src="js/favorite.js"></script>
+<script src="js/cart.js"></script>
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
@@ -68,9 +71,12 @@
                                     </div>
                                 }
                                 <!-- Favourite -->
-                                <div class="product-favourite">
-                                    <a href="#" class="favme fa fa-heart"></a>
-                                </div>
+                                @if (userSignedIn)
+                                {
+                                    <div class="product-favourite">
+                                        <a href="#" onclick="like(@product.Id)" class="favme fa fa-heart@(Model.Favorites.Any(a => a.ProductId == product.Id) ? " active" : "")"></a>
+                                    </div>
+                                }
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
@@ -83,7 +89,7 @@
                                 <div class="hover-content">
                                     <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Добави в количка</a>
+                                        <a href="#" onclick="addToCart(@product.Id)" class="btn essence-btn">Добави в количка</a>
                                     </div>
                                 </div>
                             </div>

@@ -1,8 +1,12 @@
-﻿@model GardenMarket.ViewModel.CatalogViewModel
+﻿@model CatalogViewModel
+@inject SignInManager<AppUser> SignInManager
 @{
     ViewData["Title"] = "Shop";
+    var userSignedIn = SignInManager.IsSignedIn(User);
 }
 
+<script src="js/favorite.js"></script>
+<script src="js/cart.js"></script>
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb_area bg-img" style="background-image: url(img/core-img/breadcumb.jpg);">
     <div class="container h-100">
@@ -169,9 +173,12 @@
                                             </div>
                                         }
                                         <!-- Favourite -->
-                                        <div class="product-favourite">
-                                            <a href="#" class="favme fa fa-heart"></a>
-                                        </div>
+                                        @if (userSignedIn)
+                                        {
+                                            <div class="product-favourite">
+                                                <a href="#" onclick="like(@product.Id)" class="favme fa fa-heart"></a>
+                                            </div>
+                                        }
                                     </div>
 
                                     <!-- Product Description -->
@@ -195,7 +202,7 @@
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Добави в количка</a>
+                                                <a href="#" onclick="addToCart(@product.Id)" class="btn essence-btn">Добави в количка</a>
                                             </div>
                                         </div>
                                     </div>

@@ -1,12 +1,17 @@
-﻿using GardenMarket.Service.Interface;
+﻿using GardenMarket.Models;
+using GardenMarket.Service.Interface;
 using GardenMarket.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GardenMarket.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly IMainPageService _mainPage;
@@ -17,7 +22,7 @@ namespace GardenMarket.Web.Controllers
         }
 
         public async Task<IActionResult> Index() =>
-            View(await _mainPage.GetViewModel());
+            View(await _mainPage.GetViewModel(HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)));
 
         public IActionResult PrivacyPolicy() =>
             View();

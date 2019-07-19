@@ -1,37 +1,39 @@
-@using Microsoft.AspNetCore.Identity
-@using GardenMarket.Models
 @inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-    <div class="user-login-info">
-        <a href="Identity/Account/Manage/Index">
-            <img src="img/core-img/user.svg" alt="">
-        </a>
-    </div>
-    @*<li class="nav-item">
-            <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>*@
+        <div class="user-login-info">
+            <div class="classy-menu">
+                <!-- Nav Start -->
+                <div class="classynav">
+                    <ul>
+                        <li>
+                            <a href="Identity/Account/Manage/Index">
+                                <img src="img/core-img/user.svg" alt="">
+                            </a>
+                            <div class="megamenu">
+                                <ul class="single-mega cn-col-4">
+                                    <li class="title">Hello @User.Identity.Name!</li>
+                                    <li>
+                                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     }
     else
     {
-    <div class="user-login-info">
-        <a href="Identity/Account/Login">
-            <img src="img/core-img/user.svg" alt="">
-        </a>
-    </div>
-    @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>*@
+        <div class="user-login-info">
+            <a href="Identity/Account/Login">
+                <img src="img/core-img/user.svg" alt="">
+            </a>
+        </div>
     }
 </ul>
